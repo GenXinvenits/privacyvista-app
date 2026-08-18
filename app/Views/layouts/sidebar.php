@@ -5,7 +5,7 @@ $isSuperuser = $role === 'superuser';
 $isAdmin = $role === 'admin';
 $isClient = $role === 'client';
 $hasClientContext = $clientId > 0;
-$clientQuery = $hasClientContext ? '&client_id=' . $clientId : '';
+$clientQuery = $hasClientContext ? '&client_id=' . rawurlencode((string)$clientId) : '';
 ?>
 <aside class="sidebar d-flex flex-column">
     <div class="sidebar-brand justify-content-center">
@@ -24,16 +24,18 @@ $clientQuery = $hasClientContext ? '&client_id=' . $clientId : '';
             <a class="nav-link" href="/app/public/index.php?route=clients<?= $clientQuery ?>"><span>Clients</span></a>
         <?php endif; ?>
 
+        <?php if ($isAdmin && $hasClientContext): ?>
+            <a class="nav-link" href="/app/public/index.php?route=processing-activities<?= $clientQuery ?>"><span>Processing Activities</span></a>
+            <a class="nav-link" href="/app/public/index.php?route=assessments<?= $clientQuery ?>"><span>Assessments</span></a>
+            <a class="nav-link" href="/app/public/index.php?route=findings<?= $clientQuery ?>"><span>Findings</span></a>
+            <a class="nav-link" href="/app/public/index.php?route=tasks<?= $clientQuery ?>"><span>Remediation Tasks</span></a>
+        <?php endif; ?>
+
         <?php if ($isSuperuser): ?>
             <a class="nav-link" href="/app/public/index.php?route=clients"><span>Processing Activities</span></a>
             <a class="nav-link" href="/app/public/index.php?route=clients"><span>Assessments</span></a>
             <a class="nav-link" href="/app/public/index.php?route=clients"><span>Findings</span></a>
             <a class="nav-link" href="/app/public/index.php?route=clients"><span>Remediation Tasks</span></a>
-        <?php elseif (($isAdmin || $isClient) && $hasClientContext): ?>
-            <a class="nav-link" href="/app/public/index.php?route=processing-activities<?= $clientQuery ?>"><span>Processing Activities</span></a>
-            <a class="nav-link" href="/app/public/index.php?route=assessments<?= $clientQuery ?>"><span>Assessments</span></a>
-            <a class="nav-link" href="/app/public/index.php?route=findings<?= $clientQuery ?>"><span>Findings</span></a>
-            <a class="nav-link" href="/app/public/index.php?route=tasks<?= $clientQuery ?>"><span>Remediation Tasks</span></a>
         <?php endif; ?>
 
         <?php if ($isSuperuser || $isAdmin): ?>
