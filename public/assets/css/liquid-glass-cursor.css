@@ -3,10 +3,7 @@
    Applied ONLY to application cards/boxes.
    ========================================================= */
 
-.card,
-.modal-content,
-.user-dropdown,
-.dropdown-menu {
+.card {
     --glass-shine-x: 50%;
     --glass-shine-y: 50%;
     --glass-shine-opacity: 0;
@@ -15,12 +12,9 @@
     overflow: hidden;
 }
 
-/* The shine is deliberately a thin specular rim, not a full-card glow.
-   It follows the cursor through --glass-shine-x/y supplied by app.js. */
-.card::after,
-.modal-content::after,
-.user-dropdown::after,
-.dropdown-menu::after {
+/* Thin specular rim. It follows the cursor around the card edge instead
+   of washing the entire card with a bright hover glow. */
+.card::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -45,11 +39,8 @@
     transition: opacity .12s ease-out;
 }
 
-/* Very subtle internal refraction near the active edge. */
-.card::before,
-.modal-content::before,
-.user-dropdown::before,
-.dropdown-menu::before {
+/* Subtle refraction immediately inside the active edge. */
+.card::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -67,18 +58,12 @@
     transition: opacity .12s ease-out;
 }
 
-.card > *,
-.modal-content > *,
-.user-dropdown > *,
-.dropdown-menu > * {
+.card > * {
     position: relative;
     z-index: 21;
 }
 
-html[data-theme="light"] .card::after,
-html[data-theme="light"] .modal-content::after,
-html[data-theme="light"] .user-dropdown::after,
-html[data-theme="light"] .dropdown-menu::after {
+html[data-theme="light"] .card::after {
     background:
         radial-gradient(
             115px 115px at var(--glass-shine-x) var(--glass-shine-y),
@@ -91,13 +76,7 @@ html[data-theme="light"] .dropdown-menu::after {
 
 @media (prefers-reduced-motion: reduce) {
     .card::after,
-    .card::before,
-    .modal-content::after,
-    .modal-content::before,
-    .user-dropdown::after,
-    .user-dropdown::before,
-    .dropdown-menu::after,
-    .dropdown-menu::before {
+    .card::before {
         transition: none;
     }
 }
