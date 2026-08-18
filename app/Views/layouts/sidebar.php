@@ -25,14 +25,14 @@ $clientQuery = $hasClientContext ? '&client_id=' . rawurlencode((string)$clientI
         <?php endif; ?>
 
         <?php if (($isAdmin || $isSuperuser) && $hasClientContext): ?>
-            <a class="nav-link" href="/app/public/index.php?route=processing-activities<?= $clientQuery ?>"><span>Processing Activities</span></a>
+            <a class="nav-link" href="/app/public/index.php?route=processing-activities<?= $clientQuery ?>"><span>Activities</span></a>
             <a class="nav-link" href="/app/public/index.php?route=assessments<?= $clientQuery ?>"><span>Assessments</span></a>
             <a class="nav-link" href="/app/public/index.php?route=findings<?= $clientQuery ?>"><span>Findings</span></a>
             <a class="nav-link" href="/app/public/index.php?route=tasks<?= $clientQuery ?>"><span>Remediation Tasks</span></a>
         <?php endif; ?>
 
         <?php if ($isSuperuser && !$hasClientContext): ?>
-            <a class="nav-link" href="/app/public/index.php?route=clients"><span>Processing Activities</span></a>
+            <a class="nav-link" href="/app/public/index.php?route=clients"><span>Activities</span></a>
             <a class="nav-link" href="/app/public/index.php?route=clients"><span>Assessments</span></a>
             <a class="nav-link" href="/app/public/index.php?route=clients"><span>Findings</span></a>
             <a class="nav-link" href="/app/public/index.php?route=clients"><span>Remediation Tasks</span></a>
