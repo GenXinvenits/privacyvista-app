@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/app/public/assets/css/forms.css?v=1">
     <link rel="stylesheet" href="/app/public/assets/css/reports.css?v=1">
     <link rel="stylesheet" href="/app/public/assets/css/settings.css?v=1">
+    <link rel="stylesheet" href="/app/public/assets/css/liquid-glass.css?v=1">
 </head>
 <body>
 <div class="app-shell">
