@@ -14,10 +14,20 @@ class Controller
             die("View not found: {$view}");
         }
 
+        // Authentication/guest pages must never render the application shell.
+        // This prevents the sidebar, navbar and workspace chrome from appearing
+        // on the login screen.
+        if ($view === 'auth/login') {
+            require __DIR__ . '/../Views/layouts/guest-header.php';
+            require $viewFile;
+            require __DIR__ . '/../Views/layouts/guest-footer.php';
+            return;
+        }
+
         require __DIR__ . '/../Views/layouts/header.php';
         require __DIR__ . '/../Views/layouts/sidebar.php';
         require __DIR__ . '/../Views/layouts/navbar.php';
-        
+
         \App\Core\Flash::display();
 
         require $viewFile;
