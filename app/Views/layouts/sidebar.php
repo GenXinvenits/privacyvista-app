@@ -11,7 +11,7 @@
 
         <a class="nav-link" href="/app/public/index.php?route=dashboard"><span>Dashboard</span></a>
         <a class="nav-link" href="/app/public/index.php?route=clients"><span>Clients</span></a>
-        <a class="nav-link" href="/app/public/index.php?route=processing-activities"><span>Processing Activities</span></a>
+        <a class="nav-link" href="/app/public/index.php?route=processing-activities&client_id=2"><span>Processing Activities</span></a>
         <a class="nav-link" href="/app/public/index.php?route=assessments"><span>Assessments</span></a>
         <a class="nav-link" href="/app/public/index.php?route=findings"><span>Findings</span></a>
         <a class="nav-link" href="/app/public/index.php?route=tasks"><span>Remediation Tasks</span></a>
