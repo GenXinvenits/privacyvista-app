@@ -9,4 +9,5 @@ $router->get('findings', ['FindingsController', 'index']); $router->get('finding
 $router->get('tasks', ['TasksController', 'index']); $router->get('tasks/create', ['TasksController', 'create']); $router->post('tasks/store', ['TasksController', 'store']); $router->post('tasks/status', ['TasksController', 'status']);
 $router->get('forms', ['FormsController', 'index']);
 $router->get('reports', ['ReportsController', 'index']);
+$router->get('settings', ['SettingsController', 'index']); $router->post('settings/profile', ['SettingsController', 'profile']); $router->post('settings/password', ['SettingsController', 'password']);
 $router->get('privacy-dashboard', ['PrivacyDashboardController', 'show']);
