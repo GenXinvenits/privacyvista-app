@@ -1,7 +1,7 @@
 <?php use App\Core\Security; ?>
 <div class="container py-4">
     <div class="mb-4"><div class="text-muted small"><?= htmlspecialchars($client['company_name']) ?></div><h1 class="h3 mb-0"><?= htmlspecialchars($title) ?></h1></div>
-    <form method="post" action="<?= $activity ? 'processing-activities/update' : 'processing-activities/store' ?>" class="card border-0 shadow-sm"><div class="card-body">
+    <form method="post" action="<?= url($activity ? 'processing-activities/update' : 'processing-activities/store') ?>" class="card border-0 shadow-sm"><div class="card-body">
         <?php if ($activity): ?><input type="hidden" name="id" value="<?= (int)$activity['id'] ?>">
         <?php endif; ?><input type="hidden" name="client_id" value="<?= (int)$client['id'] ?>"><?php include __DIR__.'/../partials/csrf.php'; ?>
         <div class="row g-3">
@@ -21,5 +21,5 @@
             <div class="col-12"><label class="form-label">Transfer details</label><textarea name="transfer_details" class="form-control" rows="2"><?= Security::e($activity['transfer_details'] ?? '') ?></textarea></div>
             <div class="col-12"><label class="form-label">Security measures</label><textarea name="security_measures" class="form-control" rows="3" placeholder="Technical and organisational measures..."><?= Security::e($activity['security_measures'] ?? '') ?></textarea></div>
         </div>
-    </div><div class="card-footer bg-white d-flex justify-content-between"><a class="btn btn-outline-secondary" href="processing-activities?client_id=<?= (int)$client['id'] ?>">Cancel</a><button class="btn btn-primary">Save activity</button></div></form>
+    </div><div class="card-footer bg-white d-flex justify-content-between"><a class="btn btn-outline-secondary" href="<?= url('processing-activities?client_id='.(int)$client['id']) ?>">Cancel</a><button class="btn btn-primary">Save activity</button></div></form>
 </div>
