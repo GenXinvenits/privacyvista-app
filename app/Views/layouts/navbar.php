@@ -1,18 +1,16 @@
-<main class="flex-grow-1">
-<nav class="navbar px-4">
+<main class="app-main">
+<nav class="navbar navbar-expand-lg">
     <div class="container-fluid px-0">
         <div>
-            <div class="navbar-brand mb-0"><?= e($title ?? 'PrivacyVista') ?></div>
-            <div class="small text-muted d-none d-md-block">Privacy management workspace</div>
+            <div class="navbar-title"><?= e($title ?? 'Dashboard') ?></div>
+            <div class="navbar-subtitle">Privacy management workspace</div>
         </div>
         <?php if(isset($_SESSION['user'])): ?>
-            <div class="d-flex align-items-center gap-2">
-                <div class="text-end d-none d-sm-block">
-                    <div class="small fw-semibold"><?= e($_SESSION['user']['fullname']) ?></div>
-                    <div class="small text-muted">Signed in</div>
-                </div>
-                <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width:38px;height:38px;background:#eff6ff;color:#2563eb">
-                    <?= e(strtoupper(substr($_SESSION['user']['fullname'] ?? 'U',0,1))) ?>
+            <div class="user-chip">
+                <span class="user-avatar"><?= e(strtoupper(substr($_SESSION['user']['fullname'] ?? 'U', 0, 1))) ?></span>
+                <div class="user-details">
+                    <div><?= e($_SESSION['user']['fullname']) ?></div>
+                    <small>Signed in</small>
                 </div>
             </div>
         <?php endif; ?>
