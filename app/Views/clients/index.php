@@ -1,19 +1,9 @@
 <?php
 $title = 'Client Management';
-use App\Core\Security;
-component('page-header', ['title'=>'Clients','subtitle'=>'Manage client companies','actions'=>[['label'=>'+ Add Client','url'=>url('clients/create'),'class'=>'btn-primary']]]);
+component('page-header', ['title'=>'Clients','subtitle'=>'Manage client organisations','actions'=>[['label'=>'+ Add Client','url'=>url('clients/create'),'class'=>'btn-primary']]]);
 ?>
 <div class="card"><div class="card-body">
-<div class="row mb-3"><div class="col-md-4"><input type="text" class="form-control" placeholder="Search clients..." id="clientSearch"></div></div>
-<div class="table-responsive"><table class="table table-hover align-middle" id="clientsTable">
-<thead class="table-light"><tr><th>ID</th><th>Company</th><th>Contact Person</th><th>Email</th><th>Phone</th><th>Status</th><th>Actions</th></tr></thead>
-<tbody>
-<?php if(empty($clients)): ?><tr><td colspan="7" class="text-center text-muted">No clients found.</td></tr>
-<?php else: foreach($clients as $client): ?><tr>
-<td><?= (int)$client['id'] ?></td><td><?= e($client['company_name']) ?></td><td><?= e($client['contact_person']) ?></td><td><?= e($client['email']) ?></td><td><?= e($client['phone']) ?></td>
-<td><?= $client['status'] ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Inactive</span>' ?></td>
-<td class="text-nowrap"><a href="<?= url('clients/show',['id'=>$client['id']]) ?>" class="btn btn-sm btn-info">View</a> <a href="<?= url('clients/edit',['id'=>$client['id']]) ?>" class="btn btn-sm btn-warning">Edit</a>
-<form method="post" action="<?= url('clients/delete') ?>" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this client?');"><?php include __DIR__.'/../partials/csrf.php'; ?><input type="hidden" name="id" value="<?= (int)$client['id'] ?>"><button class="btn btn-sm btn-danger">Delete</button></form></td>
-</tr><?php endforeach; endif; ?>
+<form method="get" class="row g-2 mb-3"><input type="hidden" name="route" value="clients"><div class="col-md-5"><input type="search" name="q" class="form-control" placeholder="Search company, contact or email..." value="<?= e($q ?? '') ?>"></div><div class="col-auto"><button class="btn btn-outline-primary">Search</button></div><?php if (!empty($q)): ?><div class="col-auto"><a href="<?= url('clients') ?>" class="btn btn-outline-secondary">Clear</a></div><?php endif; ?></form>
+<div class="table-responsive"><table class="table table-hover align-middle"><thead class="table-light"><tr><th>ID</th><th>Company</th><th>Contact Person</th><th>Email</th><th>Phone</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+<?php if(empty($clients)): ?><tr><td colspan="7" class="text-center text-muted py-5">No clients found.</td></tr><?php else: foreach($clients as $client): ?><tr><td><?= (int)$client['id'] ?></td><td><?= e($client['company_name']) ?></td><td><?= e($client['contact_person']) ?></td><td><?= e($client['email']) ?></td><td><?= e($client['phone']) ?></td><td><?= $client['status'] ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-secondary">Inactive</span>' ?></td><td class="text-nowrap"><a href="<?= url('clients/show',['id'=>$client['id']]) ?>" class="btn btn-sm btn-outline-primary">View</a> <a href="<?= url('clients/edit',['id'=>$client['id']]) ?>" class="btn btn-sm btn-outline-secondary">Edit</a><form method="post" action="<?= url('clients/delete') ?>" class="d-inline" onsubmit="return confirm('Delete this client? This cannot be undone.');"><?php include __DIR__.'/../partials/csrf.php'; ?><input type="hidden" name="id" value="<?= (int)$client['id'] ?>"><button class="btn btn-sm btn-outline-danger">Delete</button></form></td></tr><?php endforeach; endif; ?>
 </tbody></table></div></div></div>
-<script>document.getElementById('clientSearch')?.addEventListener('input',function(){const q=this.value.toLowerCase();document.querySelectorAll('#clientsTable tbody tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?'':'none');});</script>
