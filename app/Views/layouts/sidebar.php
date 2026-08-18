@@ -23,7 +23,7 @@
         <div class="sidebar-section">More</div>
         <a class="nav-link" href="/app/public/index.php?route=forms"><span>Forms</span></a>
         <a class="nav-link" href="/app/public/index.php?route=reports"><span>Reports</span></a>
-        <a class="nav-link disabled" href="#" aria-disabled="true" tabindex="-1"><span>Settings</span></a>
+        <a class="nav-link" href="/app/public/index.php?route=settings"><span>Settings</span></a>
     </nav>
 
 </aside>
