@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/app/public/assets/css/settings.css?v=1">
     <link rel="stylesheet" href="/app/public/assets/css/liquid-glass.css?v=1">
     <link rel="stylesheet" href="/app/public/assets/css/liquid-glass-theme.css?v=1">
+    <link rel="stylesheet" href="/app/public/assets/css/liquid-glass-fixes.css?v=1">
     <script src="/app/public/assets/js/theme.js?v=1" defer></script>
 </head>
 <body>
