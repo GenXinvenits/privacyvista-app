@@ -7,7 +7,7 @@ $router->get('processing-activities', ['ProcessingActivitiesController', 'index'
 $router->get('assessments', ['AssessmentsController', 'index']); $router->get('assessments/create', ['AssessmentsController', 'create']); $router->post('assessments/store', ['AssessmentsController', 'store']); $router->get('assessments/edit', ['AssessmentsController', 'edit']); $router->post('assessments/update', ['AssessmentsController', 'update']);
 $router->get('findings', ['FindingsController', 'index']); $router->get('findings/create', ['FindingsController', 'create']); $router->post('findings/store', ['FindingsController', 'store']); $router->post('findings/status', ['FindingsController', 'status']);
 $router->get('tasks', ['TasksController', 'index']); $router->get('tasks/create', ['TasksController', 'create']); $router->post('tasks/store', ['TasksController', 'store']); $router->post('tasks/status', ['TasksController', 'status']);
-$router->get('forms', ['FormsController', 'index']);
+$router->get('forms', ['FormsController', 'index']); $router->get('forms/privacy-risk-assessment', ['FormsController', 'riskAssessment']);
 $router->get('reports', ['ReportsController', 'index']);
 $router->get('settings', ['SettingsController', 'index']); $router->post('settings/profile', ['SettingsController', 'profile']); $router->post('settings/password', ['SettingsController', 'password']);
 $router->get('privacy-dashboard', ['PrivacyDashboardController', 'show']);
