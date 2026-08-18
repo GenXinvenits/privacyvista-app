@@ -20,21 +20,31 @@ class HomeController extends BaseController {
    ];
    $recentClients=$db->query('SELECT * FROM clients ORDER BY id DESC LIMIT 5')->fetchAll();
   } else {
+   // Never fall back to another/default/latest client. A non-superuser
+   // must have an explicitly assigned client_id on the authenticated user.
+   if (!$clientId) {
+    http_response_code(403);
+    $this->view('errors/403', [
+     'title'=>'Client context required',
+     'message'=>'Your account is not assigned to a client. Please contact your administrator.'
+    ]);
+    exit;
+   }
+
    $stats=[
     'users'=>(int)$this->count($db,'SELECT COUNT(*) FROM users WHERE client_id=?',[$clientId]),
-    'clients'=>$clientId ? 1 : 0,
+    'clients'=>1,
     'activities'=>(int)$this->count($db,'SELECT COUNT(*) FROM processing_activities WHERE client_id=?',[$clientId]),
     'assessments'=>(int)$this->count($db,'SELECT COUNT(*) FROM privacy_assessments WHERE client_id=?',[$clientId]),
     'open_findings'=>(int)$this->count($db,"SELECT COUNT(*) FROM assessment_findings f INNER JOIN privacy_assessments a ON a.id=f.assessment_id WHERE a.client_id=? AND f.status IN ('open','accepted')",[$clientId]),
     'open_tasks'=>(int)$this->count($db,"SELECT COUNT(*) FROM privacy_tasks WHERE client_id=? AND status NOT IN ('completed','cancelled')",[$clientId])
    ];
-   $recentClients=[];
-   if($clientId){
-    $s=$db->prepare('SELECT * FROM clients WHERE id=?');$s->execute([$clientId]);$recentClients=$s->fetchAll();
-   }
+   $s=$db->prepare('SELECT * FROM clients WHERE id=?');$s->execute([$clientId]);$recentClients=$s->fetchAll();
   }
 
-  $defaultClientId=!empty($recentClients)?(int)$recentClients[0]['id']:($clientId ?? 0);
+  // Superusers intentionally have no implicit client context. All other
+  // users use only the client_id attached to their authenticated session.
+  $defaultClientId=$this->isSuperuser()?0:$clientId;
   $this->view('dashboard/index',['title'=>'Dashboard','user'=>$_SESSION['user'],'stats'=>$stats,'recentClients'=>$recentClients,'defaultClientId'=>$defaultClientId]);
  }
  private function count($db,string $sql,array $params):int{$s=$db->prepare($sql);$s->execute($params);return(int)$s->fetchColumn();}
