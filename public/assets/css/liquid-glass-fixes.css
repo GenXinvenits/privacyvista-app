@@ -1,0 +1,236 @@
+/* PrivacyVista liquid-glass compatibility fixes */
+
+/* Keep the top navigation and profile menu above every page layer. */
+.navbar {
+    position: relative !important;
+    z-index: 3000 !important;
+    overflow: visible !important;
+}
+
+.navbar .container,
+.navbar .container-fluid,
+.navbar > .container,
+.navbar > .container-fluid {
+    position: relative;
+    z-index: 3001;
+    overflow: visible !important;
+}
+
+.user-profile-menu {
+    position: relative !important;
+    z-index: 10000 !important;
+}
+
+.user-profile-trigger {
+    position: relative;
+    z-index: 10001;
+}
+
+.user-dropdown {
+    position: absolute !important;
+    z-index: 2147483000 !important;
+    isolation: isolate;
+}
+
+/* Prevent glass/blur layers from clipping the dropdown. */
+.user-profile-menu,
+.user-profile-menu * {
+    overflow: visible;
+}
+
+/* ---------- Light theme: common components that used dark hard-coded colors ---------- */
+html[data-theme="light"] .page-content,
+body[data-theme="light"] .page-content {
+    color: #172235 !important;
+}
+
+html[data-theme="light"] .list-group,
+body[data-theme="light"] .list-group,
+html[data-theme="light"] .list-group-item,
+body[data-theme="light"] .list-group-item {
+    background: rgba(255,255,255,.46) !important;
+    color: #172235 !important;
+    border-color: rgba(89,111,140,.12) !important;
+}
+
+html[data-theme="light"] .list-group-item:hover,
+body[data-theme="light"] .list-group-item:hover {
+    background: rgba(255,255,255,.72) !important;
+    color: #172235 !important;
+}
+
+html[data-theme="light"] .nav-tabs,
+body[data-theme="light"] .nav-tabs {
+    border-color: rgba(89,111,140,.16) !important;
+}
+
+html[data-theme="light"] .nav-tabs .nav-link,
+body[data-theme="light"] .nav-tabs .nav-link {
+    color: #65748a !important;
+}
+
+html[data-theme="light"] .nav-tabs .nav-link:hover,
+body[data-theme="light"] .nav-tabs .nav-link:hover {
+    background: rgba(255,255,255,.60) !important;
+    color: #172235 !important;
+    border-color: rgba(89,111,140,.12) !important;
+}
+
+html[data-theme="light"] .nav-tabs .nav-link.active,
+body[data-theme="light"] .nav-tabs .nav-link.active {
+    background: rgba(255,255,255,.66) !important;
+    color: #172235 !important;
+    border-color: rgba(89,111,140,.14) rgba(89,111,140,.14) rgba(255,255,255,.66) !important;
+}
+
+html[data-theme="light"] .breadcrumb,
+body[data-theme="light"] .breadcrumb,
+html[data-theme="light"] .breadcrumb-item,
+body[data-theme="light"] .breadcrumb-item,
+html[data-theme="light"] .breadcrumb-item a,
+body[data-theme="light"] .breadcrumb-item a {
+    color: #65748a !important;
+}
+
+html[data-theme="light"] .breadcrumb-item.active,
+body[data-theme="light"] .breadcrumb-item.active {
+    color: #172235 !important;
+}
+
+html[data-theme="light"] .pagination .page-link,
+body[data-theme="light"] .pagination .page-link {
+    background: rgba(255,255,255,.55) !important;
+    border-color: rgba(89,111,140,.14) !important;
+    color: #526178 !important;
+}
+
+html[data-theme="light"] .pagination .page-link:hover,
+body[data-theme="light"] .pagination .page-link:hover {
+    background: rgba(255,255,255,.78) !important;
+    color: #172235 !important;
+}
+
+html[data-theme="light"] .pagination .active > .page-link,
+body[data-theme="light"] .pagination .active > .page-link {
+    background: var(--pv-primary) !important;
+    border-color: var(--pv-primary) !important;
+    color: #fff !important;
+}
+
+/* Bootstrap utility classes are frequently used by views and otherwise remain dark. */
+html[data-theme="light"] .bg-dark,
+body[data-theme="light"] .bg-dark {
+    background: rgba(255,255,255,.58) !important;
+    color: #172235 !important;
+}
+
+html[data-theme="light"] .bg-secondary,
+body[data-theme="light"] .bg-secondary {
+    background: rgba(89,111,140,.12) !important;
+    color: #34445b !important;
+}
+
+html[data-theme="light"] .text-white,
+body[data-theme="light"] .text-white {
+    color: #172235 !important;
+}
+
+html[data-theme="light"] .text-secondary,
+body[data-theme="light"] .text-secondary {
+    color: #65748a !important;
+}
+
+html[data-theme="light"] .border-secondary,
+body[data-theme="light"] .border-secondary {
+    border-color: rgba(89,111,140,.16) !important;
+}
+
+/* Alerts */
+html[data-theme="light"] .alert-light,
+body[data-theme="light"] .alert-light {
+    background: rgba(255,255,255,.62) !important;
+    border-color: rgba(89,111,140,.14) !important;
+    color: #34445b !important;
+}
+
+html[data-theme="light"] .alert-dark,
+body[data-theme="light"] .alert-dark {
+    background: rgba(238,243,249,.82) !important;
+    border-color: rgba(89,111,140,.16) !important;
+    color: #34445b !important;
+}
+
+html[data-theme="light"] .alert-primary,
+body[data-theme="light"] .alert-primary {
+    background: rgba(91,140,255,.10) !important;
+    border-color: rgba(91,140,255,.25) !important;
+    color: #244a9b !important;
+}
+
+html[data-theme="light"] .alert-success,
+body[data-theme="light"] .alert-success {
+    background: rgba(42,160,113,.10) !important;
+    border-color: rgba(42,160,113,.25) !important;
+    color: #176b4c !important;
+}
+
+html[data-theme="light"] .alert-warning,
+body[data-theme="light"] .alert-warning {
+    background: rgba(224,170,44,.12) !important;
+    border-color: rgba(180,135,20,.24) !important;
+    color: #71550b !important;
+}
+
+html[data-theme="light"] .alert-danger,
+body[data-theme="light"] .alert-danger {
+    background: rgba(220,65,78,.09) !important;
+    border-color: rgba(180,45,58,.22) !important;
+    color: #8d2834 !important;
+}
+
+/* Dropdown dividers and modal separators */
+html[data-theme="light"] .dropdown-divider,
+body[data-theme="light"] .dropdown-divider,
+html[data-theme="light"] .user-dropdown-divider,
+body[data-theme="light"] .user-dropdown-divider {
+    border-color: rgba(89,111,140,.14) !important;
+    background: rgba(89,111,140,.14) !important;
+}
+
+/* Keep profile dropdown readable regardless of inherited Bootstrap colors. */
+html[data-theme="light"] .user-dropdown .user-dropdown-item,
+body[data-theme="light"] .user-dropdown .user-dropdown-item {
+    color: #44536a !important;
+}
+
+html[data-theme="light"] .user-dropdown .user-dropdown-item svg,
+body[data-theme="light"] .user-dropdown .user-dropdown-item svg {
+    color: #718096 !important;
+}
+
+html[data-theme="light"] .user-dropdown .user-dropdown-item:hover,
+body[data-theme="light"] .user-dropdown .user-dropdown-item:hover,
+html[data-theme="light"] .user-dropdown .user-dropdown-item:focus,
+body[data-theme="light"] .user-dropdown .user-dropdown-item:focus {
+    color: #172235 !important;
+}
+
+/* Theme selector remains visible in both themes. */
+html[data-theme="light"] .theme-selector,
+body[data-theme="light"] .theme-selector {
+    background: rgba(255,255,255,.50) !important;
+    border-color: rgba(89,111,140,.14) !important;
+}
+
+html[data-theme="light"] .theme-choice,
+body[data-theme="light"] .theme-choice {
+    color: #65748a !important;
+}
+
+html[data-theme="light"] .theme-choice:hover,
+body[data-theme="light"] .theme-choice:hover,
+html[data-theme="light"] .theme-choice.is-active,
+body[data-theme="light"] .theme-choice.is-active {
+    color: #172235 !important;
+    background: rgba(91,140,255,.10) !important;
+}
