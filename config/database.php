@@ -1,10 +1,8 @@
 <?php
 
 return [
-
-    'host'     => 'localhost',
-    'database' => 'youwintech_privacyvista_app',
-    'username' => 'admin',
-    'password' => 'MySQL@2017',
-
+    'host'     => getenv('PRIVACYVISTA_DB_HOST') ?: 'localhost',
+    'database' => getenv('PRIVACYVISTA_DB_NAME') ?: 'youwintech_privacyvista_app',
+    'username' => getenv('PRIVACYVISTA_DB_USER') ?: 'admin',
+    'password' => getenv('PRIVACYVISTA_DB_PASSWORD') ?: '',
 ];
