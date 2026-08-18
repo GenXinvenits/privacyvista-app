@@ -49,7 +49,7 @@ $statsCards[] = ['Remediation Tasks','open_tasks','tasks','tasks','M9 11l3 3L22 
 <?php if ($isSuperuser || $isAdmin): ?>
 <div class="row g-4">
     <div class="col-lg-8">
-        <div class="card h-100">
+        <div class="card recent-clients-card h-100">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div><strong>Recent clients</strong><div class="small text-muted">Your latest organisations</div></div>
                 <a class="btn btn-sm btn-light border" href="<?= url('clients') ?>">View all</a>
