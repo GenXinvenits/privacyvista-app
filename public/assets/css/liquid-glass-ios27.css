@@ -1,5 +1,5 @@
 /* =========================================================
-   PrivacyVista — iOS-inspired Liquid Glass enhancement
+   PrivacyVista — Apple-inspired Liquid Glass
    ========================================================= */
 
 :root {
@@ -8,8 +8,6 @@
     --ios-glass-border: rgba(255,255,255,.20);
     --ios-glass-highlight: rgba(255,255,255,.16);
     --ios-glass-shadow: 0 24px 70px rgba(0,0,0,.18);
-    --glass-cursor-x: 50%;
-    --glass-cursor-y: 35%;
 }
 
 body {
@@ -18,18 +16,15 @@ body {
         radial-gradient(42% 42% at 92% 18%, rgba(122,180,255,.11), transparent 72%),
         radial-gradient(38% 38% at 70% 88%, rgba(99,125,255,.08), transparent 72%),
         radial-gradient(30% 32% at 35% 70%, rgba(80,190,210,.055), transparent 72%);
-    transition: background-position .25s ease-out;
 }
 
 .app-shell { isolation: isolate; }
 
 .navbar,
-.card,
+.sidebar,
 .dropdown-menu,
 .user-dropdown,
-.modal-content,
-.list-group,
-.list-group-item {
+.modal-content {
     backdrop-filter: blur(var(--ios-glass-blur)) saturate(var(--ios-glass-saturation));
     -webkit-backdrop-filter: blur(var(--ios-glass-blur)) saturate(var(--ios-glass-saturation));
     box-shadow:
@@ -38,8 +33,22 @@ body {
         inset 0 0 0 1px rgba(255,255,255,.035);
 }
 
-/* Cursor-driven optical refraction/highlight.
-   The light source follows the pointer, similar to a gyro-driven glass surface. */
+.card {
+    backdrop-filter: blur(26px) saturate(155%);
+    -webkit-backdrop-filter: blur(26px) saturate(155%);
+    background:
+        linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.025) 45%, rgba(255,255,255,.045)),
+        color-mix(in srgb, var(--pv-surface) 55%, transparent) !important;
+    border: 1px solid var(--ios-glass-border) !important;
+    box-shadow:
+        0 24px 70px rgba(0,0,0,.15),
+        inset 0 1px 0 var(--ios-glass-highlight),
+        inset 0 0 0 1px rgba(255,255,255,.035);
+}
+
+/* The pointer light is calculated in each glass element's own coordinate
+   space. This keeps the illumination inside the surface instead of pinning
+   it to the viewport edges. */
 .navbar,
 .sidebar,
 .card,
@@ -48,7 +57,11 @@ body {
 .modal-content,
 .list-group-item {
     position: relative;
+    isolation: isolate;
     overflow: hidden;
+    --glass-local-x: 50%;
+    --glass-local-y: 50%;
+    --glass-pointer-strength: 0;
 }
 
 .navbar::before,
@@ -60,18 +73,40 @@ body {
 .list-group-item::before {
     content: "";
     position: absolute;
-    inset: -35%;
-    pointer-events: none;
+    inset: 0;
     z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
     background:
         radial-gradient(
-            22% 22% at var(--glass-cursor-x) var(--glass-cursor-y),
-            rgba(255,255,255,.17),
-            rgba(135,180,255,.075) 26%,
-            rgba(255,255,255,0) 68%
+            55% 70% at var(--glass-local-x) var(--glass-local-y),
+            rgba(255,255,255,calc(.105 * var(--glass-pointer-strength))),
+            rgba(185,215,255,calc(.055 * var(--glass-pointer-strength))) 28%,
+            rgba(255,255,255,calc(.018 * var(--glass-pointer-strength))) 52%,
+            transparent 78%
         );
-    transform: translate3d(0,0,0);
-    transition: opacity .2s ease;
+    mix-blend-mode: screen;
+}
+
+.navbar::after,
+.sidebar::after,
+.card::after,
+.dropdown-menu::after,
+.user-dropdown::after,
+.modal-content::after,
+.list-group-item::after {
+    content: "";
+    position: absolute;
+    inset: -18%;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(
+            32% 38% at var(--glass-local-x) var(--glass-local-y),
+            rgba(255,255,255,calc(.065 * var(--glass-pointer-strength))),
+            transparent 72%
+        );
+    filter: blur(18px);
     mix-blend-mode: screen;
 }
 
@@ -98,25 +133,6 @@ body {
     -webkit-backdrop-filter: blur(34px) saturate(155%);
     border-right: 1px solid var(--ios-glass-border) !important;
     box-shadow: 14px 0 45px rgba(0,0,0,.10), inset -1px 0 0 rgba(255,255,255,.035);
-}
-
-.card {
-    background:
-        linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.025) 45%, rgba(255,255,255,.045)),
-        color-mix(in srgb, var(--pv-surface) 55%, transparent) !important;
-    border: 1px solid var(--ios-glass-border) !important;
-    box-shadow: 0 24px 70px rgba(0,0,0,.15), inset 0 1px 0 var(--ios-glass-highlight), inset 0 0 0 1px rgba(255,255,255,.035);
-}
-
-.card::after {
-    content: "";
-    position: absolute;
-    inset: 1px;
-    border-radius: inherit;
-    pointer-events: none;
-    background: linear-gradient(125deg, rgba(255,255,255,.055), transparent 22%, transparent 70%, rgba(255,255,255,.025));
-    mix-blend-mode: screen;
-    z-index: 0;
 }
 
 .card-header,
@@ -171,7 +187,6 @@ body {
     box-shadow: inset 0 1px 0 rgba(255,255,255,.20), inset 0 -1px 0 rgba(0,0,0,.08), 0 12px 30px rgba(52,92,190,.22);
 }
 
-/* Floating dropdown/submenu glass with a real blurred backdrop. */
 .dropdown-menu,
 .user-dropdown {
     position: absolute;
@@ -183,39 +198,6 @@ body {
     border: 1px solid rgba(255,255,255,.19) !important;
     border-radius: 15px !important;
     box-shadow: 0 30px 80px rgba(0,0,0,.28), 0 8px 25px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.14), inset 0 0 0 1px rgba(255,255,255,.025);
-}
-
-.dropdown-menu::before,
-.user-dropdown::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    inset: -30px;
-    pointer-events: none;
-    background: radial-gradient(circle at 20% 15%, rgba(110,155,255,.16), transparent 42%), radial-gradient(circle at 85% 80%, rgba(100,210,255,.08), transparent 45%), rgba(17,26,42,.16);
-    filter: blur(18px);
-}
-
-.user-dropdown::before { top: -9px; right: -30px; bottom: -30px; left: -30px; }
-
-.user-dropdown::after,
-.dropdown-menu::after {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    inset: 1px;
-    border-radius: inherit;
-    pointer-events: none;
-    background: linear-gradient(140deg, rgba(255,255,255,.075), transparent 28%, transparent 75%, rgba(255,255,255,.025));
-}
-
-.user-dropdown > *,
-.dropdown-menu > * { position: relative; z-index: 1; }
-
-.user-profile-trigger:hover,
-.user-profile-trigger:focus {
-    background: rgba(255,255,255,.075) !important;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.13), 0 8px 25px rgba(0,0,0,.08);
 }
 
 .table-responsive {
@@ -234,13 +216,13 @@ body {
 .table.align-middle thead th:first-child,
 .table.align-middle thead th:last-child,
 .table thead th:first-child,
-.table thead th:last-child { border-radius: 0 !important; }
+.table thead th:last-child {
+    border-radius: 0 !important;
+}
 
-.modal-backdrop.show { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-
-.modal-content {
-    background: color-mix(in srgb, var(--pv-surface) 60%, transparent) !important;
-    border: 1px solid rgba(255,255,255,.19) !important;
+.modal-backdrop.show {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 html[data-theme="light"] {
@@ -274,7 +256,9 @@ html[data-theme="light"] .user-dropdown {
     -webkit-backdrop-filter: blur(12px) saturate(165%) contrast(102%);
 }
 
-html[data-theme="light"] .sidebar { background: rgba(238,244,252,.58) !important; }
+html[data-theme="light"] .sidebar {
+    background: rgba(238,244,252,.58) !important;
+}
 
 html[data-theme="light"] .form-control,
 html[data-theme="light"] .form-select,
@@ -286,6 +270,23 @@ html[data-theme="light"] .login-field input {
     box-shadow: inset 0 1px 0 rgba(255,255,255,.75), 0 4px 18px rgba(50,75,110,.05);
 }
 
+html[data-theme="light"] .navbar::before,
+html[data-theme="light"] .sidebar::before,
+html[data-theme="light"] .card::before,
+html[data-theme="light"] .dropdown-menu::before,
+html[data-theme="light"] .user-dropdown::before,
+html[data-theme="light"] .modal-content::before,
+html[data-theme="light"] .list-group-item::before {
+    mix-blend-mode: multiply;
+    background:
+        radial-gradient(
+            55% 70% at var(--glass-local-x) var(--glass-local-y),
+            rgba(255,255,255,calc(.34 * var(--glass-pointer-strength))),
+            rgba(115,160,230,calc(.06 * var(--glass-pointer-strength))) 30%,
+            transparent 76%
+        );
+}
+
 @supports not (background: color-mix(in srgb, white 50%, transparent)) {
     .navbar { background: rgba(17,26,42,.68) !important; }
     .card { background: rgba(17,26,42,.68) !important; }
@@ -293,4 +294,21 @@ html[data-theme="light"] .login-field input {
     html[data-theme="light"] .navbar, html[data-theme="light"] .card { background: rgba(255,255,255,.72) !important; }
 }
 
-@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+@media (prefers-reduced-motion: reduce) {
+    .navbar::before,
+    .sidebar::before,
+    .card::before,
+    .dropdown-menu::before,
+    .user-dropdown::before,
+    .modal-content::before,
+    .list-group-item::before,
+    .navbar::after,
+    .sidebar::after,
+    .card::after,
+    .dropdown-menu::after,
+    .user-dropdown::after,
+    .modal-content::after,
+    .list-group-item::after {
+        display: none !important;
+    }
+}
