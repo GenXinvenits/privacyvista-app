@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/app/public/assets/css/forms.css?v=1">
     <link rel="stylesheet" href="/app/public/assets/css/reports.css?v=1">
     <link rel="stylesheet" href="/app/public/assets/css/settings.css?v=1">
+    <link rel="stylesheet" href="/app/public/assets/css/theme-fix.css?v=1">
     <script src="/app/public/assets/js/theme.js?v=1" defer></script>
 </head>
 <body>
