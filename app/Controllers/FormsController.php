@@ -3,14 +3,13 @@
 namespace App\Controllers;
 
 use App\Core\BaseController;
+use App\Models\Client;
 
 class FormsController extends BaseController
 {
-    public function index(): void
+    private function forms(): array
     {
-        $this->requireLogin();
-
-        $forms = [
+        return [
             [
                 'name' => 'Data Subject Access Request',
                 'description' => 'Capture and manage requests from data subjects to access their personal data.',
@@ -48,10 +47,27 @@ class FormsController extends BaseController
                 'status' => 'Available',
             ],
         ];
+    }
+
+    public function index(): void
+    {
+        $this->requireLogin();
 
         $this->view('forms/index', [
             'title' => 'Forms',
-            'forms' => $forms,
+            'forms' => $this->forms(),
+        ]);
+    }
+
+    public function riskAssessment(): void
+    {
+        $this->requireLogin();
+
+        $clients = (new Client())->allClients();
+
+        $this->view('forms/privacy-risk-assessment', [
+            'title' => 'Privacy Risk Assessment',
+            'clients' => $clients,
         ]);
     }
 }
