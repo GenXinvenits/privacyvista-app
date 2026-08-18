@@ -1,0 +1,24 @@
+body{
+    background:#f4f6f9;
+}
+
+.nav-link{
+    padding:12px 20px;
+}
+
+.nav-link:hover{
+    background:#495057;
+}
+
+.card{
+    border:none;
+    box-shadow:0 0 10px rgba(0,0,0,.08);
+}
+
+.navbar{
+    background:#ffffff !important;
+}
+
+h1,h2,h3,h4,h5{
+    font-weight:600;
+}
