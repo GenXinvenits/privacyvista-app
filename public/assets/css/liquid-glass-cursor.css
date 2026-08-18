@@ -1,0 +1,103 @@
+/* =========================================================
+   PrivacyVista — Apple-style Liquid Glass cursor shine
+   Applied ONLY to application cards/boxes.
+   ========================================================= */
+
+.card,
+.modal-content,
+.user-dropdown,
+.dropdown-menu {
+    --glass-shine-x: 50%;
+    --glass-shine-y: 50%;
+    --glass-shine-opacity: 0;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+/* The shine is deliberately a thin specular rim, not a full-card glow.
+   It follows the cursor through --glass-shine-x/y supplied by app.js. */
+.card::after,
+.modal-content::after,
+.user-dropdown::after,
+.dropdown-menu::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    pointer-events: none;
+    border-radius: inherit;
+    padding: 1px;
+    opacity: var(--glass-shine-opacity);
+    background:
+        radial-gradient(
+            115px 115px at var(--glass-shine-x) var(--glass-shine-y),
+            rgba(255,255,255,.52) 0%,
+            rgba(255,255,255,.20) 18%,
+            rgba(255,255,255,.055) 42%,
+            transparent 72%
+        );
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    transition: opacity .12s ease-out;
+}
+
+/* Very subtle internal refraction near the active edge. */
+.card::before,
+.modal-content::before,
+.user-dropdown::before,
+.dropdown-menu::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 19;
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: calc(var(--glass-shine-opacity) * .55);
+    background:
+        radial-gradient(
+            180px 90px at var(--glass-shine-x) var(--glass-shine-y),
+            rgba(255,255,255,.065),
+            transparent 72%
+        );
+    mix-blend-mode: screen;
+    transition: opacity .12s ease-out;
+}
+
+.card > *,
+.modal-content > *,
+.user-dropdown > *,
+.dropdown-menu > * {
+    position: relative;
+    z-index: 21;
+}
+
+html[data-theme="light"] .card::after,
+html[data-theme="light"] .modal-content::after,
+html[data-theme="light"] .user-dropdown::after,
+html[data-theme="light"] .dropdown-menu::after {
+    background:
+        radial-gradient(
+            115px 115px at var(--glass-shine-x) var(--glass-shine-y),
+            rgba(255,255,255,.82) 0%,
+            rgba(255,255,255,.34) 18%,
+            rgba(79,127,245,.08) 42%,
+            transparent 72%
+        );
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card::after,
+    .card::before,
+    .modal-content::after,
+    .modal-content::before,
+    .user-dropdown::after,
+    .user-dropdown::before,
+    .dropdown-menu::after,
+    .dropdown-menu::before {
+        transition: none;
+    }
+}
