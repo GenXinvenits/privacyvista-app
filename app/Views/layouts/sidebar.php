@@ -4,10 +4,8 @@ $clientId = (int)($_SESSION['user']['client_id'] ?? 0);
 $isSuperuser = $role === 'superuser';
 $isAdmin = $role === 'admin';
 $isClient = $role === 'client';
-
-// Client-scoped workspace links must always carry the authenticated tenant ID.
-$clientQuery = $clientId > 0 ? '&client_id=' . $clientId : '';
 $hasClientContext = $clientId > 0;
+$clientQuery = $hasClientContext ? '&client_id=' . $clientId : '';
 ?>
 <aside class="sidebar d-flex flex-column">
     <div class="sidebar-brand justify-content-center">
@@ -22,12 +20,16 @@ $hasClientContext = $clientId > 0;
 
         <?php if ($isSuperuser): ?>
             <a class="nav-link" href="/app/public/index.php?route=clients"><span>Clients</span></a>
+        <?php elseif ($isAdmin && $hasClientContext): ?>
+            <a class="nav-link" href="/app/public/index.php?route=clients<?= $clientQuery ?>"><span>Clients</span></a>
+        <?php endif; ?>
+
+        <?php if ($isSuperuser): ?>
             <a class="nav-link" href="/app/public/index.php?route=clients"><span>Processing Activities</span></a>
             <a class="nav-link" href="/app/public/index.php?route=clients"><span>Assessments</span></a>
             <a class="nav-link" href="/app/public/index.php?route=clients"><span>Findings</span></a>
             <a class="nav-link" href="/app/public/index.php?route=clients"><span>Remediation Tasks</span></a>
-        <?php elseif ($isAdmin && $hasClientContext): ?>
-            <a class="nav-link" href="/app/public/index.php?route=clients<?= $clientQuery ?>"><span>Clients</span></a>
+        <?php elseif (($isAdmin || $isClient) && $hasClientContext): ?>
             <a class="nav-link" href="/app/public/index.php?route=processing-activities<?= $clientQuery ?>"><span>Processing Activities</span></a>
             <a class="nav-link" href="/app/public/index.php?route=assessments<?= $clientQuery ?>"><span>Assessments</span></a>
             <a class="nav-link" href="/app/public/index.php?route=findings<?= $clientQuery ?>"><span>Findings</span></a>
