@@ -1,0 +1,252 @@
+/* =========================================================
+   PrivacyVista — iOS-inspired Liquid Glass enhancement
+   ========================================================= */
+
+:root {
+    --ios-glass-blur: 30px;
+    --ios-glass-saturation: 165%;
+    --ios-glass-border: rgba(255,255,255,.20);
+    --ios-glass-highlight: rgba(255,255,255,.16);
+    --ios-glass-shadow: 0 24px 70px rgba(0,0,0,.18);
+}
+
+/* Soft atmospheric color behind transparent surfaces makes the blur visible. */
+body {
+    background-image:
+        radial-gradient(45% 40% at 8% 5%, rgba(99,143,255,.14), transparent 72%),
+        radial-gradient(42% 42% at 92% 18%, rgba(122,180,255,.11), transparent 72%),
+        radial-gradient(38% 38% at 70% 88%, rgba(99,125,255,.08), transparent 72%),
+        radial-gradient(30% 32% at 35% 70%, rgba(80,190,210,.055), transparent 72%);
+}
+
+.app-shell {
+    isolation: isolate;
+}
+
+/* Floating glass surfaces */
+.navbar,
+.card,
+.dropdown-menu,
+.user-dropdown,
+.modal-content,
+.list-group,
+.list-group-item {
+    backdrop-filter: blur(var(--ios-glass-blur)) saturate(var(--ios-glass-saturation));
+    -webkit-backdrop-filter: blur(var(--ios-glass-blur)) saturate(var(--ios-glass-saturation));
+    box-shadow:
+        var(--ios-glass-shadow),
+        inset 0 1px 0 var(--ios-glass-highlight),
+        inset 0 0 0 1px rgba(255,255,255,.035);
+}
+
+.navbar {
+    background: color-mix(in srgb, var(--pv-surface) 48%, transparent) !important;
+    border-bottom: 1px solid var(--ios-glass-border) !important;
+    box-shadow:
+        0 16px 45px rgba(0,0,0,.12),
+        inset 0 1px 0 var(--ios-glass-highlight);
+}
+
+.sidebar {
+    background: color-mix(in srgb, var(--pv-sidebar) 58%, transparent) !important;
+    backdrop-filter: blur(34px) saturate(155%);
+    -webkit-backdrop-filter: blur(34px) saturate(155%);
+    border-right: 1px solid var(--ios-glass-border) !important;
+    box-shadow: 14px 0 45px rgba(0,0,0,.10), inset -1px 0 0 rgba(255,255,255,.035);
+}
+
+.card {
+    background:
+        linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.025) 45%, rgba(255,255,255,.045)),
+        color-mix(in srgb, var(--pv-surface) 55%, transparent) !important;
+    border: 1px solid var(--ios-glass-border) !important;
+    box-shadow:
+        0 24px 70px rgba(0,0,0,.15),
+        inset 0 1px 0 var(--ios-glass-highlight),
+        inset 0 0 0 1px rgba(255,255,255,.035);
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(125deg, rgba(255,255,255,.055), transparent 22%, transparent 70%, rgba(255,255,255,.025));
+    mix-blend-mode: screen;
+}
+
+.card-header,
+.card-footer {
+    background: rgba(255,255,255,.025) !important;
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+}
+
+/* Controls become translucent glass pills/fields rather than solid boxes. */
+.form-control,
+.form-select,
+.input-group-text,
+.login-field input {
+    background: color-mix(in srgb, var(--pv-surface-2) 48%, transparent) !important;
+    backdrop-filter: blur(18px) saturate(145%);
+    -webkit-backdrop-filter: blur(18px) saturate(145%);
+    border: 1px solid rgba(255,255,255,.16) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.075),
+        inset 0 0 0 1px rgba(255,255,255,.018),
+        0 4px 18px rgba(0,0,0,.05);
+}
+
+.form-control:focus,
+.form-select:focus,
+.login-field input:focus {
+    background: color-mix(in srgb, var(--pv-surface-2) 58%, transparent) !important;
+    border-color: rgba(100,145,255,.62) !important;
+    box-shadow:
+        0 0 0 4px rgba(91,140,255,.10),
+        inset 0 1px 0 rgba(255,255,255,.10),
+        0 8px 25px rgba(0,0,0,.08) !important;
+}
+
+/* iOS-like pill controls */
+.btn,
+.badge,
+.user-profile-trigger,
+.theme-selector,
+.theme-choice {
+    backdrop-filter: blur(16px) saturate(145%);
+    -webkit-backdrop-filter: blur(16px) saturate(145%);
+}
+
+.btn {
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.12),
+        0 8px 24px rgba(0,0,0,.10);
+}
+
+.btn-secondary,
+.btn-light,
+.btn-outline-secondary,
+.btn-outline-primary {
+    background: rgba(255,255,255,.055) !important;
+    border-color: rgba(255,255,255,.16) !important;
+}
+
+.btn-primary,
+.login-submit {
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.20),
+        inset 0 -1px 0 rgba(0,0,0,.08),
+        0 12px 30px rgba(52,92,190,.22);
+}
+
+/* Dropdowns should feel like floating glass sheets. */
+.dropdown-menu,
+.user-dropdown {
+    background: color-mix(in srgb, var(--pv-surface) 62%, transparent) !important;
+    backdrop-filter: blur(34px) saturate(170%);
+    -webkit-backdrop-filter: blur(34px) saturate(170%);
+    border: 1px solid rgba(255,255,255,.19) !important;
+    border-radius: 15px !important;
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.28),
+        inset 0 1px 0 rgba(255,255,255,.14),
+        inset 0 0 0 1px rgba(255,255,255,.025);
+}
+
+.user-dropdown::after,
+.dropdown-menu::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(140deg, rgba(255,255,255,.07), transparent 28%, transparent 75%, rgba(255,255,255,.025));
+}
+
+.user-profile-trigger:hover,
+.user-profile-trigger:focus {
+    background: rgba(255,255,255,.075) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.13),
+        0 8px 25px rgba(0,0,0,.08);
+}
+
+/* Tables get a translucent sheet instead of a flat dark block. */
+.table-responsive {
+    background: rgba(255,255,255,.025) !important;
+    backdrop-filter: blur(22px) saturate(145%);
+    -webkit-backdrop-filter: blur(22px) saturate(145%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.055);
+}
+
+/* Modal glass */
+.modal-backdrop.show {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    background: color-mix(in srgb, var(--pv-surface) 60%, transparent) !important;
+    border: 1px solid rgba(255,255,255,.19) !important;
+}
+
+/* Light mode: preserve translucency while keeping text/controls readable. */
+html[data-theme="light"] {
+    --ios-glass-border: rgba(72,91,120,.18);
+    --ios-glass-highlight: rgba(255,255,255,.70);
+}
+
+html[data-theme="light"] body {
+    background-image:
+        radial-gradient(45% 40% at 8% 5%, rgba(91,140,255,.16), transparent 72%),
+        radial-gradient(42% 42% at 92% 18%, rgba(83,175,255,.12), transparent 72%),
+        radial-gradient(38% 38% at 70% 88%, rgba(91,125,255,.09), transparent 72%),
+        radial-gradient(30% 32% at 35% 70%, rgba(80,190,210,.065), transparent 72%);
+}
+
+html[data-theme="light"] .navbar,
+html[data-theme="light"] .sidebar,
+html[data-theme="light"] .card,
+html[data-theme="light"] .dropdown-menu,
+html[data-theme="light"] .user-dropdown,
+html[data-theme="light"] .modal-content {
+    background:
+        linear-gradient(145deg, rgba(255,255,255,.68), rgba(255,255,255,.43)),
+        rgba(242,247,255,.48) !important;
+    border-color: var(--ios-glass-border) !important;
+    box-shadow:
+        0 24px 65px rgba(50,75,110,.12),
+        inset 0 1px 0 var(--ios-glass-highlight),
+        inset 0 0 0 1px rgba(255,255,255,.35);
+}
+
+html[data-theme="light"] .sidebar {
+    background: rgba(238,244,252,.58) !important;
+}
+
+html[data-theme="light"] .form-control,
+html[data-theme="light"] .form-select,
+html[data-theme="light"] .input-group-text,
+html[data-theme="light"] .login-field input {
+    background: rgba(255,255,255,.48) !important;
+    border-color: rgba(72,91,120,.17) !important;
+    color: #172235 !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.75),
+        0 4px 18px rgba(50,75,110,.05);
+}
+
+/* Fallback where color-mix is unavailable. */
+@supports not (background: color-mix(in srgb, white 50%, transparent)) {
+    .navbar { background: rgba(17,26,42,.68) !important; }
+    .card { background: rgba(17,26,42,.68) !important; }
+    .dropdown-menu,.user-dropdown { background: rgba(14,23,38,.88) !important; }
+    html[data-theme="light"] .navbar,
+    html[data-theme="light"] .card { background: rgba(255,255,255,.72) !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { scroll-behavior: auto !important; }
+}
