@@ -3,6 +3,7 @@ $title = $title ?? 'Forms';
 $forms = $forms ?? [];
 ?>
 
+<!-- Forms module checkpoint: template catalogue is stable before interactive workflows. -->
 <div class="page-header d-flex justify-content-between align-items-center mb-4">
     <div>
         <div class="page-title">Forms</div>
