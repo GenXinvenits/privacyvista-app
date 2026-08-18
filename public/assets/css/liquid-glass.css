@@ -1,0 +1,350 @@
+/* =========================================================
+   PrivacyVista — Liquid Glass Theme
+   Branch: liquid-glass
+   ========================================================= */
+
+:root {
+    --glass-bg: rgba(17, 26, 42, .62);
+    --glass-bg-strong: rgba(17, 26, 42, .76);
+    --glass-bg-soft: rgba(255, 255, 255, .055);
+    --glass-border: rgba(255, 255, 255, .13);
+    --glass-border-soft: rgba(255, 255, 255, .075);
+    --glass-highlight: rgba(255, 255, 255, .12);
+    --glass-shadow: 0 18px 55px rgba(0, 0, 0, .24);
+    --glass-blur: 22px;
+    --glass-saturation: 145%;
+}
+
+body {
+    background:
+        radial-gradient(circle at 12% 8%, rgba(91, 140, 255, .10), transparent 30%),
+        radial-gradient(circle at 88% 82%, rgba(82, 168, 255, .075), transparent 32%),
+        var(--pv-bg);
+}
+
+.app-shell {
+    position: relative;
+    isolation: isolate;
+}
+
+.app-shell::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 20% 25%, rgba(91, 140, 255, .07), transparent 24%),
+        radial-gradient(circle at 78% 18%, rgba(115, 185, 255, .055), transparent 23%),
+        radial-gradient(circle at 65% 78%, rgba(91, 140, 255, .05), transparent 25%);
+}
+
+.app-shell::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(255,255,255,.018), transparent 35%, rgba(91,140,255,.018));
+}
+
+/* Main glass surfaces */
+.sidebar,
+.navbar,
+.card,
+.dropdown-menu,
+.user-dropdown,
+.modal-content,
+.list-group,
+.list-group-item {
+    background: var(--glass-bg) !important;
+    border-color: var(--glass-border) !important;
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+    box-shadow: var(--glass-shadow);
+}
+
+.sidebar {
+    background: rgba(8, 13, 23, .67) !important;
+    border-right: 1px solid var(--glass-border-soft);
+}
+
+.sidebar-brand {
+    background: rgba(255, 255, 255, .025);
+    border-bottom-color: var(--glass-border-soft) !important;
+}
+
+.sidebar .nav-link {
+    border: 1px solid transparent;
+    background: transparent !important;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link:focus {
+    background: rgba(255, 255, 255, .075) !important;
+    border-color: rgba(255,255,255,.08);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
+}
+
+.sidebar .nav-link.active {
+    background: linear-gradient(135deg, rgba(91,140,255,.20), rgba(91,140,255,.08)) !important;
+    border-color: rgba(126,163,255,.18);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.09),
+        0 7px 22px rgba(40, 82, 170, .14);
+}
+
+.navbar {
+    background: rgba(17, 26, 42, .60) !important;
+    border-bottom-color: var(--glass-border) !important;
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.14),
+        inset 0 1px 0 rgba(255,255,255,.07);
+}
+
+.page-content {
+    position: relative;
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px !important;
+    box-shadow:
+        0 18px 55px rgba(0,0,0,.18),
+        inset 0 1px 0 rgba(255,255,255,.07),
+        inset 0 0 0 1px rgba(255,255,255,.025);
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 8%;
+    right: 8%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent);
+    pointer-events: none;
+}
+
+.card-header,
+.card-footer {
+    background: rgba(255,255,255,.025) !important;
+    border-color: var(--glass-border-soft) !important;
+}
+
+.dashboard-stat {
+    background:
+        linear-gradient(145deg, rgba(255,255,255,.065), rgba(255,255,255,.018)),
+        var(--glass-bg) !important;
+}
+
+.dashboard-stat:hover {
+    box-shadow:
+        0 24px 65px rgba(0,0,0,.27),
+        inset 0 1px 0 rgba(255,255,255,.09);
+}
+
+.form-control,
+.form-select,
+.input-group-text {
+    background: rgba(8, 16, 30, .48) !important;
+    border-color: rgba(255,255,255,.12) !important;
+    backdrop-filter: blur(15px) saturate(130%);
+    -webkit-backdrop-filter: blur(15px) saturate(130%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+}
+
+.form-control:focus,
+.form-select:focus {
+    background: rgba(10, 20, 37, .58) !important;
+    border-color: rgba(109,152,255,.70) !important;
+    box-shadow:
+        0 0 0 .2rem rgba(91,140,255,.10),
+        inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+
+.btn {
+    border: 1px solid rgba(255,255,255,.11) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.09),
+        0 7px 20px rgba(0,0,0,.13);
+    transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, rgba(91,140,255,.90), rgba(73,115,218,.82)) !important;
+}
+
+.btn-secondary,
+.btn-light {
+    background: rgba(255,255,255,.075) !important;
+}
+
+.btn-outline-primary,
+.btn-outline-secondary {
+    background: rgba(255,255,255,.025) !important;
+}
+
+.table-responsive {
+    border-radius: 14px;
+    background: rgba(255,255,255,.018);
+    border: 1px solid var(--glass-border-soft);
+}
+
+.table > :not(caption) > * > * {
+    border-color: rgba(255,255,255,.075) !important;
+}
+
+.table thead th {
+    background: rgba(255,255,255,.035) !important;
+}
+
+.table tbody tr:hover,
+.table tbody tr:hover td {
+    background: rgba(255,255,255,.045) !important;
+}
+
+.dropdown-menu,
+.user-dropdown {
+    background: rgba(14, 23, 38, .76) !important;
+    border-color: rgba(255,255,255,.14) !important;
+    box-shadow:
+        0 25px 65px rgba(0,0,0,.38),
+        inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus,
+.user-dropdown-item:hover,
+.user-dropdown-item:focus {
+    background: rgba(255,255,255,.075) !important;
+}
+
+.alert {
+    backdrop-filter: blur(15px) saturate(125%);
+    -webkit-backdrop-filter: blur(15px) saturate(125%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.045);
+}
+
+.badge {
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.modal-backdrop.show {
+    opacity: .72;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: rgba(17,26,42,.78) !important;
+    border-radius: 18px !important;
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.nav-tabs .nav-link {
+    background: transparent !important;
+    border-radius: 9px 9px 0 0;
+}
+
+.nav-tabs .nav-link.active {
+    background: rgba(255,255,255,.055) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
+}
+
+/* Profile glass treatment */
+.user-profile-trigger:hover,
+.user-profile-trigger:focus {
+    background: rgba(255,255,255,.065);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+.user-avatar,
+.user-dropdown-avatar,
+.dashboard-stat .stat-icon {
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.10),
+        0 7px 18px rgba(40,80,160,.12);
+}
+
+/* Guest/login glass card — keeps the existing login gradient/bubbles */
+.guest-page {
+    position: relative;
+    overflow: hidden;
+}
+
+.guest-page::before,
+.guest-page::after {
+    pointer-events: none;
+}
+
+.login-card {
+    position: relative;
+    background: rgba(17, 26, 42, .58) !important;
+    border-color: rgba(255,255,255,.15) !important;
+    backdrop-filter: blur(28px) saturate(145%);
+    -webkit-backdrop-filter: blur(28px) saturate(145%);
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.42),
+        inset 0 1px 0 rgba(255,255,255,.10),
+        inset 0 0 35px rgba(255,255,255,.018);
+}
+
+.login-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.20), transparent);
+    pointer-events: none;
+}
+
+.login-field input {
+    background: rgba(7,15,28,.42) !important;
+    border-color: rgba(255,255,255,.12) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.login-submit {
+    background: linear-gradient(135deg, rgba(91,140,255,.94), rgba(75,112,213,.86)) !important;
+    border: 1px solid rgba(255,255,255,.14);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.13),
+        0 10px 28px rgba(45,86,180,.22);
+}
+
+/* Reduced-motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .btn,
+    .dashboard-stat,
+    .login-submit {
+        transition: none !important;
+    }
+
+    .btn:hover,
+    .dashboard-stat:hover,
+    .login-submit:hover {
+        transform: none !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .card {
+        border-radius: 15px !important;
+    }
+
+    .sidebar,
+    .navbar {
+        backdrop-filter: blur(18px) saturate(135%);
+        -webkit-backdrop-filter: blur(18px) saturate(135%);
+    }
+}
