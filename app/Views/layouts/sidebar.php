@@ -24,14 +24,14 @@ $clientQuery = $hasClientContext ? '&client_id=' . rawurlencode((string)$clientI
             <a class="nav-link" href="/app/public/index.php?route=clients<?= $clientQuery ?>"><span>Clients</span></a>
         <?php endif; ?>
 
-        <?php if ($isAdmin && $hasClientContext): ?>
+        <?php if (($isAdmin || $isSuperuser) && $hasClientContext): ?>
             <a class="nav-link" href="/app/public/index.php?route=processing-activities<?= $clientQuery ?>"><span>Processing Activities</span></a>
             <a class="nav-link" href="/app/public/index.php?route=assessments<?= $clientQuery ?>"><span>Assessments</span></a>
             <a class="nav-link" href="/app/public/index.php?route=findings<?= $clientQuery ?>"><span>Findings</span></a>
             <a class="nav-link" href="/app/public/index.php?route=tasks<?= $clientQuery ?>"><span>Remediation Tasks</span></a>
         <?php endif; ?>
 
-        <?php if ($isSuperuser): ?>
+        <?php if ($isSuperuser && !$hasClientContext): ?>
             <a class="nav-link" href="/app/public/index.php?route=clients"><span>Processing Activities</span></a>
             <a class="nav-link" href="/app/public/index.php?route=clients"><span>Assessments</span></a>
             <a class="nav-link" href="/app/public/index.php?route=clients"><span>Findings</span></a>
