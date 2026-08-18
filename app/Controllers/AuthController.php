@@ -36,12 +36,20 @@ class AuthController extends Controller
             exit;
         }
 
+        if (isset($user['status']) && (int)$user['status'] !== 1) {
+            $_SESSION['error'] = 'This account is inactive. Please contact your administrator.';
+            header('Location: /app/public/index.php?route=login');
+            exit;
+        }
+
         session_regenerate_id(true);
         $_SESSION['user'] = [
-            'id' => $user['id'],
+            'id' => (int)$user['id'],
             'fullname' => $user['fullname'],
             'email' => $user['email'],
-            'role' => $user['role']
+            'role' => strtolower($user['role']),
+            'role_id' => (int)$user['role_id'],
+            'client_id' => !empty($user['client_id']) ? (int)$user['client_id'] : null,
         ];
 
         header('Location: /app/public/index.php?route=dashboard');
