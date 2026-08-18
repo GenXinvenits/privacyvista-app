@@ -5,7 +5,7 @@
 (function () {
     'use strict';
 
-    const selectors = '.card, .modal-content, .user-dropdown, .dropdown-menu';
+    const selectors = '.card, .login-card';
     const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
 
     if (reduceMotion?.matches) return;
