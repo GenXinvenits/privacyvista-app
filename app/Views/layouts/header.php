@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/app/public/assets/css/style.css?v=2">
     <link rel="stylesheet" href="/app/public/assets/css/forms.css?v=1">
     <link rel="stylesheet" href="/app/public/assets/css/reports.css?v=1">
+    <link rel="stylesheet" href="/app/public/assets/css/settings.css?v=1">
 </head>
 <body>
 <div class="app-shell">
