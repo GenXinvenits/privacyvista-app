@@ -3,20 +3,11 @@ namespace App\Controllers;
 use App\Core\BaseController; use App\Core\Flash; use App\Core\Security; use App\Models\User;
 class UsersController extends BaseController
 {
-    public function index(){ $this->requireLogin(); $model=new User(); $this->view('users/index',['title'=>'Users','users'=>$model->getAllUsers()]); }
-    public function create(){ $this->requireLogin(); $this->view('users/create',['title'=>'Add User']); }
-    public function store(){ $this->requireLogin(); $model=new User(); $model->create(['fullname'=>trim($_POST['fullname']),'email'=>trim($_POST['email']),'password'=>password_hash($_POST['password'],PASSWORD_DEFAULT),'role_id'=>(int)$_POST['role_id']]); Flash::success('User created successfully.'); redirect('users'); }
-    public function edit(){ $this->requireLogin(); if(!isset($_GET['id'])||!is_numeric($_GET['id'])){redirect('users');} $model=new User(); $user=$model->find((int)$_GET['id']); if(!$user){Flash::error('User not found.');redirect('users');} $this->view('users/edit',['title'=>'Edit User','user'=>$user]); }
-    public function update(){ $this->requireLogin(); $model=new User(); $model->update(['id'=>(int)$_POST['id'],'fullname'=>trim($_POST['fullname']),'email'=>trim($_POST['email']),'role_id'=>(int)$_POST['role_id'],'status'=>(int)$_POST['status']]); Flash::success('User updated successfully.'); redirect('users'); }
-    public function delete(){
-        $this->requireLogin();
-        if(!Security::verifyCsrf($_POST['_csrf']??null)){http_response_code(419);exit('Invalid security token');}
-        if(!isset($_POST['id'])||!is_numeric($_POST['id'])){redirect('users');}
-        $id=(int)$_POST['id'];
-        if((int)$this->user()['id']===$id){Flash::error('You cannot delete your own account.');redirect('users');}
-        $model=new User(); $user=$model->find($id);
-        if(!$user){Flash::error('User not found.');redirect('users');}
-        if((int)$user['role_id']===1&&$model->countSuperusers()<=1){Flash::error('Cannot delete the last Superuser.');redirect('users');}
-        $model->deleteUser($id); Flash::success('User deleted successfully.'); redirect('users');
-    }
+ private function ownedUser(int $id):?array{$u=(new User())->find($id);if(!$u)return null;if($this->isSuperuser())return$u;if((int)($u['client_id']??0)!==$this->clientId()){$this->requireClientAccess(-1);return null;}return$u;}
+ public function index(){ $this->requireLogin(); $model=new User(); $users=$this->isSuperuser()?$model->getAllUsers():$model->getAllUsers($this->clientId()); $this->view('users/index',['title'=>'Users','users'=>$users]); }
+ public function create(){ $this->requireLogin(); $this->view('users/create',['title'=>'Add User']); }
+ public function store(){ $this->requireLogin(); $roleId=(int)($_POST['role_id']??3); if(!$this->isSuperuser()&&!in_array($roleId,[2,3],true)){$roleId=3;} $clientId=$this->isSuperuser()?(int)($_POST['client_id']??0):($this->clientId()??0); $model=new User(); $model->create(['client_id'=>$clientId>0?$clientId:null,'fullname'=>trim($_POST['fullname']??''),'email'=>trim($_POST['email']??''),'password'=>password_hash($_POST['password']??'',PASSWORD_DEFAULT),'role_id'=>$roleId]); Flash::success('User created successfully.'); redirect('users'); }
+ public function edit(){ $this->requireLogin(); if(!isset($_GET['id'])||!is_numeric($_GET['id'])){redirect('users');} $model=new User();$user=$this->ownedUser((int)$_GET['id']);if(!$user){Flash::error('User not found.');redirect('users');}$this->view('users/edit',['title'=>'Edit User','user'=>$user]); }
+ public function update(){ $this->requireLogin();$model=new User();$id=(int)$_POST['id'];$user=$this->ownedUser($id);if(!$user){Flash::error('User not found.');redirect('users');}$roleId=(int)$_POST['role_id'];if(!$this->isSuperuser()&&!in_array($roleId,[2,3],true))$roleId=(int)$user['role_id'];$model->update(['id'=>$id,'fullname'=>trim($_POST['fullname']),'email'=>trim($_POST['email']),'role_id'=>$roleId,'status'=>(int)$_POST['status']]);Flash::success('User updated successfully.');redirect('users'); }
+ public function delete(){ $this->requireLogin();if(!Security::verifyCsrf($_POST['_csrf']??null)){http_response_code(419);exit('Invalid security token');}if(!isset($_POST['id'])||!is_numeric($_POST['id'])){redirect('users');}$id=(int)$_POST['id'];if((int)$this->user()['id']===$id){Flash::error('You cannot delete your own account.');redirect('users');}$model=new User();$user=$this->ownedUser($id);if(!$user){Flash::error('User not found.');redirect('users');}if((int)$user['role_id']===1&&$model->countSuperusers()<=1){Flash::error('Cannot delete the last Superuser.');redirect('users');}$model->deleteUser($id);Flash::success('User deleted successfully.');redirect('users'); }
 }
