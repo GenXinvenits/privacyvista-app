@@ -14,12 +14,8 @@
             } catch(e) {}
         })();
     </script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/app/public/assets/css/style.css?v=3">
-    <link rel="stylesheet" href="/app/public/assets/css/liquid-glass.css?v=1">
-    <link rel="stylesheet" href="/app/public/assets/css/liquid-glass-theme.css?v=1">
-    <link rel="stylesheet" href="/app/public/assets/css/liquid-glass-fixes.css?v=1">
-    <link rel="stylesheet" href="/app/public/assets/css/liquid-glass-ios27.css?v=1">
     <script src="/app/public/assets/js/theme.js?v=1" defer></script>
 </head>
 <body class="guest-page">
