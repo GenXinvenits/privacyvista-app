@@ -57,11 +57,31 @@
         <section class="card settings-card settings-card-wide">
             <div class="card-header">
                 <h5 class="mb-1">Application</h5>
-                <p class="settings-help mb-0">Current PrivacyVista workspace configuration.</p>
+                <p class="settings-help mb-0">Customize the PrivacyVista interface.</p>
             </div>
             <div class="card-body">
-                <div class="settings-options">
-                    <div class="settings-option"><div><strong>Theme</strong><span>Dark interface</span></div><span class="settings-status">Active</span></div>
+                <div class="theme-setting">
+                    <div class="theme-setting-copy">
+                        <strong>Appearance</strong>
+                        <span>Choose a light or dark interface, or follow your browser's current theme.</span>
+                    </div>
+                    <div class="theme-selector" role="group" aria-label="Theme selection">
+                        <button type="button" class="theme-choice" data-theme-choice="light" aria-pressed="false">
+                            <span class="theme-choice-icon" aria-hidden="true">☀</span>
+                            <span>Light</span>
+                        </button>
+                        <button type="button" class="theme-choice" data-theme-choice="dark" aria-pressed="false">
+                            <span class="theme-choice-icon" aria-hidden="true">☾</span>
+                            <span>Dark</span>
+                        </button>
+                        <button type="button" class="theme-choice" data-theme-choice="system" aria-pressed="false">
+                            <span class="theme-choice-icon" aria-hidden="true">◐</span>
+                            <span>Browser</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="settings-options mt-4">
                     <div class="settings-option"><div><strong>Security</strong><span>CSRF protection enabled</span></div><span class="settings-status">Protected</span></div>
                     <div class="settings-option"><div><strong>Session</strong><span>Authenticated workspace</span></div><span class="settings-status">Active</span></div>
                 </div>
