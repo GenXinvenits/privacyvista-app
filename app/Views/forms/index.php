@@ -3,7 +3,6 @@ $title = $title ?? 'Forms';
 $forms = $forms ?? [];
 ?>
 
-<!-- Forms module checkpoint: template catalogue is stable before interactive workflows. -->
 <div class="page-header d-flex justify-content-between align-items-center mb-4">
     <div>
         <div class="page-title">Forms</div>
@@ -13,6 +12,7 @@ $forms = $forms ?? [];
 
 <div class="row g-4">
     <?php foreach ($forms as $form): ?>
+        <?php $isRiskAssessment = $form['name'] === 'Privacy Risk Assessment'; ?>
         <div class="col-12 col-md-6 col-xl-4">
             <div class="card form-template-card h-100">
                 <div class="card-body d-flex flex-column">
@@ -29,9 +29,15 @@ $forms = $forms ?? [];
 
                     <div class="mt-auto pt-3 d-flex align-items-center justify-content-between gap-3">
                         <span class="badge bg-success"><?= e($form['status']) ?></span>
-                        <button type="button" class="btn btn-outline-secondary btn-sm" disabled>
-                            Open form
-                        </button>
+                        <?php if ($isRiskAssessment): ?>
+                            <a class="btn btn-primary btn-sm" href="<?= url('forms/privacy-risk-assessment') ?>">
+                                Open form
+                            </a>
+                        <?php else: ?>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" disabled>
+                                Open form
+                            </button>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
