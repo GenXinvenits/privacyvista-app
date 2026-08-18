@@ -1,9 +1,10 @@
 /* =========================================================
    PrivacyVista — Apple-style Liquid Glass cursor shine
-   Applied ONLY to application cards/boxes.
+   Applied to application cards and the login card.
    ========================================================= */
 
-.card {
+.card,
+.login-card {
     --glass-shine-x: 50%;
     --glass-shine-y: 50%;
     --glass-shine-opacity: 0;
@@ -12,9 +13,10 @@
     overflow: hidden;
 }
 
-/* Thin specular rim. It follows the cursor around the card edge instead
-   of washing the entire card with a bright hover glow. */
-.card::after {
+/* Thin specular rim. It follows the cursor around the element edge
+   instead of washing the entire surface with a bright hover glow. */
+.card::after,
+.login-card::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -40,7 +42,8 @@
 }
 
 /* Subtle refraction immediately inside the active edge. */
-.card::before {
+.card::before,
+.login-card::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -58,12 +61,14 @@
     transition: opacity .12s ease-out;
 }
 
-.card > * {
+.card > *,
+.login-card > * {
     position: relative;
     z-index: 21;
 }
 
-html[data-theme="light"] .card::after {
+html[data-theme="light"] .card::after,
+html[data-theme="light"] .login-card::after {
     background:
         radial-gradient(
             115px 115px at var(--glass-shine-x) var(--glass-shine-y),
@@ -76,7 +81,9 @@ html[data-theme="light"] .card::after {
 
 @media (prefers-reduced-motion: reduce) {
     .card::after,
-    .card::before {
+    .card::before,
+    .login-card::after,
+    .login-card::before {
         transition: none;
     }
 }
