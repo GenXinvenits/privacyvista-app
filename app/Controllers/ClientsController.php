@@ -4,142 +4,111 @@ namespace App\Controllers;
 
 use App\Core\BaseController;
 use App\Core\Flash;
+use App\Core\Security;
 use App\Models\Client;
 
 class ClientsController extends BaseController
 {
+    private function validCsrf(): void
+    {
+        if (!Security::verifyCsrf($_POST['_csrf'] ?? null)) {
+            http_response_code(419);
+            exit('Invalid security token');
+        }
+    }
+
     public function index()
     {
         $this->requireLogin();
-
-        $model = new Client();
-
-        $clients = $model->allClients();
-
-        $this->view('clients/index', [
-            'title'   => 'Clients',
-            'clients' => $clients
-        ]);
+        $this->view('clients/index', ['title' => 'Clients', 'clients' => (new Client())->allClients()]);
     }
 
     public function create()
     {
         $this->requireLogin();
-
-        $this->view('clients/create', [
-            'title' => 'Add Client'
-        ]);
+        $this->view('clients/create', ['title' => 'Add Client']);
     }
 
     public function store()
     {
         $this->requireLogin();
+        $this->validCsrf();
 
-        $model = new Client();
+        $company = trim($_POST['company_name'] ?? '');
+        if ($company === '') {
+            http_response_code(422);
+            exit('Company name is required');
+        }
 
-        $model->create([
-            'company_name'   => trim($_POST['company_name']),
-            'contact_person' => trim($_POST['contact_person']),
-            'email'          => trim($_POST['email']),
-            'phone'          => trim($_POST['phone'])
+        (new Client())->create([
+            'company_name' => $company,
+            'contact_person' => trim($_POST['contact_person'] ?? ''),
+            'email' => trim($_POST['email'] ?? ''),
+            'phone' => trim($_POST['phone'] ?? '')
         ]);
 
         Flash::success('Client created successfully.');
-
         redirect('clients');
     }
 
     public function edit()
     {
         $this->requireLogin();
-
-        if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-            redirect('clients');
-        }
-
-        $model = new Client();
-
-        $client = $model->find((int)$_GET['id']);
-
+        $id = (int)($_GET['id'] ?? 0);
+        $client = $id > 0 ? (new Client())->find($id) : null;
         if (!$client) {
             Flash::error('Client not found.');
             redirect('clients');
         }
-
-        $this->view('clients/edit', [
-            'title'  => 'Edit Client',
-            'client' => $client
-        ]);
+        $this->view('clients/edit', ['title' => 'Edit Client', 'client' => $client]);
     }
 
     public function update()
     {
         $this->requireLogin();
+        $this->validCsrf();
 
-        $model = new Client();
+        $id = (int)($_POST['id'] ?? 0);
+        if ($id < 1 || trim($_POST['company_name'] ?? '') === '') {
+            http_response_code(422);
+            exit('Invalid client data');
+        }
 
-        $model->update([
-            'id'             => (int)$_POST['id'],
-            'company_name'   => trim($_POST['company_name']),
-            'contact_person' => trim($_POST['contact_person']),
-            'email'          => trim($_POST['email']),
-            'phone'          => trim($_POST['phone']),
-            'status'         => (int)$_POST['status']
+        (new Client())->update([
+            'id' => $id,
+            'company_name' => trim($_POST['company_name']),
+            'contact_person' => trim($_POST['contact_person'] ?? ''),
+            'email' => trim($_POST['email'] ?? ''),
+            'phone' => trim($_POST['phone'] ?? ''),
+            'status' => !empty($_POST['status']) ? 1 : 0
         ]);
 
         Flash::success('Client updated successfully.');
-
         redirect('clients');
     }
 
     public function delete()
     {
         $this->requireLogin();
+        $this->validCsrf();
 
-        if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-            redirect('clients');
+        $id = (int)($_POST['id'] ?? 0);
+        if ($id > 0) {
+            (new Client())->deleteClient($id);
+            Flash::success('Client deleted successfully.');
         }
+        redirect('clients');
+    }
 
-        $model = new Client();
-
-        $client = $model->find((int)$_GET['id']);
-
+    public function show()
+    {
+        $this->requireLogin();
+        $id = (int)($_GET['id'] ?? 0);
+        $client = $id > 0 ? (new Client())->find($id) : null;
         if (!$client) {
             Flash::error('Client not found.');
             redirect('clients');
         }
-
-        $model->deleteClient((int)$_GET['id']);
-
-        Flash::success('Client deleted successfully.');
-
-        redirect('clients');
+        $this->view('clients/view', ['title' => $client['company_name'], 'client' => $client]);
     }
-    
-    public function show()
-{
-    $this->requireLogin();
-
-    if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-        redirect('clients');
-    }
-
-    $model = new Client();
-
-    $client = $model->find((int)$_GET['id']);
-
-    if (!$client) {
-        Flash::error('Client not found.');
-        redirect('clients');
-    }
-
-    $this->view('clients/view', [
-        'title'  => $client['company_name'],
-        'client' => $client
-    ]);
-}
-
-
-
-    
 }
