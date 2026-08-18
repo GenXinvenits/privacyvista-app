@@ -1,14 +1,8 @@
 <?php
-$router->get('/', ['HomeController', 'index']);
-$router->get('/login', ['AuthController', 'login']);
-$router->post('/login', ['AuthController', 'authenticate']);
-$router->get('/logout', ['AuthController', 'logout']);
-$router->get('/dashboard', ['HomeController', 'dashboard']);
-$router->get('users', ['UsersController', 'index']);
-$router->get('users/create', ['UsersController', 'create']); $router->post('users/store', ['UsersController', 'store']);
-$router->get('users/edit', ['UsersController', 'edit']); $router->post('users/update', ['UsersController', 'update']); $router->post('users/delete', ['UsersController', 'delete']);
-$router->get('clients', ['ClientsController', 'index']); $router->get('clients/create', ['ClientsController', 'create']); $router->post('clients/store', ['ClientsController', 'store']);
-$router->get('clients/edit', ['ClientsController', 'edit']); $router->post('clients/update', ['ClientsController', 'update']); $router->post('clients/delete', ['ClientsController', 'delete']); $router->get('clients/show', ['ClientsController', 'show']);
+$router->get('/', ['HomeController', 'index']); $router->get('/login', ['AuthController', 'login']); $router->post('/login', ['AuthController', 'authenticate']); $router->get('/logout', ['AuthController', 'logout']); $router->get('/dashboard', ['HomeController', 'dashboard']);
+$router->get('users', ['UsersController', 'index']); $router->get('users/create', ['UsersController', 'create']); $router->post('users/store', ['UsersController', 'store']); $router->get('users/edit', ['UsersController', 'edit']); $router->post('users/update', ['UsersController', 'update']); $router->post('users/delete', ['UsersController', 'delete']);
+$router->get('clients', ['ClientsController', 'index']); $router->get('clients/create', ['ClientsController', 'create']); $router->post('clients/store', ['ClientsController', 'store']); $router->get('clients/edit', ['ClientsController', 'edit']); $router->post('clients/update', ['ClientsController', 'update']); $router->post('clients/delete', ['ClientsController', 'delete']); $router->get('clients/show', ['ClientsController', 'show']);
 $router->get('departments', ['DepartmentsController', 'index']); $router->get('departments/create', ['DepartmentsController', 'create']); $router->post('departments/store', ['DepartmentsController', 'store']); $router->get('departments/edit', ['DepartmentsController', 'edit']); $router->post('departments/update', ['DepartmentsController', 'update']); $router->post('departments/delete', ['DepartmentsController', 'delete']);
 $router->get('processing-activities', ['ProcessingActivitiesController', 'index']); $router->get('processing-activities/create', ['ProcessingActivitiesController', 'create']); $router->post('processing-activities/store', ['ProcessingActivitiesController', 'store']); $router->get('processing-activities/edit', ['ProcessingActivitiesController', 'edit']); $router->post('processing-activities/update', ['ProcessingActivitiesController', 'update']); $router->post('processing-activities/delete', ['ProcessingActivitiesController', 'delete']);
 $router->get('assessments', ['AssessmentsController', 'index']); $router->get('assessments/create', ['AssessmentsController', 'create']); $router->post('assessments/store', ['AssessmentsController', 'store']); $router->get('assessments/edit', ['AssessmentsController', 'edit']); $router->post('assessments/update', ['AssessmentsController', 'update']);
+$router->get('tasks', ['TasksController', 'index']); $router->get('tasks/create', ['TasksController', 'create']); $router->post('tasks/store', ['TasksController', 'store']); $router->post('tasks/status', ['TasksController', 'status']);
