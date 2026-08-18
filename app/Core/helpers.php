@@ -14,11 +14,16 @@ function config(string $key)
 function url(string $route = '', array $params = []): string
 {
     $base = rtrim(config('url'), '/');
-
     $url = $base . '/index.php';
 
     if ($route !== '') {
-        $params = array_merge(['route' => $route], $params);
+        $parts = parse_url($route);
+        $routePath = $parts['path'] ?? $route;
+        if (isset($parts['query'])) {
+            parse_str($parts['query'], $routeParams);
+            $params = array_merge($routeParams, $params);
+        }
+        $params = array_merge(['route' => trim($routePath, '/')], $params);
     }
 
     if (!empty($params)) {
@@ -47,7 +52,5 @@ function auth()
 function component(string $name, array $data = []): void
 {
     extract($data);
-
     require __DIR__ . "/../Views/components/{$name}.php";
 }
-
