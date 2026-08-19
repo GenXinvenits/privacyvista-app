@@ -1,0 +1,47 @@
+<?php
+$template = $template ?? [];
+$definition = $template['definition'] ?? ['sections' => []];
+?>
+<div class="page-header mb-4 d-flex justify-content-between align-items-start">
+    <div><div class="page-title">Edit <?= e($template['name']) ?></div><div class="page-subtitle mb-0">Changes are saved as a new immutable version. Existing records are never changed.</div></div>
+    <a class="btn btn-outline-secondary" href="<?= url('form-templates/versions?slug='.rawurlencode($template['slug'])) ?>">Version history</a>
+</div>
+
+<form method="post" action="<?= url('form-templates/save-version') ?>" id="templateBuilder">
+    <?php include __DIR__ . '/../partials/csrf.php'; ?>
+    <input type="hidden" name="slug" value="<?= e($template['slug']) ?>">
+    <input type="hidden" name="definition" id="definition">
+    <div id="sections"></div>
+    <div class="d-flex gap-2 mt-3"><button type="button" class="btn btn-outline-primary" id="addSection">+ Add section</button><button type="submit" class="btn btn-primary">Create new version</button></div>
+    <div class="card mt-4"><div class="card-body"><label class="form-label">Change summary</label><input class="form-control" name="change_summary" placeholder="Describe what changed in this version"></div></div>
+</form>
+
+<script>
+const initial = <?= json_encode($definition, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) ?>;
+const root = document.getElementById('sections');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+function fieldTemplate(f={}) {
+  const options = Array.isArray(f.options) ? f.options.join(', ') : '';
+  return `<div class="border rounded p-3 mb-2 field-row"><div class="row g-2 align-items-end">
+    <div class="col-md-3"><label class="form-label small">Field key</label><input class="form-control field-key" value="${esc(f.key)}"></div>
+    <div class="col-md-3"><label class="form-label small">Label</label><input class="form-control field-label" value="${esc(f.label)}"></div>
+    <div class="col-md-2"><label class="form-label small">Type</label><select class="form-select field-type"><option>text</option><option>textarea</option><option>select</option><option>multiselect</option><option>date</option><option>number</option><option>email</option></select></div>
+    <div class="col-md-2"><label class="form-label small">Options</label><input class="form-control field-options" value="${esc(options)}" placeholder="A, B, C"></div>
+    <div class="col-md-1"><div class="form-check"><input class="form-check-input field-required" type="checkbox" ${f.required ? 'checked':''}><label class="form-check-label small">Required</label></div></div>
+    <div class="col-md-1 text-end"><button type="button" class="btn btn-sm btn-outline-danger delete-field">Delete</button></div>
+  </div></div>`;
+}
+function sectionTemplate(s={}) {
+  return `<div class="card mb-4 section-row"><div class="card-header d-flex justify-content-between align-items-center"><input class="form-control section-title" value="${esc(s.title)}" placeholder="Section title"><button type="button" class="btn btn-sm btn-outline-danger delete-section">Delete section</button></div><div class="card-body"><textarea class="form-control section-description mb-3" rows="2" placeholder="Section description">${esc(s.description)}</textarea><div class="fields"></div><button type="button" class="btn btn-sm btn-outline-primary add-field">+ Add field</button></div></div>`;
+}
+function addSection(s={}) { root.insertAdjacentHTML('beforeend', sectionTemplate(s)); const sec=root.lastElementChild; const box=sec.querySelector('.fields'); (s.fields||[]).forEach(f=>box.insertAdjacentHTML('beforeend',fieldTemplate(f))); wire(sec); }
+function wire(sec){
+  sec.querySelector('.add-field').onclick=()=>{sec.querySelector('.fields').insertAdjacentHTML('beforeend',fieldTemplate({key:'new_field',label:'New field',type:'text'})); wireFields(sec);};
+  sec.querySelector('.delete-section').onclick=()=>sec.remove(); wireFields(sec);
+}
+function wireFields(sec){sec.querySelectorAll('.delete-field').forEach(b=>b.onclick=()=>b.closest('.field-row').remove());}
+(initial.sections||[]).forEach(addSection); document.getElementById('addSection').onclick=()=>addSection({title:'New section',fields:[]});
+document.getElementById('templateBuilder').onsubmit=()=>{const definition={sections:[]};root.querySelectorAll('.section-row').forEach(sec=>{const section={title:sec.querySelector('.section-title').value.trim(),description:sec.querySelector('.section-description').value.trim(),fields:[]};sec.querySelectorAll('.field-row').forEach(row=>{const f={key:row.querySelector('.field-key').value.trim(),label:row.querySelector('.field-label').value.trim(),type:row.querySelector('.field-type').value,required:row.querySelector('.field-required').checked};const raw=row.querySelector('.field-options').value.trim();if(raw)f.options=raw.split(',').map(v=>v.trim()).filter(Boolean);if(f.key&&f.label)section.fields.push(f);});if(section.title)section.fields.length||definition.sections.push(section);});document.getElementById('definition').value=JSON.stringify(definition);};
+root.querySelectorAll('.section-row').forEach(sec=>wire(sec));
+root.querySelectorAll('.field-row').forEach(row=>{const type=<?= json_encode('') ?>;});
+</script>
