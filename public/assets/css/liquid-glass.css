@@ -1,0 +1,249 @@
+/* =========================================================
+   PrivacyVista — Liquid Glass
+   Apple-inspired Regular Glass treatment for the functional
+   navigation/control layer. Content cards remain content surfaces.
+   ========================================================= */
+
+:root {
+    --lg-bg: rgba(255, 255, 255, .58);
+    --lg-bg-strong: rgba(255, 255, 255, .72);
+    --lg-bg-soft: rgba(255, 255, 255, .42);
+    --lg-border: rgba(255, 255, 255, .68);
+    --lg-border-dark: rgba(20, 30, 50, .10);
+    --lg-highlight: rgba(255, 255, 255, .78);
+    --lg-shadow: 0 12px 34px rgba(31, 45, 70, .14), 0 2px 8px rgba(31, 45, 70, .08);
+    --lg-shadow-soft: 0 8px 24px rgba(31, 45, 70, .10);
+    --lg-blur: 24px;
+    --lg-saturate: 150%;
+    --lg-radius: 16px;
+}
+
+html[data-theme="dark"] {
+    --lg-bg: rgba(18, 27, 43, .58);
+    --lg-bg-strong: rgba(22, 33, 52, .76);
+    --lg-bg-soft: rgba(17, 28, 45, .46);
+    --lg-border: rgba(255, 255, 255, .14);
+    --lg-border-dark: rgba(0, 0, 0, .28);
+    --lg-highlight: rgba(255, 255, 255, .16);
+    --lg-shadow: 0 16px 40px rgba(0, 0, 0, .28), 0 2px 10px rgba(0, 0, 0, .18);
+    --lg-shadow-soft: 0 10px 28px rgba(0, 0, 0, .22);
+}
+
+/* The glass sits above the page content and below overlays. */
+.navbar,
+.sidebar,
+.user-dropdown,
+.dropdown-menu,
+.modal-content {
+    -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate));
+    backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate));
+}
+
+/* =========================================================
+   Sidebar — floating navigation glass
+   ========================================================= */
+.sidebar {
+    background: var(--lg-bg) !important;
+    border-right: 1px solid var(--lg-border) !important;
+    box-shadow: var(--lg-shadow);
+    z-index: 1000;
+}
+
+.sidebar-brand {
+    background: transparent !important;
+    border-bottom-color: var(--lg-border) !important;
+}
+
+.sidebar .nav-link {
+    background: transparent !important;
+    transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link:focus-visible {
+    background: rgba(255,255,255,.12) !important;
+    transform: translateX(1px);
+}
+
+html[data-theme="dark"] .sidebar .nav-link:hover,
+html[data-theme="dark"] .sidebar .nav-link:focus-visible {
+    background: rgba(255,255,255,.07) !important;
+}
+
+.sidebar .nav-link.active {
+    background: rgba(91,140,255,.16) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.16);
+}
+
+/* =========================================================
+   Navbar — elevated glass navigation layer
+   ========================================================= */
+.navbar {
+    position: relative;
+    z-index: 1100;
+    background: var(--lg-bg) !important;
+    border-bottom: 1px solid var(--lg-border) !important;
+    box-shadow: 0 8px 28px rgba(20,30,50,.08), inset 0 -1px 0 var(--lg-highlight);
+}
+
+html[data-theme="dark"] .navbar {
+    box-shadow: 0 10px 30px rgba(0,0,0,.22), inset 0 -1px 0 var(--lg-highlight);
+}
+
+/* =========================================================
+   Profile trigger and dropdown
+   ========================================================= */
+.user-profile-trigger {
+    background: transparent;
+}
+
+.user-profile-trigger:hover,
+.user-profile-trigger:focus-visible {
+    background: rgba(255,255,255,.12);
+}
+
+html[data-theme="dark"] .user-profile-trigger:hover,
+html[data-theme="dark"] .user-profile-trigger:focus-visible {
+    background: rgba(255,255,255,.07);
+}
+
+.user-dropdown,
+.dropdown-menu {
+    background: var(--lg-bg-strong) !important;
+    border: 1px solid var(--lg-border) !important;
+    box-shadow: var(--lg-shadow);
+}
+
+.user-dropdown {
+    z-index: 5000 !important;
+}
+
+.user-dropdown-item,
+.dropdown-item {
+    transition: background .16s ease, color .16s ease;
+}
+
+.user-dropdown-item:hover,
+.user-dropdown-item:focus-visible,
+.dropdown-item:hover,
+.dropdown-item:focus-visible {
+    background: rgba(255,255,255,.14) !important;
+}
+
+html[data-theme="dark"] .user-dropdown-item:hover,
+html[data-theme="dark"] .user-dropdown-item:focus-visible,
+html[data-theme="dark"] .dropdown-item:hover,
+html[data-theme="dark"] .dropdown-item:focus-visible {
+    background: rgba(255,255,255,.08) !important;
+}
+
+/* =========================================================
+   Controls — small glass objects, used selectively
+   ========================================================= */
+.btn-secondary,
+.btn-light,
+.btn-outline-secondary {
+    background: var(--lg-bg-soft) !important;
+    border-color: var(--lg-border) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    backdrop-filter: blur(14px) saturate(140%);
+    box-shadow: inset 0 1px 0 var(--lg-highlight), 0 4px 12px rgba(20,30,50,.06);
+}
+
+.btn-secondary:hover,
+.btn-light:hover,
+.btn-outline-secondary:hover,
+.btn-secondary:focus-visible,
+.btn-light:focus-visible,
+.btn-outline-secondary:focus-visible {
+    background: var(--lg-bg-strong) !important;
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: rgba(91,140,255,.78) !important;
+    border-color: rgba(255,255,255,.28) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.34), 0 7px 18px rgba(91,140,255,.20);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+    background: rgba(114,156,255,.86) !important;
+}
+
+.form-control,
+.form-select {
+    background: var(--lg-bg-soft) !important;
+    border-color: var(--lg-border) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(135%);
+    backdrop-filter: blur(12px) saturate(135%);
+    box-shadow: inset 0 1px 0 var(--lg-highlight);
+}
+
+/* =========================================================
+   Modals — thicker glass presentation layer
+   ========================================================= */
+.modal-content {
+    background: var(--lg-bg-strong) !important;
+    border: 1px solid var(--lg-border) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 24px 70px rgba(0,0,0,.24), inset 0 1px 0 var(--lg-highlight);
+}
+
+html[data-theme="dark"] .modal-content {
+    box-shadow: 0 28px 80px rgba(0,0,0,.42), inset 0 1px 0 var(--lg-highlight);
+}
+
+/* =========================================================
+   Login glass
+   ========================================================= */
+.login-card {
+    background: var(--lg-bg-strong) !important;
+    border-color: var(--lg-border) !important;
+    box-shadow: var(--lg-shadow), inset 0 1px 0 var(--lg-highlight);
+    -webkit-backdrop-filter: blur(28px) saturate(150%);
+    backdrop-filter: blur(28px) saturate(150%);
+}
+
+/* =========================================================
+   Accessibility
+   ========================================================= */
+@media (prefers-contrast: more) {
+    .navbar,
+    .sidebar,
+    .user-dropdown,
+    .dropdown-menu,
+    .modal-content,
+    .login-card {
+        border-color: currentColor !important;
+        -webkit-backdrop-filter: blur(18px) saturate(110%);
+        backdrop-filter: blur(18px) saturate(110%);
+    }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    .navbar,
+    .sidebar,
+    .user-dropdown,
+    .dropdown-menu,
+    .modal-content,
+    .login-card,
+    .btn-secondary,
+    .btn-light,
+    .btn-outline-secondary,
+    .form-control,
+    .form-select {
+        background: var(--pv-surface) !important;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sidebar .nav-link,
+    .btn-secondary,
+    .btn-light,
+    .btn-outline-secondary {
+        transition: none;
+    }
+}
