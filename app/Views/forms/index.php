@@ -1,58 +1,8 @@
 <?php
-$title = $title ?? 'Forms';
-$forms = $forms ?? [];
+$title = $title ?? 'Forms'; $forms = $forms ?? []; $isSuperuser = strtolower((string)($_SESSION['user']['role'] ?? '')) === 'superuser';
 ?>
-
-<div class="page-header d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <div class="page-title">Forms</div>
-        <div class="page-subtitle mb-0">Privacy management templates and data-collection forms.</div>
-    </div>
-</div>
-
+<div class="page-header d-flex justify-content-between align-items-center mb-4"><div><div class="page-title">Forms</div><div class="page-subtitle mb-0">Privacy management templates and data-collection forms.</div></div><?php if($isSuperuser): ?><a class="btn btn-outline-primary" href="<?= url('form-templates') ?>">Manage form templates</a><?php endif; ?></div>
 <div class="row g-4">
-    <?php foreach ($forms as $form): ?>
-        <?php
-        $name = $form['name'];
-        $route = null;
-        if ($name === 'Privacy Risk Assessment') {
-            $route = 'forms/privacy-risk-assessment';
-        } elseif ($name === 'Record of Processing Activities') {
-            $route = 'forms/ropa';
-        } elseif ($name === 'Data Processing Review') {
-            $route = 'processing-activities';
-        } elseif ($name === 'Data Subject Access Request') {
-            $route = 'clients';
-        } elseif ($name === 'Consent Record') {
-            $route = 'clients';
-        } elseif ($name === 'Privacy Incident Report') {
-            $route = 'findings';
-        } elseif ($name === 'Vendor Privacy Questionnaire') {
-            $route = 'clients';
-        }
-        ?>
-        <div class="col-12 col-md-6 col-xl-4">
-            <div class="card form-template-card h-100">
-                <div class="card-body d-flex flex-column">
-                    <div class="form-template-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                            <path d="M7 3h7l4 4v14H7z"/>
-                            <path d="M14 3v5h5M10 13h5M10 17h5"/>
-                        </svg>
-                    </div>
-                    <div class="form-template-category"><?= e($form['category']) ?></div>
-                    <h3 class="form-template-title"><?= e($name) ?></h3>
-                    <p class="form-template-description"><?= e($form['description']) ?></p>
-                    <div class="mt-auto pt-3 d-flex align-items-center justify-content-between gap-3">
-                        <span class="badge bg-success"><?= e($form['status']) ?></span>
-                        <?php if ($route): ?>
-                            <a class="btn btn-primary btn-sm" href="<?= url($route) ?>">Open form</a>
-                        <?php else: ?>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" disabled>Open form</button>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <?php endforeach; ?>
-</div>
+<?php foreach ($forms as $form): $name=$form['name']; $route=null; if($name==='Privacy Risk Assessment')$route='forms/privacy-risk-assessment';elseif($name==='Record of Processing Activities')$route='forms/ropa';elseif($name==='Data Processing Review')$route='processing-activities';elseif($name==='Data Subject Access Request'||$name==='Consent Record'||$name==='Vendor Privacy Questionnaire')$route='clients';elseif($name==='Privacy Incident Report')$route='findings'; ?>
+<div class="col-12 col-md-6 col-xl-4"><div class="card form-template-card h-100"><div class="card-body d-flex flex-column"><div class="form-template-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v5h5M10 13h5M10 17h5"/></svg></div><div class="form-template-category"><?= e($form['category']) ?></div><h3 class="form-template-title"><?= e($name) ?></h3><p class="form-template-description"><?= e($form['description']) ?></p><div class="mt-auto pt-3 d-flex align-items-center justify-content-between gap-3"><span class="badge bg-success"><?= e($form['status']) ?></span><?php if($route): ?><a class="btn btn-primary btn-sm" href="<?= url($route) ?>">Open form</a><?php else: ?><button type="button" class="btn btn-outline-secondary btn-sm" disabled>Open form</button><?php endif; ?></div></div></div></div>
+<?php endforeach; ?></div>
