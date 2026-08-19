@@ -17,6 +17,8 @@
 
                 <?php
                 $fullname = $_SESSION['user']['fullname'] ?? 'User';
+                $role = $_SESSION['user']['role'] ?? 'User';
+                $roleLabel = ucwords(str_replace(['_', '-'], ' ', trim($role)));
                 $initial = strtoupper(substr(trim($fullname), 0, 1));
                 ?>
 
@@ -25,7 +27,7 @@
                         <span class="user-avatar"><?= e($initial) ?></span>
                         <span class="user-details">
                             <span class="user-name"><?= e($fullname) ?></span>
-                            <span class="user-status">Signed in</span>
+                            <span class="user-status"><?= e($roleLabel) ?></span>
                         </span>
                         <svg class="user-chevron" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <polyline points="6 9 12 15 18 9"/>
@@ -37,7 +39,7 @@
                             <span class="user-dropdown-avatar"><?= e($initial) ?></span>
                             <div>
                                 <strong><?= e($fullname) ?></strong>
-                                <small>Signed in</small>
+                                <small><?= e($roleLabel) ?></small>
                             </div>
                         </div>
 
