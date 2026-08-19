@@ -21,7 +21,7 @@
                 ?>
 
                 <div class="user-profile-menu">
-                    <button type="button" class="user-profile-trigger" aria-label="User menu">
+                    <button type="button" class="user-profile-trigger" aria-label="User menu" aria-expanded="false" aria-controls="mobile-user-dropdown">
                         <span class="user-avatar"><?= e($initial) ?></span>
                         <span class="user-details">
                             <span class="user-name"><?= e($fullname) ?></span>
@@ -32,7 +32,7 @@
                         </svg>
                     </button>
 
-                    <div class="user-dropdown">
+                    <div class="user-dropdown" id="mobile-user-dropdown">
                         <div class="user-dropdown-header">
                             <span class="user-dropdown-avatar"><?= e($initial) ?></span>
                             <div>
@@ -68,3 +68,34 @@
     </nav>
 
     <div class="page-content">
+
+<script>
+(function () {
+    'use strict';
+
+    const menu = document.querySelector('.user-profile-menu');
+    const trigger = menu?.querySelector('.user-profile-trigger');
+    const dropdown = menu?.querySelector('.user-dropdown');
+
+    if (!menu || !trigger || !dropdown) return;
+
+    trigger.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const open = menu.classList.toggle('is-open');
+        trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', function (event) {
+        if (!menu.contains(event.target)) {
+            menu.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    dropdown.addEventListener('click', function (event) {
+        event.stopPropagation();
+    });
+})();
+</script>
