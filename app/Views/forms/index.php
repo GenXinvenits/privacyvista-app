@@ -17,6 +17,8 @@ $forms = $forms ?? [];
         $route = null;
         if ($name === 'Privacy Risk Assessment') {
             $route = 'forms/privacy-risk-assessment';
+        } elseif ($name === 'Record of Processing Activities') {
+            $route = 'forms/ropa';
         } elseif ($name === 'Data Processing Review') {
             $route = 'processing-activities';
         } elseif ($name === 'Data Subject Access Request') {
