@@ -53,17 +53,9 @@
                             <span>Edit profile</span>
                         </a>
 
-                        <a href="/app/public/index.php?route=settings" class="user-dropdown-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <circle cx="12" cy="12" r="3"/>
-                                <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.8 1.8-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.55V20h-2.55v-.11a1.7 1.7 0 0 0-1.03-1.55 1.7 1.7 0 0 0-1.88.34l-.06.06-1.8-1.8.06-.06A1.7 1.7 0 0 0 8.1 15a1.7 1.7 0 0 0-1.55-1.03H6v-2.55h.11A1.7 1.7 0 0 0 7.66 10.4a1.7 1.7 0 0 0-.34-1.88l-.06-.06 1.8-1.8.06.06A1.7 1.7 0 0 0 11 6.38a1.7 1.7 0 0 0 1.03-1.55V4h2.55v.11a1.7 1.7 0 0 0 1.03 1.55 1.7 1.7 0 0 0 1.88-.34l.06-.06 1.8 1.8-.06.06A1.7 1.7 0 0 0 19.4 9c.2.6.77 1.03 1.4 1.03H21v2.55h-.11A1.7 1.7 0 0 0 19.4 15Z"/>
-                            </svg>
-                            <span>Settings</span>
-                        </a>
-
                         <a href="/app/public/index.php?route=logout" class="user-dropdown-item logout-item">
                             <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <path d="M9 21H5a2 2 0 0 0-2 2V5a2 2 0 0 0 2-2h4"/>
                                 <polyline points="16 17 21 12 16 7"/>
                                 <line x1="21" y1="12" x2="9" y2="12"/>
                             </svg>
