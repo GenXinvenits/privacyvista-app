@@ -1,7 +1,4 @@
-/* =========================================================
-   PrivacyVista — Apple-style Liquid Glass cursor shine
-   Applied to application cards and the login card.
-   ========================================================= */
+/* PrivacyVista — lightweight cursor-sensitive Liquid Glass rim */
 
 .card,
 .login-card {
@@ -13,52 +10,29 @@
     overflow: hidden;
 }
 
-/* Thin specular rim. It follows the cursor around the element edge
-   instead of washing the entire surface with a bright hover glow. */
+/* One compositor-friendly pseudo-element keeps the shine strictly on the rim. */
 .card::after,
 .login-card::after {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 20;
+    padding: 1px;
     pointer-events: none;
     border-radius: inherit;
-    padding: 1px;
     opacity: var(--glass-shine-opacity);
-    background:
-        radial-gradient(
-            115px 115px at var(--glass-shine-x) var(--glass-shine-y),
-            rgba(255,255,255,.52) 0%,
-            rgba(255,255,255,.20) 18%,
-            rgba(255,255,255,.055) 42%,
-            transparent 72%
-        );
-    -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
+    background: radial-gradient(
+        105px 105px at var(--glass-shine-x) var(--glass-shine-y),
+        rgba(255,255,255,.48) 0,
+        rgba(255,255,255,.16) 18%,
+        rgba(255,255,255,.045) 42%,
+        transparent 70%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    transition: opacity .12s ease-out;
-}
-
-/* Subtle refraction immediately inside the active edge. */
-.card::before,
-.login-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 19;
-    pointer-events: none;
-    border-radius: inherit;
-    opacity: calc(var(--glass-shine-opacity) * .55);
-    background:
-        radial-gradient(
-            180px 90px at var(--glass-shine-x) var(--glass-shine-y),
-            rgba(255,255,255,.065),
-            transparent 72%
-        );
-    mix-blend-mode: screen;
-    transition: opacity .12s ease-out;
+    will-change: opacity;
+    transition: opacity .1s ease-out;
 }
 
 .card > *,
@@ -67,23 +41,22 @@
     z-index: 21;
 }
 
+/* Light mode gets a slightly brighter specular rim. */
 html[data-theme="light"] .card::after,
 html[data-theme="light"] .login-card::after {
-    background:
-        radial-gradient(
-            115px 115px at var(--glass-shine-x) var(--glass-shine-y),
-            rgba(255,255,255,.82) 0%,
-            rgba(255,255,255,.34) 18%,
-            rgba(79,127,245,.08) 42%,
-            transparent 72%
-        );
+    background: radial-gradient(
+        105px 105px at var(--glass-shine-x) var(--glass-shine-y),
+        rgba(255,255,255,.76) 0,
+        rgba(255,255,255,.28) 18%,
+        rgba(79,127,245,.065) 42%,
+        transparent 70%
+    );
 }
 
 @media (prefers-reduced-motion: reduce) {
     .card::after,
-    .card::before,
-    .login-card::after,
-    .login-card::before {
+    .login-card::after {
         transition: none;
+        will-change: auto;
     }
 }
