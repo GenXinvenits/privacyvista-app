@@ -34,7 +34,6 @@ img, svg, video, canvas { max-width:100%; }
     .app-shell { display:block; min-height:100svh; }
     .app-main { display:flex; min-height:100svh; padding-bottom:var(--mobile-nav-height); }
 
-    /* Compact Liquid Glass bottom navigation. */
     .sidebar {
         position:fixed;
         left:0; right:0; bottom:0;
@@ -86,8 +85,14 @@ img, svg, video, canvas { max-width:100%; }
         text-align:center;
     }
 
-    /* Replace desktop-only nav labels with compact icon + label. */
-    .sidebar .nav-link::before { display:none; }
+    /* Hide any legacy desktop/mobile navigation dot markers. */
+    .sidebar .nav-link::before,
+    .sidebar .nav-link::after,
+    .sidebar nav::before,
+    .sidebar nav::after {
+        content:none !important;
+        display:none !important;
+    }
 
     .sidebar .mobile-nav-icon {
         display:block;
