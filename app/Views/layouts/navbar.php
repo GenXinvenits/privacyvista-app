@@ -27,7 +27,7 @@
                         <span class="user-avatar"><?= e($initial) ?></span>
                         <span class="user-details">
                             <span class="user-name"><?= e($fullname) ?></span>
-                            <span class="user-status"><span class="badge bg-success">Active</span></span>
+                            <span class="user-status badge bg-success"><?= e($roleLabel) ?></span>
                         </span>
                         <svg class="user-chevron" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <polyline points="6 9 12 15 18 9"/>
@@ -55,7 +55,7 @@
 
                         <a href="/app/public/index.php?route=logout" class="user-dropdown-item logout-item">
                             <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="M9 21H5a2 2 0 0 1 2-2V5a2 2 0 0 1 2-2h4"/>
+                                <path d="M9 21H5a2 2 0 0 0-2 2V5a2 2 0 0 0 2-2h4"/>
                                 <polyline points="16 17 21 12 16 7"/>
                                 <line x1="21" y1="12" x2="9" y2="12"/>
                             </svg>
