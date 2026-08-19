@@ -35,23 +35,45 @@ img, svg, video, canvas { max-width:100%; }
     }
 
     .sidebar-brand { display:none !important; }
+
+    /* Keep the primary five workspace items visible and evenly distributed.
+       Findings is intentionally the fifth item: Dashboard, Clients,
+       Activities, Assessments, Findings. Remaining items can be reached
+       with horizontal scrolling. */
     .sidebar nav {
-        display:flex; flex-direction:row !important; align-items:stretch; justify-content:center;
-        gap:2px; width:100%; height:100%; padding:0 !important;
+        display:flex; flex-direction:row !important; align-items:stretch;
+        justify-content:flex-start;
+        gap:0; height:100%; padding:0 !important;
         overflow-x:auto; overflow-y:hidden; scrollbar-width:none;
     }
     .sidebar nav::-webkit-scrollbar { display:none; }
     .sidebar-section { display:none !important; }
+
     .sidebar .nav-link {
-        position:relative; flex:0 1 78px; min-width:66px; max-width:84px;
-        height:54px; margin:0; padding:5px 7px 4px; border-radius:13px;
+        position:relative;
+        flex:0 0 20%;
+        width:20%; min-width:20%; max-width:20%;
+        height:54px; margin:0; padding:5px 4px 4px;
+        border-radius:13px;
         display:flex; flex-direction:column; align-items:center; justify-content:center;
         gap:3px; white-space:nowrap; font-size:.64rem; line-height:1; text-align:center;
     }
-    .sidebar .nav-link::before, .sidebar .nav-link::after, .sidebar nav::before, .sidebar nav::after { display:none !important; content:none !important; }
-    .sidebar .mobile-nav-icon { display:block; width:21px; height:21px; flex:0 0 21px; stroke:currentColor; opacity:.82; transition:transform .16s ease, opacity .16s ease; }
-    .sidebar .nav-link span { display:block; max-width:72px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; opacity:.78; }
-    .sidebar .nav-link:hover .mobile-nav-icon, .sidebar .nav-link:focus-visible .mobile-nav-icon, .sidebar .nav-link.active .mobile-nav-icon { opacity:1; transform:translateY(-1px); }
+
+    .sidebar .nav-link::before, .sidebar .nav-link::after,
+    .sidebar nav::before, .sidebar nav::after { display:none !important; content:none !important; }
+
+    .sidebar .mobile-nav-icon {
+        display:block; width:21px; height:21px; flex:0 0 21px;
+        stroke:currentColor; opacity:.82;
+        transition:transform .16s ease, opacity .16s ease;
+    }
+    .sidebar .nav-link span {
+        display:block; width:100%; max-width:100%; overflow:hidden;
+        text-overflow:ellipsis; white-space:nowrap; opacity:.78;
+    }
+    .sidebar .nav-link:hover .mobile-nav-icon,
+    .sidebar .nav-link:focus-visible .mobile-nav-icon,
+    .sidebar .nav-link.active .mobile-nav-icon { opacity:1; transform:translateY(-1px); }
     .sidebar .nav-link.active span { opacity:1; font-weight:650; }
     .sidebar .nav-link.active { background:rgba(91,140,255,.18) !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.16); }
 
@@ -72,9 +94,12 @@ img, svg, video, canvas { max-width:100%; }
         width:min(250px,calc(100vw - 20px));
         max-height:calc(100svh - var(--mobile-nav-height) - 82px);
         overflow-y:auto; z-index:10000 !important;
-        opacity:0; visibility:hidden; transform:translateY(8px) scale(.98); pointer-events:none;
+        opacity:0; visibility:hidden; transform:translateY(8px) scale(.98);
+        pointer-events:none;
     }
-    .user-profile-menu.is-open .user-dropdown { opacity:1; visibility:visible; transform:translateY(0) scale(1); pointer-events:auto; }
+    .user-profile-menu.is-open .user-dropdown {
+        opacity:1; visibility:visible; transform:translateY(0) scale(1); pointer-events:auto;
+    }
     .user-profile-menu.is-open .user-profile-trigger { background:rgba(255,255,255,.10); }
 
     .page-title { font-size:1.35rem; }
@@ -104,8 +129,7 @@ img, svg, video, canvas { max-width:100%; }
 @media (max-width:399.98px) {
     .navbar { padding-inline:10px; }
     .page-content { padding-inline:10px; }
-    .sidebar nav { justify-content:flex-start; }
-    .sidebar .nav-link { min-width:62px; flex-basis:68px; padding-inline:5px; font-size:.61rem; }
+    .sidebar .nav-link { flex-basis:20%; width:20%; min-width:20%; max-width:20%; padding-inline:3px; font-size:.61rem; }
     .sidebar .mobile-nav-icon { width:20px; height:20px; flex-basis:20px; }
     .card-body { padding:13px; }
     .login-card { padding:24px 17px; }
@@ -113,7 +137,7 @@ img, svg, video, canvas { max-width:100%; }
 
 @media (orientation:landscape) and (max-width:767.98px) {
     :root { --mobile-nav-height:60px; }
-    .sidebar .nav-link { height:48px; min-width:64px; flex-basis:72px; padding-block:3px; flex-direction:row; gap:5px; }
+    .sidebar .nav-link { height:48px; min-width:20%; max-width:20%; padding-block:3px; flex-direction:column; gap:2px; }
     .sidebar .mobile-nav-icon { width:19px; height:19px; flex-basis:19px; }
 }
 
