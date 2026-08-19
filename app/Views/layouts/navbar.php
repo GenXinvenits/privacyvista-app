@@ -98,10 +98,6 @@
     }
 
     trigger.addEventListener('click', toggleMenu);
-    trigger.addEventListener('touchend', function (event) {
-        if (!mobileQuery.matches) return;
-        toggleMenu(event);
-    }, { passive: false });
 
     document.addEventListener('click', function (event) {
         if (!menu.contains(event.target)) closeMenu();
