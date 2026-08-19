@@ -28,7 +28,7 @@ $clientQuery = $hasClientContext ? '&client_id=' . rawurlencode((string)$clientI
             </a>
         <?php elseif ($isAdmin && $hasClientContext): ?>
             <a class="nav-link" href="/app/public/index.php?route=clients<?= $clientQuery ?>" data-mobile-label="Clients" aria-label="Clients">
-                <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0 4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                 <span>Clients</span>
             </a>
         <?php endif; ?>
@@ -59,5 +59,7 @@ $clientQuery = $hasClientContext ? '&client_id=' . rawurlencode((string)$clientI
         <?php if ($isSuperuser || $isAdmin): ?>
             <a class="nav-link" href="/app/public/index.php?route=reports<?= $isAdmin ? $clientQuery : '' ?>" data-mobile-label="Reports" aria-label="Reports"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 19V5M4 19h16"/><path d="m7 16 4-5 3 3 5-7"/></svg><span>Reports</span></a>
         <?php endif; ?>
+
+        <a class="nav-link" href="/app/public/index.php?route=settings" data-mobile-label="Settings" aria-label="Settings"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="m19.4 15 .1.1a2 2 0 1 1-2.8 2.8l-.1-.1a2 2 0 0 0-3.4 1.4v.3a2 2 0 1 1-4 0v-.3a2 2 0 0 0-3.4-1.4l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A2 2 0 0 0 3.7 12a2 2 0 0 0-.3-1.1l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A2 2 0 0 0 9.6 6.7h.3a2 2 0 0 0 1.1-.3 2 2 0 0 0 0-3.5 2 2 0 1 1 4 0v.3a2 2 0 0 0 1.4 1.8 2 2 0 0 0 1.9-.4l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A2 2 0 0 0 20.3 12a2 2 0 0 0-.9 1.7 2 2 0 0 0 0 1.3Z"/></svg><span>Settings</span></a>
     </nav>
 </aside>
