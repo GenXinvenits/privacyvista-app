@@ -21,16 +21,22 @@ a:hover { color: #75d5c5; }
     box-shadow: 0 0 0 .2rem rgba(62, 188, 168, .12) !important;
 }
 
-.btn-primary {
+/* Primary action buttons */
+.btn-primary,
+.btn-primary:visited {
     background: #3ebca8 !important;
     border-color: #3ebca8 !important;
+    color: #fff !important;
 }
 
 .btn-primary:hover,
 .btn-primary:focus,
-.btn-primary:active {
+.btn-primary:active,
+.btn-primary.active,
+.show > .btn-primary.dropdown-toggle {
     background: #35a996 !important;
     border-color: #35a996 !important;
+    color: #fff !important;
 }
 
 .btn-outline-primary {
@@ -40,9 +46,43 @@ a:hover { color: #75d5c5; }
 
 .btn-outline-primary:hover,
 .btn-outline-primary:focus,
-.btn-outline-primary:active {
+.btn-outline-primary:active,
+.btn-outline-primary.active {
     background: #3ebca8 !important;
     border-color: #3ebca8 !important;
+    color: #fff !important;
+}
+
+/* Bootstrap buttons that are currently rendered as the default blue */
+.btn-info,
+.btn-info:visited {
+    background: #3ebca8 !important;
+    border-color: #3ebca8 !important;
+    color: #fff !important;
+}
+
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active,
+.btn-info.active {
+    background: #35a996 !important;
+    border-color: #35a996 !important;
+    color: #fff !important;
+}
+
+/* Keep semantic actions, but remove Bootstrap's blue-looking variants. */
+.btn-secondary {
+    background: #263247 !important;
+    border-color: #35435a !important;
+    color: #e7edf7 !important;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active,
+.btn-secondary.active {
+    background: #35435a !important;
+    border-color: #46566f !important;
     color: #fff !important;
 }
 
@@ -63,5 +103,6 @@ a:hover { color: #75d5c5; }
 }
 
 .login-submit:hover {
+    background: #35a996 !important;
     box-shadow: 0 8px 18px rgba(62, 188, 168, .25);
 }
