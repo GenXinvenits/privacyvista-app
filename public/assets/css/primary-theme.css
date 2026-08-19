@@ -1,0 +1,67 @@
+:root {
+    --pv-primary: #3ebca8;
+    --pv-primary-soft: rgba(62, 188, 168, .14);
+}
+
+a { color: #3ebca8; }
+a:hover { color: #75d5c5; }
+
+.sidebar .nav-link.active {
+    background: rgba(62, 188, 168, .16) !important;
+}
+
+.user-profile-trigger .user-avatar,
+.user-dropdown-avatar {
+    color: #3ebca8;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #3ebca8 !important;
+    box-shadow: 0 0 0 .2rem rgba(62, 188, 168, .12) !important;
+}
+
+.btn-primary {
+    background: #3ebca8 !important;
+    border-color: #3ebca8 !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background: #35a996 !important;
+    border-color: #35a996 !important;
+}
+
+.btn-outline-primary {
+    color: #3ebca8 !important;
+    border-color: #3ebca8 !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+    background: #3ebca8 !important;
+    border-color: #3ebca8 !important;
+    color: #fff !important;
+}
+
+.badge.bg-primary,
+.pagination .active > .page-link {
+    background: #3ebca8 !important;
+    border-color: #3ebca8 !important;
+}
+
+.form-check-input:checked {
+    background-color: #3ebca8 !important;
+    border-color: #3ebca8 !important;
+}
+
+.login-submit {
+    background: #3ebca8 !important;
+    box-shadow: 0 5px 14px rgba(62, 188, 168, .20);
+}
+
+.login-submit:hover {
+    box-shadow: 0 8px 18px rgba(62, 188, 168, .25);
+}
