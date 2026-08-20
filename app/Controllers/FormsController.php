@@ -46,12 +46,30 @@ class FormsController extends BaseController
   }}
   return array_filter($fields,static fn($key)=>$key!=='',ARRAY_FILTER_USE_KEY);
  }
+ private function fieldVisible(array $field,array $input):bool
+ {
+  if(empty($field['show_when'])||!is_array($field['show_when']))return true;
+  $source=(string)($field['show_when']['field']??'');$equals=(string)($field['show_when']['equals']??'');$actual=$input[$source]??null;
+  if(is_array($actual))return in_array($equals,array_map('strval',$actual),true);
+  return (string)$actual===$equals;
+ }
  private function validateRopaPayload(array $definition,array $input,string $role,int $clientId):array
  {
   $fields=$this->definitionFields($definition,$role); $payload=['client_id'=>$clientId,'ropa_role'=>$role]; $errors=[];
   foreach($fields as $key=>$field){
-   if((string)($field['type']??'text')==='auto'||$key==='client_id')continue;
-   $type=(string)($field['type']??'text'); $value=$input[$key]??null;
+   $type=(string)($field['type']??'text');
+   if($key==='client_id')continue;
+   if(in_array($type,['auto','auto_date','verification','derived_date'],true)){
+    if($type==='auto_date')$payload[$key]=date('Y-m-d');
+    elseif($type==='derived_date'){
+     $source=(string)($field['derived_from']??'');$base=trim((string)($input[$source]??''));$derived='';
+     if($base!==''){try{$d=\DateTime::createFromFormat('Y-m-d',$base);if($d&&$d->format('Y-m-d')===$base){$d->modify('+' . (int)($field['offset_months']??0) . ' months');$derived=$d->format('Y-m-d');}}catch(\Throwable $e){}}
+     $payload[$key]=$derived;
+    } else {$payload[$key]=trim((string)($input[$key]??''));}
+    continue;
+   }
+   if(!$this->fieldVisible($field,$input)){ $payload[$key]=($type==='multiselect'?[]:''); continue; }
+   $value=$input[$key]??null;
    if($type==='multiselect'){
     $values=is_array($value)?$value:($value===null||$value===''?[]:[(string)$value]);
     $values=array_values(array_unique(array_map('strval',$values)));
