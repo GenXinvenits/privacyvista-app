@@ -7,6 +7,7 @@
 
 /* The navbar spans the complete viewport. Keep the sidebar below it. */
 .navbar{position:fixed;top:0;left:0;width:100%;z-index:1100;}
+html[data-theme="dark"] .navbar{box-shadow:0 10px 30px rgba(0,0,0,.22), inset 0 0px 0 var(--lg-highlight);}
 .app-main{padding-top:72px;}
 @media (min-width:992px){
     .sidebar{margin-top:72px;min-height:calc(100vh - 72px);height:calc(100vh - 72px);}
