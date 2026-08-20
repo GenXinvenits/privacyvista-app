@@ -11,7 +11,7 @@ class FormsController extends BaseController
 {
  private function forms():array{return [['name'=>'Data Subject Access Request','description'=>'Capture and manage requests from data subjects to access their personal data.','category'=>'Data Subject Rights','status'=>'Available'],['name'=>'Consent Record','description'=>'Record consent collection, purpose, source and withdrawal information.','category'=>'Consent Management','status'=>'Available'],['name'=>'Privacy Incident Report','description'=>'Capture the initial details of a suspected privacy or personal-data incident.','category'=>'Incident Management','status'=>'Available'],['name'=>'Data Processing Review','description'=>'Structured review form for documenting a processing activity and its privacy controls.','category'=>'Processing Activities','status'=>'Available'],['name'=>'Record of Processing Activities','description'=>'Create and maintain a complete ROPA record for each processing activity.','category'=>'Processing Activities','status'=>'Available'],['name'=>'Privacy Risk Assessment','description'=>'Structured review form for documenting privacy risks associated with a project or process.','category'=>'Assessments','status'=>'Available'],['name'=>'Vendor Privacy Questionnaire','description'=>'Gather privacy and data-protection information from third-party vendors.','category'=>'Third Parties','status'=>'Available']];}
  private function canSelectClient():bool{return $this->isSuperuser()||$this->isAdmin();}
- protected function isSuperuser():bool{return $this->role()==='superuser';}
+ protected function isSuperuser():bool{return $this->role()==='superuser'||(int)($this->user()['role_id']??0)===1;}
  private function assignedClients():array
  {
   if($this->isSuperuser()) return (new Client())->allClients();
@@ -31,7 +31,12 @@ class FormsController extends BaseController
   $id=(int)($_GET['client_id']??$_POST['client_id']??0);
   if($id<=0&&$this->clientId())$id=$this->clientId();
   if($id<=0){$clients=$this->assignedClients();$id=(int)($clients[0]['id']??0);}
-  if($id<=0||!$this->canAccessFormClient($id)){
+  if($id<=0){
+   http_response_code(404);
+   $this->view('errors/403',['title'=>'No organisation available','message'=>'Create or assign an organisation before opening this form.']);
+   exit;
+  }
+  if(!$this->canAccessFormClient($id)){
    http_response_code(403); $this->view('errors/403',['title'=>'Access denied','message'=>'You do not have access to this client or its form data.']); exit;
   }
   $client=(new Client())->find($id); if(!$client){http_response_code(404);exit('Client not found');} return $client;
