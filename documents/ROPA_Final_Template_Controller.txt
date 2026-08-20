@@ -1,0 +1,418 @@
+                                                                            Department /
+References                                     Organization                                           Project name/Processing
+                         Record ID                                     Business/Organizational                                    Process / Activity Name
+/Inforamtions                                     Name                                                         Context
+                                                                                Unit
+
+                        ISO 27701 A.7.2.8    GDPR Art.30, ISO 27701
+Applicable Standards   (Documentation)             A.7.2.8
+                                                                             ISO 27701 A.7.2.8             ISO 27701 A.7.2.8            GDPR Art.30(1)
+
+
+
+Relation To Other                           This inforamtion          This inforamtion Goes to All                              This inforamtion Goes to All
+                       NA
+Forms                                       Goes to All Forms         Forms                                                     Forms
+
+                                                                      Auto Populated, 'Other'
+Field Type             Alpha-Numeric Auto Populated                   named field can be added       Manual Enrty               Manual Enrty
+                                                                      so User Should fill details
+Source of Data         Self Generated Vendor Profile                  Vendor Profile
+
+                                                                                                                                Can be used in other
+Comments/ Dropdown
+                                                                                                                                docuemnts like DPIA, LIA,
+List
+                                                                                                                                TIA etc.
+
+
+                                            These fields will be referenced into other forms.
+                                               The Inforamfion Need to be transferred
+                                                       Applicable to Projects only
+                                               This field can be deleted if we are able to
+                                                 maintain Document Version Control
+                                                              Automatically
+                                                        Idle/Independent Fields
+    Processing Status-
+                                                                     Applicable Legal
+      active/inactive                                                                                                       Data Protection
+                             Processing Role (Controller               Framework                                                                         EU Representative
+  (mark as inactive if the                                                              Process Owner / Contact             Officer Name /
+                                 / Joint Controller)                (GDPR, ISO 27701,                                                                   Name (if Applicable)
+ data process is no longer                                                                                                     Contact
+                                                                      CCPA, DPDPA)
+       happening)
+                                                                                                                            GDPR Art.37–39, HIPAA
+                              GDPR Art.4, Art.26, Art.28, DPDPA
+        Best Practice                                                   Best Practice    GDPR Art.24, ISO 27701 A.7.2.8    Privacy Officer, ISO 27701        GDPR Art.27
+                                            Sec.2
+                                                                                                                                     A.5.2
+
+                             This inforamtion Goes to All This inforamtion Goes to This inforamtion Goes to This inforamtion
+                             Forms                        All Forms                All Forms                Goes to All Forms
+
+
+                                                                  Manual Enrty-
+Manual Enrty                 Manual Enrty- Dropdown                                     Manual Enrty                      Auto Populated                Manual Enrty
+                                                                  Dropdown-
+
+                                                                                                                          Vendor Profile
+                                                           1.GDPR,
+                                                           2. ISO 27701,
+                             Controller / Joint Controller 3. CCPA,
+                                                           4. DPDPA
+                                                           5. Any Other - TextBox
+Date of Entry / Update                 Lawful Basis for Processing                 Purpose of Processing               Data Subject Categories     Personal Data Categories
+
+
+
+                                   GDPR Art.6, Art.9, DPDPA Sec.5, HIPAA 45 CFR    GDPR Art.5(1)(b), Art.30, DPDPA
+GDPR Art.30, ISO 27701 A.7.2.8                                                                                                GDPR Art.30                  GDPR Art.30
+                                                      §164.506                        Sec.5, ISO 27701 A.7.2.1
+
+
+                                                                                  This inforamtion Goes to           This inforamtion Goes to All This inforamtion Goes to All
+                                 This inforamtion Goes to All Forms
+                                                                                  All Forms                          Forms                        Forms
+                                                                                                                                                 1. PII (Personally
+                                                                                                                     Dropdown & Checkbox-
+                                                                                                                                                 Identifiable Information)
+Auto Generated                   Dropwdown option                                 Manual Entry                       (Users can select
+                                                                                                                     Dropwdown         1 or
+                                                                                                                                  option         Dropwdown     optionAddress,
+                                                                                                                                                 (e.g., Name, Email
+                                                                                                                     multiple options)
+                        Dropdown & Checkbox- (Users can                                                                                          IP Address, Account
+Default date            select 1 or multiple options)                                                                                            Number, Date of Birth,
+                                                                                                                     1. Employees (Personnel)
+                        1. Consent (The Primary Ground)                                                                                          Physical Address)
+                                                                                                                     2. Customers/Clients
+This coloumn we can 2. Legitimate Uses (Processing without
+                                                                                                                     3. Job
+remove and use this as Consent)                                                                                                                  2.SPI (Sensitive Personal
+                                                                                                                     Applicants/Candidates
+part of Version History 3. Contract                                                                                                              Information) (e.g.,
+                                                                                                                     4. Website/App Users
+                        4. Legal Obligation                                                                                                      Financial, Health Diagnosis,
+                                                                                                                     5.Contractors/Vendors/Su
+                        5.Public Interest                                                                                                        Biometric Fingerprint Data
+                                                                                                                     ppliers
+                        6. Vital Interests                                                                                                       used for unique
+                                                                                                                     6. Shareholders/Investors
+                                                                                                                                                 identification, Racial Origin,
+                                                                                                                     7.Children data
+                                                                                                                                                 Political Opinions, Sexual
+                                                                                                                     8. Person with Disability
+                                                                                                                                                 Orientation etc.)
+                                                                                                                     9. Business Contacts
+Genetic Data (E.g., DNA test results)
+
+Biometric Data (for unique ID) (E.g.,
+Fingerprint templates, facial template)
+
+Payment Card Data (Full) (E.g., PAN, full
+track data, CVV)                                                                                                              Referene to Data Privacy
+    Special Category / Sensitive Data                                                                                       Notice Given (Policy Name or
+                                                          Large Scale Processing (Y/N)      Source of Personal Data
+     (GDPR
+Financial   Art.9 / +DPDPA
+          Account          Sec.3(36))
+                      Credentials (E.g.,                                                                                                 ID)
+Bank account + password)                                                                                                           (As per DPDPA)
+
+GDPR Art.9, HIPAA PHI, DPDPA Sensitive Data (future
+Government IDs (E.g.,
+                  rules)
+                         SSN, Driver's                             GDPR Art.35                     GDPR Art.13–14              GDPR Art.13–14, DPDPA Sec.5
+License, Passport)
+                                                                                         This inforamtion Goes to All      This inforamtion Goes to All
+This inforamtion
+Precise          Goes
+        Geolocation    to All
+                    (E.g.,    Forms
+                           Real-time                                                     Forms                             Forms
+phone location)
+
+Racial/Ethnic Origin (E.g., Race or ethnic Dropwdown option
+Dropwdown option                                                                         Dropwdown option                  Manual Entry
+group)
+
+Religious/Philosophical Beliefs (E.g.,                                                   1. Directly Collected from Data
+Specific faith)                                                                          Subject(Consent is provided)
+                                                                                         2. Indirect (web cookies, Third
+                                                      Yes/No
+Political Opinions (E.g., Party                                                          Parties, Integrations, Publicly
+membership)                                                                              Available, Server Logs etc.)
+                                                                                         Inventory etc)
+Trade Union Membership (E.g., Labor
+organization membership)
+
+Employement Data containing Sensive
+Information
+
+Identity Documentations containing
+Sensive Information
+
+Sex Life Data (E.g., Sexual activity
+information)
+
+Sexual Orientation Data (E.g., Sexual
+preference/identity)
+
+Criminal History (E.g., Conviction
+                                 Primary Hosting
+                                   System/Asset
+       Data Format                                            Processing Environment (On-             Data Storage Location/s         Is this Country Whiitelisted as per
+                             (Mention System / Tool /
+                                                                     prem / Cloud )                    (Country/ies Names)                        DPDPA List
+                             Application names where
+                              data enters or stored)
+
+     ISO 27701 / ISO 27001          ISO 27701 A.7.2.8             GDPR Art.32, ISO 27701 A.7.4            GDPR Art.30, Art.44           DPDPA Cross-border Transfer Provisions
+
+
+
+                             This inforamtion Goes to All
+                                                                                                 This inforamtion Goes to All Forms
+                             Forms
+
+
+Dropwdown option             Manual Entry                   Dropwdown option                     Manual Entry                         Automated Verification
+
+
+                                                                                                                                      Database
+                                                            1. On-Premise
+                                                            2. On Cloud
+Paper/Digital/Both
+                                                            3. Hybrid
+                                                            4. Other
+                                                             Data Retention          Sale / Sharing of Personal
+                                                                                                                                 Data Sharing
+      Data Volume                 Processing Frequency       Period/Storage                 Information?
+                                Annually                                                                                        (As per GDPR)
+                                                               Limitation                  (As per CCPA)
+
+                                Quarterly
+                                                             GDPR Art.5(1)(e), ISO
+  Best Practice / GDPR Art.35           Best Practice                                 CCPA/CPRA §1798.140, §1798.120             GDPR Art.30(1)(d)
+                                                               27701 A.7.4.3
+                                Bi-Annually (Twice a year)
+                                                             This inforamtion
+                                                                                                                       This inforamtion Goes to All
+                                Monthly                      Goes to All
+1. <100000= Normal                                                                                                     Forms
+                                                             Forms
+Volume
+                               Regularly/Systematically
+2. =<100000<6 million =
+Dropwdown      option          (Continuous processing, Manual Entry
+CCPA applicabilty     for Bulk Dropwdown option                                      Manual Entry                      Dropwdown option
+                               like tracking or
+Data
+                               monitoring)
+3. <6million ( if its Card
+holder data then PCI-DSS -
+                               When a Significant
+Highest Audit
+                               Change Happens to
+Requirement applies.                                                                                                   (Internal / External)
+                               Existing Processing (E.g.,
+Mandates an annual on-
+                               new data category, new
+site audit (Report on
+                               purpose, new
+Compliance - RoC) by a
+                               technology)
+Qualified Security
+Assessor (QSA).
+                               When the Processing Risk
+4. systematic monitoring
+                               Changes
+of publicly accessible
+areas
+                               Upon Expiration of
+                               Consent/Contract
+
+                                As needed (e.g., for ad-
+                                hoc customer requests)
+
+                                One-Time Only
+                                                                     Processor (Third Parties/
+       Internal Recipients                                                   Vendors                      Cross-Border               Data Transfer Safeguard
+                                      External Recipients
+ (Mention Name of the internal                                        names)/Independent             Transfer/International         Mechanism (SCCs, BCRs,
+                                  (Mention 3rd Party Relations -
+  process/project/department)                                       Controller/ Joint Controller         Transfer (Y/N)             Adequacy, DPDPA Sec.16)
+                                                                     /Sub-Processors Names
+                                                                                                                                   GDPR Art.46–49, DPDPA Cross-border
+           Best Practice                     GDPR Art.30                  GDPR Art.28, Art.30               GDPR Art.44–49
+                                                                                                                                          Transfer Provisions
+
+
+This inforamtion Goes to All     This inforamtion Goes to All      This inforamtion Goes to All    This inforamtion Goes to All This inforamtion Goes to All
+Forms                            Forms                             Forms                           Forms                        Forms
+
+
+Manual Entry                     Dropwdown option                  Manual Entry                    Dropwdown option             Dropwdown option
+
+
+                                                                                                                                1. SSC
+                                                                                                                                2. Binding Corporate Rules
+                                 Data Processor or Independend                                                                  3. Data Policy Framework
+                                                                                                   Yes/No
+                                 Controller or Joint Controller)                                                                4. Adequency Decision
+                                                                                                                                5. Other- Text Box to mention
+                                                                                                                                Name
+                                                                                                                      1) If Large Amount
+                                                                                                                      Data is Above 100000
+                                                                                                                      as per column AA
+   Security Measures (Technical &                                                                                     2) Processing SPI As
+                                                                                           Data Protection            perIfColumn
+                                                                                                                             Yes -What
+                                                                                                                                     Q will
+      Organizational Measures)                   Data Privacy by Design & Default
+                                                                                         Impact Assessment 1) trigger    Systematicconduct
+                                                                                                                                  to   Profiling Linked DPIA Reference ID
+  Implemented (Encryption, Access                         Applicable (Y/N)
+                                                                                           Applicable (Y/N) (Automated           DPIAdecision-
+               Control, etc.)
+                                                                                                                      making with legal
+ GDPR Art.32, DPDPA Sec.8, HIPAA Security Rule,                                                                       effects)
+                                                        GDPR Art.25, ISO 27701 A.7.4.1 GDPR Art.35, ISO 27701 A.7.2.5                                    GDPR Art.35
+                ISO 27701 A.7.4                                                                                       2) Large-Scale
+                                                                                                                      Sensitive Data
+                                                                                       This inforamtion will This           inforamtion
+                                                                                                                      (Medical,   political,will
+This inforamtion Goes to All Forms              This inforamtion Goes to All Forms
+                                                                                       trigger DPIA                   trigger  DPIA
+                                                                                                                      religious,  or criminal
+                                                                                                                      records)
+                                                                                                                      3) Public Monitoring Automated Collect from
+Manual Entry                                    Dropwdown option                       Dropwdown option               Dropwdown
+                                                                                                                      (Large-scale option        DPIA ID
+                                                                                                                      surveillance of public
+                                                                                                                      areas)
+                                                                                                                      4) New Technologies
+                                                                                                                      (AI, biometrics, facial
+                                                                                                                                                 Can be populate from
+                                                                                       YES/NO                         recognition, IoT)
+                                                                                                                                                 DPIA for similar process
+                                                                                                                      5) Data Matching
+                                                                                                                      (Combining datasets
+                                                                                                                      from different
+                                                                                                                      sources)
+                                                                                                                      6) Invisible Processing
+                                                                                                                      (Data collected
+                                                                                                                      without direct user
+                                                                                                                      knowledge)
+                                                                                                                      7) Vulnerable Subjects
+                                                                                                                      (Data of children,
+                                                                                                                      employees, or
+                                                                                                                      patients)
+                                                                                                                      8) Biometric
+                                                                                                                      Identification
+                                                                                                                      (Fingerprints, facial
+                                                                                                                      scans used for ID)
+                                                                                                                      9) Genetic Data
+                                                                                                                      Processing (DNA
+                                                                              Third-Party Risk
+  Legitimate Interest                               Joint Controller                                                                          Consent Mechanism
+                            Data Processing                                     Assessment
+Assessment (Reference-                                Arrangement                                              Privacy Risk Rating             Implemented Y/N
+                          Agreement Reference                                 (Agreement/ID
+        If Any)                                  (Agreement Reference)                                                                           (if applicable)
+                                                                                Reference)
+                                                                                                                                              GDPR Art.7, DPDPA Sec.6,
+                                                                                                             GDPR Art.24, Art.35, ISO 27701
+      GDPR Art.6(1)(f)          GDPR Art.28            GDPR Art.26        GDPR Art.28, ISO 27701 A.7.2.8                                       CCPA Consent (where
+                                                                                                                       A.7.4.2
+                                                                                                                                                   applicable)
+
+
+
+
+Manual Entry             Manual Entry           Manual Entry             Manual Entry                      Manual Entry                       Manual Entry
+
+
+
+                                                                                                                                              This option will
+                                                                                                                                              Populate only when
+                                                                                                                                              Consent Option is
+                                                                                                                                              Selected at column
+                                                                                                                                              N- Lawful basis
+                         Data Subject Rights
+   If Yes to ADM or                                        Personal Data                                                             Data Retention &
+                      Management Mechanism                                          Disposal / Deletion of the data is                                          Record of Data Subject
+ Profilling Mention                                    Breach Management                                                              Disposal Policy
+                           (Access, Erasure,                                              done or prospect date                                                  Requests/Complaints
+      the details.  1. ALLPortability,
+                            (Selects all rights                   (Y/N)                                                                  Reference
+                                          etc.)
+                    listed below)
+                    2.GDPR
+                       Right  to be DPDPA
+                           Art.12–23, Informed
+                                            Sec.11–15,   GDPR Art.33–34, DPDPA       GDPR: Art.5(1)(e), Art.17 • DPDPA: Sec.8 •     GDPR Art.5(1)(e), ISO 27701 GDPR Art.12–23, DPDPA Sec.11–
+       GDPR Art.22
+                    3. Right
+                          CCPAofConsumer
+                                  Access Rights        Sec.8(6), HIPAA Breach Rule HIPAA: 45 CFR §164.310(d) • ISO 27701: A.7.4.3            A.7.4.3             15, CCPA Consumer Requests
+
+                    4. Right to Rectification /
+                    Correction                                                     This inforamtion Goes to All Forms
+                    5. Right to Erasure /
+                    Deletion
+                    Dropwdown option-
+                    6. Right to
+                    Options    CanData  Portability
+                                     be selected   as
+Manual Entry        7.                                 Dropwdown option                                                           Manual Entry                  Manual Entry
+                    perRight  to Object
+                         column     I- Applicable
+                    (Including
+                    Laws         Opt-Out of                                        Manual Entry
+                    Marketing)
+This option will    8. Right to Restrict
+Populate only when Processing
+                                                                                                                                  Can be populated
+Consent Option is   9. Right to Limit Sensitive Yes/No
+                                                                                                                                  from Policies
+Selected at column- Data Use
+AM-DPIA Trigger     10. Right to Non-
+                    Automated Decision
+                    Making
+                    11. Right to Withdraw
+                    Consent
+                    12. Right to Grievance
+                    Redressal (DPDPA)
+                    13. Right to Nominate
+                    (DPDPA)
+                    14. Right to Accounting of
+                    Disclosures (HIPAA)
+                    15. Right to Request
+                    Restrictions (HIPAA)
+                                          Approver
+   Last Audit /          Next Scheduled                          Remarks /
+                                        (Management
+   Review Date            Review Date                              Notes
+                                           / DPO)
+
+                                                ISO 27701 A.5
+GDPR Art.24, ISO 27701
+                           ISO 27701 A.7.5.1   (Leadership &     Best Practice
+      A.7.5.1
+                                                Governance)
+
+
+
+
+                         Manual Entry-
+Manual Entry             Automatic Date Manual Entry            Manual Entry
+                         can be selected
+
+
+                         Can be 11
+                         months later to
+                         date of
+                         "coloumn AZ"
+
