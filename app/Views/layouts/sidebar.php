@@ -8,6 +8,12 @@ $hasClientContext = $clientId > 0;
 $clientQuery = $hasClientContext ? '&client_id=' . rawurlencode((string)$clientId) : '';
 ?>
 <aside class="sidebar d-flex flex-column">
+    <div class="sidebar-brand justify-content-center">
+        <a href="/app/public/index.php?route=dashboard" aria-label="PrivacyVista Dashboard">
+            <img src="https://privacyvista.com/wp-content/uploads/2025/12/privacy-vista-logo-light.png" alt="PrivacyVista">
+        </a>
+    </div>
+
     <nav class="nav flex-column py-2" aria-label="Primary navigation">
         <div class="sidebar-section">Workspace</div>
         <a class="nav-link" href="/app/public/index.php?route=dashboard" data-mobile-label="Dashboard" aria-label="Dashboard">
@@ -25,14 +31,14 @@ $clientQuery = $hasClientContext ? '&client_id=' . rawurlencode((string)$clientI
             <a class="nav-link" href="/app/public/index.php?route=processing-activities<?= $clientQuery ?>" data-mobile-label="Activities" aria-label="Activities"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M8 6h8M8 10h8M8 14h5"/></svg><span>Activities</span></a>
             <a class="nav-link" href="/app/public/index.php?route=assessments<?= $clientQuery ?>" data-mobile-label="Assessments" aria-label="Assessments"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Assessments</span></a>
             <a class="nav-link" href="/app/public/index.php?route=findings<?= $clientQuery ?>" data-mobile-label="Findings" aria-label="Findings"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M10.3 2.9 1.8 17.6A2 2 0 0 0 3.5 20.5h17a2 2 0 0 0 1.7-2.9L13.7 2.9a2 2 0 0 0-3.4 0Z"/><path d="M12 8v5M12 17h.01"/></svg><span>Findings</span></a>
-            <a class="nav-link" href="/app/public/index.php?route=tasks<?= $clientQuery ?>" data-mobile-label="Tasks" aria-label="Remediation Tasks"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14"/></svg><span>Remediation Tasks</span></a>
+            <a class="nav-link" href="/app/public/index.php?route=tasks<?= $clientQuery ?>" data-mobile-label="Tasks" aria-label="Remediation Tasks"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Remediation Tasks</span></a>
         <?php endif; ?>
 
         <?php if ($isSuperuser && !$hasClientContext): ?>
-            <a class="nav-link" href="/app/public/index.php?route=processing-activities" data-mobile-label="Activities" aria-label="Activities"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M8 6h8M8 10h8M8 14h5"/></svg><span>Activities</span></a>
+            <a class="nav-link" href="/app/public/index.php?route=processing-activities" data-mobile-label="Activities" aria-label="Activities"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg><span>Activities</span></a>
             <a class="nav-link" href="/app/public/index.php?route=assessments" data-mobile-label="Assessments" aria-label="Assessments"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Assessments</span></a>
             <a class="nav-link" href="/app/public/index.php?route=findings" data-mobile-label="Findings" aria-label="Findings"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M10.3 2.9 1.8 17.6A2 2 0 0 0 3.5 20.5h17a2 2 0 0 0 1.7-2.9L13.7 2.9a2 2 0 0 0-3.4 0Z"/><path d="M12 8v5M12 17h.01"/></svg><span>Findings</span></a>
-            <a class="nav-link" href="/app/public/index.php?route=tasks" data-mobile-label="Tasks" aria-label="Remediation Tasks"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14"/></svg><span>Remediation Tasks</span></a>
+            <a class="nav-link" href="/app/public/index.php?route=tasks" data-mobile-label="Tasks" aria-label="Remediation Tasks"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Remediation Tasks</span></a>
         <?php endif; ?>
 
         <?php if ($isSuperuser || $isAdmin): ?>
