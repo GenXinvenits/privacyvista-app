@@ -5,9 +5,12 @@
 .navbar-page-context{min-width:0;padding-left:18px;border-left:1px solid var(--pv-border);}
 .sidebar .sidebar-brand{display:none !important;}
 
-/* The navbar belongs to the whole application, not only the content column. */
+/* The navbar spans the complete viewport. Keep the sidebar below it. */
 .navbar{position:fixed;top:0;left:0;width:100%;z-index:1100;}
 .app-main{padding-top:72px;}
+@media (min-width:992px){
+    .sidebar{margin-top:72px;min-height:calc(100vh - 72px);height:calc(100vh - 72px);}
+}
 
 @media (max-width:991.98px){.navbar-context{gap:12px}.navbar-brand-logo{width:64px;flex-basis:64px;height:44px}.navbar-brand-logo img{width:58px;height:38px}.navbar-page-context{padding-left:12px}}
 @media (max-width:767.98px){.navbar-context{gap:10px}.navbar-brand-logo{width:58px;flex-basis:58px;height:42px}.navbar-brand-logo img{width:54px;height:36px}.navbar-page-context{padding-left:10px}.navbar-title{font-size:.96rem}}
