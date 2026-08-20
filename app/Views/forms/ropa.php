@@ -13,7 +13,8 @@ $formName=$template['name']??($isProcessor?'ROPA — Processor':'ROPA — Contro
 <?php foreach(($section['fields']??[]) as $field): $key=(string)($field['key']??'');$label=(string)($field['label']??$key);$type=(string)($field['type']??'text');$required=!empty($field['required'])?'required':'';$options=$field['options']??[]; ?>
 <?php $roles=array_values(array_filter((array)($field['roles']??[])));$visible=!$roles||in_array($role,$roles,true); ?>
 <div class="<?= in_array($type,['textarea','multiselect'],true)?'col-12':'col-md-6' ?> ropa-role-field<?= $visible?'':' d-none' ?>" data-ropa-roles="<?= e(implode(' ', $roles)) ?>"><label class="form-label" for="<?= e($key) ?>"><?= e($label) ?> <?= $required?'<span class="text-danger">*</span>':'' ?></label>
-<?php if($type==='client'): ?><select class="form-select" id="<?= e($key) ?>" name="<?= e($key) ?>" <?= $required ?>><option value="">Select organisation</option><?php foreach($clients as $client):?><option value="<?= (int)$client['id'] ?>" <?= (($ropa[$key]??'')==$client['id'])?'selected':'' ?>><?= e($client['company_name']) ?></option><?php endforeach;?></select>
+<?php if($key==='ropa_role'): ?><input type="hidden" name="ropa_role" value="<?= e($role) ?>"><select class="form-select" id="<?= e($key) ?>" disabled><option value="controller" <?= $role==='controller'?'selected':'' ?>>controller</option><option value="processor" <?= $role==='processor'?'selected':'' ?>>processor</option></select>
+<?php elseif($type==='client'): ?><select class="form-select" id="<?= e($key) ?>" name="<?= e($key) ?>" <?= $required ?>><option value="">Select organisation</option><?php foreach($clients as $client):?><option value="<?= (int)$client['id'] ?>" <?= (($ropa[$key]??'')==$client['id'])?'selected':'' ?>><?= e($client['company_name']) ?></option><?php endforeach;?></select>
 <?php elseif($type==='auto'): ?><input class="form-control" id="<?= e($key) ?>" value="<?= $key==='record_id' ? e(!empty($ropa['id'])?'ROPA-'.(int)$ropa['id']:'Generated when saved') : ($value($key) ?: e(date('Y-m-d'))) ?>" readonly>
 <?php elseif($type==='textarea'): ?><textarea class="form-control" id="<?= e($key) ?>" name="<?= e($key) ?>" rows="3" <?= $required ?>><?= $value($key) ?></textarea>
 <?php elseif($type==='select'): ?><select class="form-select" id="<?= e($key) ?>" name="<?= e($key) ?>" <?= $required ?>><option value="">Select</option><?php foreach($options as $option):?><option value="<?= e($option) ?>" <?= $selected($key,(string)$option) ?>><?= e($option) ?></option><?php endforeach;?></select>
@@ -28,7 +29,9 @@ $formName=$template['name']??($isProcessor?'ROPA — Processor':'ROPA — Contro
         const roles = (field.dataset.ropaRoles || '').split(' ').filter(Boolean);
         const hidden = roles.length > 0 && !roles.includes(role.value);
         field.classList.toggle('d-none', hidden);
-        field.querySelectorAll('input, select, textarea').forEach(control => control.disabled = hidden);
+        field.querySelectorAll('input, select, textarea').forEach(control => {
+            if (control.id !== 'ropa_role' && control.name !== 'ropa_role') control.disabled = hidden;
+        });
     });
     role.addEventListener('change', sync);
     sync();
