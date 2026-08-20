@@ -22,15 +22,9 @@ $clientQuery = $hasClientContext ? '&client_id=' . rawurlencode((string)$clientI
         </a>
 
         <?php if ($isSuperuser): ?>
-            <a class="nav-link" href="/app/public/index.php?route=clients" data-mobile-label="Clients" aria-label="Clients">
-                <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <span>Clients</span>
-            </a>
+            <a class="nav-link" href="/app/public/index.php?route=clients" data-mobile-label="Clients" aria-label="Clients"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Clients</span></a>
         <?php elseif ($isAdmin && $hasClientContext): ?>
-            <a class="nav-link" href="/app/public/index.php?route=clients<?= $clientQuery ?>" data-mobile-label="Clients" aria-label="Clients">
-                <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <span>Clients</span>
-            </a>
+            <a class="nav-link" href="/app/public/index.php?route=clients<?= $clientQuery ?>" data-mobile-label="Clients" aria-label="Clients"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Clients</span></a>
         <?php endif; ?>
 
         <?php if (($isAdmin || $isSuperuser) && $hasClientContext): ?>
@@ -53,47 +47,11 @@ $clientQuery = $hasClientContext ? '&client_id=' . rawurlencode((string)$clientI
             <a class="nav-link" href="/app/public/index.php?route=departments<?= $isAdmin ? $clientQuery : '' ?>" data-mobile-label="Departments" aria-label="Departments"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 21V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v16"/><path d="M3 21h18M7 7h2M15 7h2M7 11h2M15 11h2M7 15h2M15 15h2M10 21v-3h4v3"/></svg><span>Departments</span></a>
         <?php endif; ?>
 
-        <button type="button" class="sidebar-section more-desktop-trigger" aria-expanded="false" aria-controls="privacyvista-more-menu">More <span aria-hidden="true">⌄</span></button>
+        <button type="button" class="sidebar-section more-desktop-trigger" aria-expanded="false" aria-controls="privacyvista-more-menu"><span>More</span> <span aria-hidden="true">⌄</span></button>
         <a class="nav-link" href="/app/public/index.php?route=forms" data-mobile-label="Forms" aria-label="Forms"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 2h9l5 5v15H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg><span>Forms</span></a>
-
         <?php if ($isSuperuser || $isAdmin): ?>
             <a class="nav-link" href="/app/public/index.php?route=reports<?= $isAdmin ? $clientQuery : '' ?>" data-mobile-label="Reports" aria-label="Reports"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 19V5M4 19h16"/><path d="m7 16 4-5 3 3 5-7"/></svg><span>Reports</span></a>
         <?php endif; ?>
-
         <a class="nav-link" href="/app/public/index.php?route=settings" data-mobile-label="Settings" aria-label="Settings"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="m19.4 15 .1.1a2 2 0 1 1-2.8 2.8l-.1-.1a2 2 0 0 0-3.4 1.4v.3a2 2 0 1 1-4 0v-.3a2 2 0 0 0-3.4-1.4l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A2 2 0 0 0 3.7 12a2 2 0 0 0-.3-1.1l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A2 2 0 0 0 9.6 6.7h.3a2 2 0 0 0 1.1-.3 2 2 0 0 0 0-3.5 2 2 0 1 1 4 0v.3a2 2 0 0 0 1.4 1.8 2 2 0 0 0 1.9-.4l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A2 2 0 0 0 20.3 12a2 2 0 0 0-.9 1.7 2 2 0 0 0 0 1.3Z"/></svg><span>Settings</span></a>
     </nav>
-
-    <div id="privacyvista-more-menu" class="mobile-more-menu" role="dialog" aria-label="More navigation" aria-hidden="true">
-        <div class="mobile-more-header">
-            <span>More</span>
-            <button type="button" class="mobile-more-close" aria-label="Close More menu">&times;</button>
-        </div>
-        <div class="mobile-more-grid">
-            <?php if ($isSuperuser): ?>
-                <a class="nav-link" href="/app/public/index.php?route=clients"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Clients</span></a>
-            <?php elseif ($isAdmin && $hasClientContext): ?>
-                <a class="nav-link" href="/app/public/index.php?route=clients<?= $clientQuery ?>"><svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Clients</span></a>
-            <?php endif; ?>
-            <?php if (($isAdmin || $isSuperuser) && $hasClientContext): ?>
-                <a class="nav-link" href="/app/public/index.php?route=processing-activities<?= $clientQuery ?>"><span>Activities</span></a>
-                <a class="nav-link" href="/app/public/index.php?route=assessments<?= $clientQuery ?>"><span>Assessments</span></a>
-                <a class="nav-link" href="/app/public/index.php?route=findings<?= $clientQuery ?>"><span>Findings</span></a>
-                <a class="nav-link" href="/app/public/index.php?route=tasks<?= $clientQuery ?>"><span>Remediation Tasks</span></a>
-            <?php elseif ($isSuperuser): ?>
-                <a class="nav-link" href="/app/public/index.php?route=processing-activities"><span>Activities</span></a>
-                <a class="nav-link" href="/app/public/index.php?route=assessments"><span>Assessments</span></a>
-                <a class="nav-link" href="/app/public/index.php?route=findings"><span>Findings</span></a>
-                <a class="nav-link" href="/app/public/index.php?route=tasks"><span>Remediation Tasks</span></a>
-            <?php endif; ?>
-            <?php if ($isSuperuser || $isAdmin): ?>
-                <a class="nav-link" href="/app/public/index.php?route=users<?= $isAdmin ? $clientQuery : '' ?>"><span>Users</span></a>
-                <a class="nav-link" href="/app/public/index.php?route=departments<?= $isAdmin ? $clientQuery : '' ?>"><span>Departments</span></a>
-            <?php endif; ?>
-            <a class="nav-link" href="/app/public/index.php?route=forms"><span>Forms</span></a>
-            <?php if ($isSuperuser || $isAdmin): ?>
-                <a class="nav-link" href="/app/public/index.php?route=reports<?= $isAdmin ? $clientQuery : '' ?>"><span>Reports</span></a>
-            <?php endif; ?>
-            <a class="nav-link" href="/app/public/index.php?route=settings"><span>Settings</span></a>
-        </div>
-    </div>
 </aside>
