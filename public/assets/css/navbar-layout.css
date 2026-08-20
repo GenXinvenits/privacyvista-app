@@ -1,6 +1,6 @@
 /* Navbar logo + current-page context. Full-width application header. */
 .navbar-context{display:flex;align-items:center;min-width:0;gap:0;}
-.navbar-brand-logo{display:inline-flex;align-items:center;justify-content:center;width:248px;height:72px;flex:0 0 248px;}
+.navbar-brand-logo{display:inline-flex;align-items:center;justify-content:flex-start;width:220px;height:72px;flex:0 0 220px;}
 .navbar-brand-logo img{width:180px;max-width:82%;height:48px;object-fit:contain;}
 .navbar-page-context{min-width:0;padding-left:18px;border-left:1px solid var(--pv-border);}
 .sidebar .sidebar-brand{display:none !important;}
@@ -12,9 +12,9 @@
     .sidebar{margin-top:72px;min-height:calc(100vh - 72px);height:calc(100vh - 72px);}
 }
 
-/* Tablet: keep the logo divider aligned with the 248px sidebar. */
+/* Tablet: use the same compact 220px logo area as desktop. */
 @media (min-width:768px) and (max-width:991.98px){
-    .navbar-brand-logo{width:248px;flex-basis:248px;height:72px;}
+    .navbar-brand-logo{width:220px;flex-basis:220px;height:72px;justify-content:flex-start;}
     .navbar-brand-logo img{width:180px;height:48px;}
     .navbar-page-context{padding-left:18px;}
 }
@@ -22,7 +22,7 @@
 /* Mobile keeps the compact navbar design, but the logo remains visible. */
 @media (max-width:767.98px){
     .navbar-context{gap:10px;}
-    .navbar-brand-logo{display:inline-flex !important;width:58px;flex:0 0 58px;height:42px;visibility:visible;opacity:1;}
+    .navbar-brand-logo{display:inline-flex !important;width:58px;flex:0 0 58px;height:42px;justify-content:center;visibility:visible;opacity:1;}
     .navbar-brand-logo img{display:block !important;width:54px;height:36px;visibility:visible;opacity:1;}
     .navbar-page-context{padding-left:10px;}
     .navbar-title{font-size:.96rem;}
