@@ -16,13 +16,13 @@ class FormsController extends BaseController
  {
   if($this->isSuperuser()) return (new Client())->allClients();
   if($this->isAdmin()) return (new AdminClientAccess())->clientsForAdmin((int)($this->user()['id']??0));
-  if($this->isClient()){ $client=$this->clientId(); if(!$client)return []; $row=(new Client())->find($client); return $row?[$row]:[]; }
+  if($this->isClientUser()){ $client=$this->clientId(); if(!$client)return []; $row=(new Client())->find($client); return $row?[$row]:[]; }
   return [];
  }
  private function canAccessFormClient(int $clientId):bool
  {
   if($this->isSuperuser()) return true;
-  if($this->isClient()) return $this->clientId()===$clientId;
+  if($this->isClientUser()) return $this->clientId()===$clientId;
   if($this->isAdmin()) return (new AdminClientAccess())->canAccess((int)($this->user()['id']??0),$clientId);
   return false;
  }
