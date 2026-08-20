@@ -19,8 +19,8 @@ html[data-theme="light"] {
     color-scheme: light;
     --pv-ink: #172033;
     --pv-muted: #68758a;
-    --pv-primary: #4f7ff5;
-    --pv-primary-soft: rgba(79,127,245,.11);
+    --pv-primary: #3ebca8;
+    --pv-primary-soft: rgba(62,188,168,.14);
     --pv-border: #d9e0ea;
     --pv-bg: #f4f7fb;
     --pv-sidebar: #ffffff;
