@@ -2,7 +2,7 @@
 $title='ROPA Master Register'; $clients=$clients??[]; $ropa=$ropa??[]; $template=$template??[]; $definition=$template['definition']??['sections'=>[]];
 $value=static fn(string $k):string=>e((string)($ropa[$k]??''));
 $selected=static fn(string $k,string $o):string=>(string)($ropa[$k]??'')===$o?'selected':'';
-$checked=static function(string $k,string $o)use($ropa):string{$v=$ropa[$k]??[];if(!is_array($v))$v=preg_split('/[,\n]+/',(string)$v);return in_array($o,$v,true)?'selected':'';};
+$checked=static function(string $k,string $o)use($ropa):string{$v=$ropa[$k]??[];if(!is_array($v))$v=preg_split('/[,\n]+/',(string)$v);return in_array($o,$v,true)?'checked':'';};
 $role=(string)($ropa['ropa_role']??'controller');
 $isProcessor=$role==='processor';
 $formName=$template['name']??($isProcessor?'ROPA — Processor':'ROPA — Controller');
@@ -18,22 +18,34 @@ $formName=$template['name']??($isProcessor?'ROPA — Processor':'ROPA — Contro
 <?php elseif($type==='auto'): ?><input class="form-control" id="<?= e($key) ?>" value="<?= $key==='record_id' ? e(!empty($ropa['id'])?'ROPA-'.(int)$ropa['id']:'Generated when saved') : ($value($key) ?: e(date('Y-m-d'))) ?>" readonly>
 <?php elseif($type==='textarea'): ?><textarea class="form-control" id="<?= e($key) ?>" name="<?= e($key) ?>" rows="3" <?= $required ?>><?= $value($key) ?></textarea>
 <?php elseif($type==='select'): ?><select class="form-select" id="<?= e($key) ?>" name="<?= e($key) ?>" <?= $required ?>><option value="">Select</option><?php foreach($options as $option):?><option value="<?= e($option) ?>" <?= $selected($key,(string)$option) ?>><?= e($option) ?></option><?php endforeach;?></select>
-<?php elseif($type==='multiselect'): ?><select class="form-select" id="<?= e($key) ?>" name="<?= e($key) ?>[]" multiple size="<?= max(3,min(6,count($options))) ?>" <?= $required ?>><?php foreach($options as $option):?><option value="<?= e($option) ?>" <?= $checked($key,(string)$option) ?>><?= e($option) ?></option><?php endforeach;?></select>
-<?php else: ?><input class="form-control" type="<?= in_array($type,['date','number','email'],true)?$type:'text' ?>" id="<?= e($key) ?>" name="<?= e($key) ?>" value="<?= $value($key) ?>" <?= $required ?>><?php endif;?></div>
+<?php elseif($type==='multiselect'): ?><div class="ropa-multiselect" id="<?= e($key) ?>" role="group" aria-labelledby="<?= e($key) ?>-label" data-required="<?= $required?'1':'0' ?>"><?php foreach($options as $index=>$option): $optionId=$key.'_'.$index; ?><div class="form-check mb-2"><input class="form-check-input ropa-multiselect-option" type="checkbox" id="<?= e($optionId) ?>" name="<?= e($key) ?>[]" value="<?= e($option) ?>" <?= $checked($key,(string)$option) ?>><label class="form-check-label" for="<?= e($optionId) ?>"><?= e($option) ?></label></div><?php endforeach;?></div><?php else: ?><input class="form-control" type="<?= in_array($type,['date','number','email'],true)?$type:'text' ?>" id="<?= e($key) ?>" name="<?= e($key) ?>" value="<?= $value($key) ?>" <?= $required ?>><?php endif;?></div>
 <?php endforeach;?></div><hr class="my-5"><?php endforeach;?><div class="d-flex justify-content-end gap-2"><a class="btn btn-outline-secondary" href="<?= url('forms') ?>">Cancel</a><button class="btn btn-primary" type="submit">Save ROPA</button></div></div></form>
 <script>
 (() => {
     const role = document.getElementById('ropa_role');
-    if (!role) return;
-    const sync = () => document.querySelectorAll('.ropa-role-field').forEach(field => {
-        const roles = (field.dataset.ropaRoles || '').split(' ').filter(Boolean);
-        const hidden = roles.length > 0 && !roles.includes(role.value);
-        field.classList.toggle('d-none', hidden);
-        field.querySelectorAll('input, select, textarea').forEach(control => {
-            if (control.id !== 'ropa_role' && control.name !== 'ropa_role') control.disabled = hidden;
-        });
+    const syncRequiredMultiSelects = () => document.querySelectorAll('.ropa-multiselect[data-required="1"]').forEach(group => {
+        const boxes = [...group.querySelectorAll('.ropa-multiselect-option:not(:disabled)')];
+        const updateValidity = () => {
+            const valid = boxes.some(box => box.checked);
+            boxes.forEach(box => box.setCustomValidity(valid ? '' : 'Please select at least one option.'));
+        };
+        boxes.forEach(box => box.addEventListener('change', updateValidity));
+        updateValidity();
     });
-    role.addEventListener('change', sync);
-    sync();
+    if (role) {
+        const sync = () => {
+            document.querySelectorAll('.ropa-role-field').forEach(field => {
+                const roles = (field.dataset.ropaRoles || '').split(' ').filter(Boolean);
+                const hidden = roles.length > 0 && !roles.includes(role.value);
+                field.classList.toggle('d-none', hidden);
+                field.querySelectorAll('input, select, textarea').forEach(control => {
+                    if (control.id !== 'ropa_role' && control.name !== 'ropa_role') control.disabled = hidden;
+                });
+            });
+        };
+        role.addEventListener('change', sync);
+        sync();
+    }
+    syncRequiredMultiSelects();
 })();
 </script>
