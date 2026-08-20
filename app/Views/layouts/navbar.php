@@ -4,12 +4,17 @@
 
         <div class="container-fluid px-0">
 
-            <div>
-                <div class="navbar-title">
-                    <?= e($title ?? 'Dashboard') ?>
-                </div>
-                <div class="navbar-subtitle">
-                    Privacy management workspace
+            <div class="navbar-context">
+                <a class="navbar-brand-logo" href="/app/public/index.php?route=dashboard" aria-label="PrivacyVista Dashboard">
+                    <img src="https://privacyvista.com/wp-content/uploads/2025/12/privacy-vista-logo-light.png" alt="PrivacyVista">
+                </a>
+                <div class="navbar-page-context">
+                    <div class="navbar-title">
+                        <?= e($title ?? 'Dashboard') ?>
+                    </div>
+                    <div class="navbar-subtitle">
+                        Privacy management workspace
+                    </div>
                 </div>
             </div>
 
