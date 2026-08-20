@@ -12,9 +12,12 @@ class BaseController extends Controller
         }
 
         $role = strtolower((string)($_SESSION['user']['role'] ?? ''));
+        $roleId = (int)($_SESSION['user']['role_id'] ?? 0);
         $route = trim((string)($_GET['route'] ?? ''), '/');
 
-        if ($role === 'superuser' || $route === '' || $route === 'dashboard') {
+        // Role ID 1 is the canonical Superuser role. Keep the name check for
+        // compatibility with existing sessions created before role_id was stored.
+        if ($role === 'superuser' || $roleId === 1 || $route === '' || $route === 'dashboard') {
             return;
         }
 
@@ -58,17 +61,17 @@ class BaseController extends Controller
 
     protected function isSuperuser(): bool
     {
-        return $this->role() === 'superuser';
+        return $this->role() === 'superuser' || (int)($this->user()['role_id'] ?? 0) === 1;
     }
 
     protected function isAdmin(): bool
     {
-        return $this->role() === 'admin';
+        return $this->role() === 'admin' || (int)($this->user()['role_id'] ?? 0) === 2;
     }
 
     protected function isClientUser(): bool
     {
-        return $this->role() === 'client';
+        return $this->role() === 'client' || (int)($this->user()['role_id'] ?? 0) === 3;
     }
 
     protected function clientId(): ?int
