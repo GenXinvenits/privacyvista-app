@@ -53,7 +53,8 @@ JOIN form_templates ft ON ft.id=v.form_template_id
 SET v.definition = JSON_ARRAY_APPEND(v.definition,'$.sections[4].fields',JSON_OBJECT('key','adm_profiling_details','label','ADM / Profiling Details','type','textarea','show_when',JSON_OBJECT('field','adm_profiling','equals','yes')))
 WHERE ft.slug='ropa-processor'
   AND v.version_number=3
-  AND v.status='published';
+  AND v.status='published'
+  AND NOT JSON_CONTAINS(v.definition, JSON_OBJECT('key','adm_profiling_details'), '$.sections[4].fields');
 
 UPDATE form_template_versions v
 JOIN form_templates ft ON ft.id=v.form_template_id
