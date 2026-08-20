@@ -58,6 +58,15 @@ img, svg, video, canvas { max-width:100%; }
     .sidebar nav::-webkit-scrollbar { display:none; }
     .sidebar-section { display:none !important; }
     .sidebar .nav-link { position:relative; flex:0 0 20%; width:20%; min-width:20%; max-width:20%; height:54px; margin:0; padding:5px 4px 4px; border-radius:13px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; white-space:nowrap; font-size:.64rem; line-height:1; text-align:center; }
+
+    /* Keep the most important workspace destinations immediately visible on phones.
+       The remaining navigation items stay horizontally scrollable to the right. */
+    .sidebar .nav-link[data-mobile-label="Dashboard"] { order:1; }
+    .sidebar .nav-link[data-mobile-label="Forms"] { order:2; }
+    .sidebar .nav-link[data-mobile-label="Reports"] { order:3; }
+    .sidebar .nav-link[data-mobile-label="Settings"] { order:4; }
+    .sidebar .nav-link:not([data-mobile-label="Dashboard"]):not([data-mobile-label="Forms"]):not([data-mobile-label="Reports"]):not([data-mobile-label="Settings"]) { order:10; }
+
     .sidebar .nav-link::before, .sidebar .nav-link::after, .sidebar nav::before, .sidebar nav::after { display:none !important; content:none !important; }
     .sidebar .mobile-nav-icon { display:block; width:21px; height:21px; flex:0 0 21px; stroke:currentColor; opacity:.82; transition:transform .16s ease, opacity .16s ease; }
     .sidebar .nav-link span { display:block; width:100%; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; opacity:.78; }
