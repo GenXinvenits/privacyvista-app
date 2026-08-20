@@ -30,6 +30,20 @@ class FormTemplatesController extends BaseController
         $model = new FormTemplate();
         $template = $model->active($slug);
         if (!$template) { http_response_code(404); exit('Form template not found'); }
+
+        $baseVersionId = (int)($_GET['version'] ?? 0);
+        if ($baseVersionId > 0) {
+            $version = $model->version($baseVersionId);
+            if (!$version || (string)$version['slug'] !== $slug) {
+                http_response_code(404);
+                exit('Form version not found');
+            }
+            $template['definition'] = $version['definition'];
+            $template['version_number'] = $version['version_number'];
+            $template['editing_base_version_id'] = $version['id'];
+            $template['editing_base_version_number'] = $version['version_number'];
+        }
+
         $this->view('form-templates/edit', ['title' => 'Edit Form — '.$template['name'], 'template' => $template]);
     }
 
@@ -62,7 +76,7 @@ class FormTemplatesController extends BaseController
         $id = (int)($_POST['version_id'] ?? 0);
         $version = (new FormTemplate())->version($id);
         if (!$version) { http_response_code(404); exit('Form version not found'); }
-        $newId = (new FormTemplate())->createVersion(
+        (new FormTemplate())->createVersion(
             (string)$version['slug'],
             $version['definition'],
             (int)($_SESSION['user']['id'] ?? 0),
