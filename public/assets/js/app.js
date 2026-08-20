@@ -51,7 +51,9 @@
         const desktopTrigger = sidebar?.querySelector('.more-desktop-trigger');
         if (!sidebar || !nav) return;
 
-        const primary = new Set(['Dashboard', 'Forms', 'Reports', 'Settings']);
+        // Mobile bottom navigation: keep the most frequently used items visible.
+        // Reports and Settings live inside More; Clients and Users stay directly visible.
+        const primary = new Set(['Dashboard', 'Forms', 'Clients', 'Users']);
         const links = Array.from(nav.querySelectorAll('.nav-link[data-mobile-label]'));
         const secondary = links.filter(link => !primary.has(link.dataset.mobileLabel));
 
