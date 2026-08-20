@@ -79,52 +79,23 @@
 <script>
 (function () {
     'use strict';
-
     const menu = document.querySelector('.user-profile-menu');
     const trigger = menu?.querySelector('.user-profile-trigger');
     const dropdown = menu?.querySelector('.user-dropdown');
-
     if (!menu || !trigger || !dropdown) return;
-
     const mobileQuery = window.matchMedia('(max-width: 767.98px)');
-
-    function closeMenu() {
-        menu.classList.remove('is-open');
-        trigger.setAttribute('aria-expanded', 'false');
-    }
-
+    function closeMenu() { menu.classList.remove('is-open'); trigger.setAttribute('aria-expanded', 'false'); }
     function toggleMenu(event) {
-        event.preventDefault();
-        event.stopPropagation();
+        event.preventDefault(); event.stopPropagation();
         const open = !menu.classList.contains('is-open');
-        menu.classList.toggle('is-open', open);
-        trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-        if (open && mobileQuery.matches) {
-            requestAnimationFrame(() => { dropdown.scrollTop = 0; });
-        }
+        menu.classList.toggle('is-open', open); trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open && mobileQuery.matches) requestAnimationFrame(() => { dropdown.scrollTop = 0; });
     }
-
     trigger.addEventListener('click', toggleMenu);
-
-    document.addEventListener('click', function (event) {
-        if (!menu.contains(event.target)) closeMenu();
-    });
-
-    document.addEventListener('touchstart', function (event) {
-        if (!menu.contains(event.target)) closeMenu();
-    }, { passive: true });
-
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-            closeMenu();
-            trigger.focus();
-        }
-    });
-
-    dropdown.addEventListener('click', function (event) {
-        event.stopPropagation();
-    });
-
+    document.addEventListener('click', event => { if (!menu.contains(event.target)) closeMenu(); });
+    document.addEventListener('touchstart', event => { if (!menu.contains(event.target)) closeMenu(); }, { passive: true });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') { closeMenu(); trigger.focus(); } });
+    dropdown.addEventListener('click', event => event.stopPropagation());
     window.addEventListener('resize', closeMenu, { passive: true });
 })();
 </script>
