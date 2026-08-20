@@ -27,4 +27,12 @@ html[data-theme="dark"] .navbar{box-shadow:0 10px 30px rgba(0,0,0,.22), inset 0 
     .navbar-brand-logo img{display:block !important;width:54px;height:36px;visibility:visible;opacity:1;}
     .navbar-page-context{padding-left:10px;}
     .navbar-title{font-size:.96rem;}
+
+    /* Fixed mobile priority: Dashboard, Forms, Clients, Users, More. */
+    .sidebar nav{display:flex;flex-direction:column;}
+    .sidebar nav .nav-link[data-mobile-label="Dashboard"]{order:1;}
+    .sidebar nav .nav-link[data-mobile-label="Forms"]{order:2;}
+    .sidebar nav .nav-link[data-mobile-label="Clients"]{order:3;}
+    .sidebar nav .nav-link[data-mobile-label="Users"]{order:4;}
+    .sidebar nav .mobile-more-trigger{order:5;}
 }
