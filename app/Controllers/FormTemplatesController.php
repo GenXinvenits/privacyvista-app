@@ -43,6 +43,34 @@ class FormTemplatesController extends BaseController
         $this->view('form-templates/versions', ['title' => 'Version History — '.$template['name'], 'template' => $template, 'versions' => $model->versions($slug)]);
     }
 
+    public function viewVersion(): void
+    {
+        $this->requireSuperuser();
+        $id = (int)($_GET['id'] ?? 0);
+        $version = (new FormTemplate())->version($id);
+        if (!$version) { http_response_code(404); exit('Form version not found'); }
+        $this->view('form-templates/view-version', [
+            'title' => 'View Version — '.$version['name'].' v'.$version['version_number'],
+            'version' => $version,
+        ]);
+    }
+
+    public function cloneVersion(): void
+    {
+        $this->requireSuperuser();
+        if (!Security::verifyCsrf($_POST['_csrf'] ?? null)) { http_response_code(419); exit('Invalid security token'); }
+        $id = (int)($_POST['version_id'] ?? 0);
+        $version = (new FormTemplate())->version($id);
+        if (!$version) { http_response_code(404); exit('Form version not found'); }
+        $newId = (new FormTemplate())->createVersion(
+            (string)$version['slug'],
+            $version['definition'],
+            (int)($_SESSION['user']['id'] ?? 0),
+            'Cloned from version '.$version['version_number']
+        );
+        redirect('form-templates/edit?slug='.rawurlencode((string)$version['slug']));
+    }
+
     public function saveVersion(): void
     {
         $this->requireSuperuser();
