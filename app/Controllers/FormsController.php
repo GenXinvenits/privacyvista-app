@@ -36,19 +36,59 @@ class FormsController extends BaseController
   }
   $client=(new Client())->find($id); if(!$client){http_response_code(404);exit('Client not found');} return $client;
  }
- private function ropaSlug(string $role):string
+ private function ropaSlug(string $role):string{return strtolower($role)==='processor' ? 'ropa-processor' : 'ropa-controller';}
+ private function definitionFields(array $definition,string $role):array
  {
-  return strtolower($role)==='processor' ? 'ropa-processor' : 'ropa-controller';
+  $fields=[];
+  foreach(($definition['sections']??[]) as $section){foreach(($section['fields']??[]) as $field){
+   $roles=array_values(array_filter((array)($field['roles']??[])));
+   if(!$roles||in_array($role,$roles,true))$fields[(string)($field['key']??'')]=$field;
+  }}
+  return array_filter($fields,static fn($key)=>$key!=='',ARRAY_FILTER_USE_KEY);
+ }
+ private function validateRopaPayload(array $definition,array $input,string $role,int $clientId):array
+ {
+  $fields=$this->definitionFields($definition,$role); $payload=['client_id'=>$clientId,'ropa_role'=>$role]; $errors=[];
+  foreach($fields as $key=>$field){
+   if(in_array((string)($field['type']??'text'),['auto'],true))continue;
+   if($key==='client_id')continue;
+   $type=(string)($field['type']??'text'); $value=$input[$key]??null;
+   if($type==='multiselect'){
+    $values=is_array($value)?$value:($value===null||$value===''?[]:[(string)$value]);
+    $values=array_values(array_unique(array_map('strval',$values)));
+    $options=array_map('strval',(array)($field['options']??[]));
+    if($options)$values=array_values(array_intersect($values,$options));
+    if(!empty($field['required'])&&!$values)$errors[]=(string)($field['label']??$key).' requires at least one selection.';
+    $payload[$key]=$values; continue;
+   }
+   $value=is_array($value)?'':trim((string)($value??''));
+   if(!empty($field['required'])&&$value==='')$errors[]=(string)($field['label']??$key).' is required.';
+   if($type==='select'&&$value!==''&&!empty($field['options'])&&!in_array($value,array_map('strval',$field['options']),true))$errors[]=(string)($field['label']??$key).' contains an invalid option.';
+   if($type==='date'&&$value!==''){ $d=\DateTime::createFromFormat('Y-m-d',$value); if(!$d||$d->format('Y-m-d')!==$value)$errors[]=(string)($field['label']??$key).' must be a valid date.'; }
+   $payload[$key]=$value;
+  }
+  if($errors){http_response_code(422);exit(implode("\n",$errors));}
+  return $payload;
  }
  public function index():void{$this->requireLogin();$this->view('forms/index',['title'=>'Forms','forms'=>$this->forms(),'canManage'=>$this->isSuperuser()]);}
  public function manage():void{$this->requireLogin();if(!$this->isSuperuser()){http_response_code(403);exit('Superuser access required');}$templates=(new FormTemplate())->all();$this->view('forms/manage',['title'=>'Manage Form Templates','templates'=>$templates]);}
  public function templateEdit():void{$this->requireLogin();if(!$this->isSuperuser()){http_response_code(403);exit('Superuser access required');}$slug=trim((string)($_GET['slug']??''));$template=(new FormTemplate())->findBySlug($slug);if(!$template){http_response_code(404);exit('Form template not found');}$active=(new FormTemplate())->active($slug);$this->view('forms/template-editor',['title'=>'Edit '.$template['name'].' template','template'=>$template,'version'=>$active]);}
  public function templateVersions():void{$this->requireLogin();if(!$this->isSuperuser()){http_response_code(403);exit('Superuser access required');}$slug=trim((string)($_GET['slug']??''));$template=(new FormTemplate())->findBySlug($slug);if(!$template){http_response_code(404);exit('Form template not found');}$versions=(new FormTemplate())->versions($slug);$this->view('forms/template-versions',['title'=>$template['name'].' version history','template'=>$template,'versions'=>$versions]);}
- public function templateStore():void{$this->requireLogin();if(!$this->isSuperuser()){http_response_code(403);exit('Superuser access required');}if(!Security::verifyCsrf($_POST['_csrf']??null)){http_response_code(419);exit('Invalid security token');}$slug=trim((string)($_POST['slug']??''));$definition=json_decode((string)($_POST['definition']??''),true);if(!$slug||!is_array($definition)){http_response_code(422);exit('Invalid form definition');}$summary=trim((string)($_POST['change_summary']??''));(new FormTemplate())->createVersion($slug,$definition,(int)($_SESSION['user']['id']??0),$summary);redirect('forms/templates/'.$slug.'/versions');}
+ public function templateStore():void{$this->requireLogin();if(!$this->isSuperuser()){http_response_code(403);exit('Superuser access required');}if(!Security::verifyCsrf($_POST['_csrf']??null)){http_response_code(419);exit('Invalid security token');}$slug=trim((string)($_POST['slug']??''));$definition=json_decode((string)($_POST['definition']??''),true);$summary=trim((string)($_POST['change_summary']??''));if(!$slug||!is_array($definition)){http_response_code(422);exit('Invalid form definition');}$id=(new FormTemplate())->createVersion($slug,$definition,(int)($_SESSION['user']['id']??0),$summary);redirect('forms/templates/'.$slug.'/versions');}
  public function riskAssessment():void{$this->requireLogin();$clients=$this->assignedClients();$this->view('forms/privacy-risk-assessment',['title'=>'Privacy Risk Assessment','clients'=>$clients]);}
  public function ropa():void{$this->requireLogin();$client=$this->resolveClient();$id=(int)($_GET['id']??0);$ropa=[];$record=null;$template=null;
-  if($id>0){$record=(new Ropa())->find($id);if(!$record){http_response_code(404);exit('ROPA record not found');}if((int)$record['client_id']!==(int)$client['id']||!$this->canAccessFormClient((int)$record['client_id'])){http_response_code(403);$this->view('errors/403',['title'=>'Access denied','message'=>'You do not have access to this ROPA record.']);exit;}$ropa=$record['data'];$ropa['id']=$record['id'];$ropa['client_id']=$record['client_id'];$ropa['process_name']=$record['process_name'];$ropa['status']=$record['status'];$templateForRecord=$record['form_definition'];if($templateForRecord){$template=['definition'=>$templateForRecord,'version_number'=>(int)($record['form_version_number']??1),'name'=>((string)($ropa['ropa_role']??'controller')==='processor'?'ROPA — Processor':'ROPA — Controller')];}else{$role=(string)($ropa['ropa_role']??'controller');$template=(new FormTemplate())->active($this->ropaSlug($role));}$_SESSION['ropa_edit_id']=$record['id'];
+  if($id>0){$record=(new Ropa())->find($id);if(!$record){http_response_code(404);exit('ROPA record not found');}if((int)$record['client_id']!==(int)$client['id']||!$this->canAccessFormClient((int)$record['client_id'])){http_response_code(403);$this->view('errors/403',['title'=>'Access denied','message'=>'You do not have access to this ROPA record.']);exit;}$ropa=$record['data'];$ropa['id']=$record['id'];$ropa['client_id']=$record['client_id'];$ropa['process_name']=$record['process_name'];$ropa['status']=$record['status'];$templateForRecord=$record['form_definition'];if($templateForRecord){$template=['definition'=>$templateForRecord,'version_number'=>(int)($record['form_version_number']??1),'name'=>((string)($ropa['ropa_role']??'controller')==='processor'?'ROPA — Processor':'ROPA — Controller');}else{$role=(string)($ropa['ropa_role']??'controller');$template=(new FormTemplate())->active($this->ropaSlug($role));}$_SESSION['ropa_edit_id']=$record['id'];
   }else{$role=strtolower((string)($_GET['role']??'controller'))==='processor'?'processor':'controller';$ropa['ropa_role']=$role;$template=(new FormTemplate())->active($this->ropaSlug($role));unset($_SESSION['ropa_edit_id']);}
   if(!$template){http_response_code(500);exit('ROPA form template is not configured');}$clients=$this->assignedClients();$records=(new Ropa())->forClient((int)$client['id']);$this->view('forms/ropa',compact('client','clients','records','record','ropa','template'));}
- public function ropaStore():void{$this->requireLogin();if(!Security::verifyCsrf($_POST['_csrf']??null)){http_response_code(419);exit('Invalid security token');}$client=$this->resolveClient();$processName=trim((string)($_POST['process_name']??''));if($processName===''){http_response_code(422);exit('Processing activity / process is required');}$payload=$_POST;unset($payload['_csrf']);$payload['client_id']=(int)$client['id'];$role=strtolower((string)($payload['ropa_role']??'controller'))==='processor'?'processor':'controller';$model=new Ropa();$id=(int)($_POST['id']??($_SESSION['ropa_edit_id']??0));$data=['client_id'=>(int)$client['id'],'process_name'=>$processName,'status'=>trim((string)($_POST['status']??'planned')),'payload'=>$payload,'created_by'=>(int)($_SESSION['user']['id']??0)];if($id>0){$record=$model->find($id);if(!$record||!$this->canAccessFormClient((int)$record['client_id'])||(int)$record['client_id']!==(int)$client['id']){http_response_code(403);exit('Access denied');}$data['id']=$id;$model->update($data);}else{$template=(new FormTemplate())->active($this->ropaSlug($role));if(!$template){http_response_code(500);exit('ROPA form template is not configured');}$data['form_version_id']=(int)$template['active_version_id'];$id=$model->create($data);}$_SESSION['ropa_edit_id']=$id;redirect('forms/ropa?client_id='.$client['id'].'&id='.$id);}
+ public function ropaStore():void{$this->requireLogin();if(!Security::verifyCsrf($_POST['_csrf']??null)){http_response_code(419);exit('Invalid security token');}$client=$this->resolveClient();$id=(int)($_POST['id']??($_SESSION['ropa_edit_id']??0));$model=new Ropa();$record=$id>0?$model->find($id):null;
+  if($id>0&&(!$record||!$this->canAccessFormClient((int)$record['client_id'])||(int)$record['client_id']!==(int)$client['id'])){http_response_code(403);exit('Access denied');}
+  $role=$record?(strtolower((string)($record['data']['ropa_role']??'controller'))==='processor'?'processor':'controller'):(strtolower((string)($_POST['ropa_role']??'controller'))==='processor'?'processor':'controller');
+  $template=$record&&$record['form_definition']?['definition'=>$record['form_definition']]:((new FormTemplate())->active($this->ropaSlug($role))?:null);
+  if(!$template){http_response_code(500);exit('ROPA form template is not configured');}
+  $definition=$template['definition']??[];$payload=$this->validateRopaPayload($definition,$_POST,$role,(int)$client['id']);
+  $processName=trim((string)($payload['process_name']??''));if($processName===''){http_response_code(422);exit('Processing activity / process is required');}
+  $data=['client_id'=>(int)$client['id'],'process_name'=>$processName,'status'=>trim((string)($payload['status']??'planned')),'payload'=>$payload,'created_by'=>(int)($_SESSION['user']['id']??0)];
+  if($id>0){$data['id']=$id;$model->update($data);}else{$active=(new FormTemplate())->active($this->ropaSlug($role));if(!$active){http_response_code(500);exit('ROPA form template is not configured');}$data['form_version_id']=(int)$active['active_version_id'];$id=$model->create($data);}
+  $_SESSION['ropa_edit_id']=$id;redirect('forms/ropa?client_id='.$client['id'].'&id='.$id);
+ }
 }
