@@ -1,14 +1,10 @@
 <main class="login-page">
 
-    <div class="login-brand login-brand-desktop">
+    <div class="login-brand">
         <img src="https://privacyvista.com/wp-content/uploads/2025/12/privacy-vista-logo-light.png" alt="PrivacyVista">
     </div>
 
     <div class="login-card">
-
-        <div class="login-brand login-brand-mobile">
-            <img src="https://privacyvista.com/wp-content/uploads/2025/12/privacy-vista-logo-light.png" alt="PrivacyVista">
-        </div>
 
         <div class="login-heading">
             <h1>Welcome</h1>
