@@ -1,19 +1,10 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css");
 
-/* Font Awesome icon standardization for application navigation. */
+/* Font Awesome is the single icon source for sidebar navigation. */
 .sidebar .mobile-nav-icon{display:none !important;}
-.sidebar .nav-link[data-mobile-label]::before{display:inline-flex;align-items:center;justify-content:center;width:1.35rem;margin-right:.65rem;font-family:"Font Awesome 6 Free";font-weight:900;font-size:.92rem;line-height:1;flex:0 0 1.35rem;}
-.sidebar .nav-link[data-mobile-label="Dashboard"]::before{content:"\f00a";}
-.sidebar .nav-link[data-mobile-label="Clients"]::before{content:"\f0c0";}
-.sidebar .nav-link[data-mobile-label="Activities"]::before{content:"\f03a";}
-.sidebar .nav-link[data-mobile-label="Assessments"]::before{content:"\f46d";}
-.sidebar .nav-link[data-mobile-label="Findings"]::before{content:"\f071";}
-.sidebar .nav-link[data-mobile-label="Tasks"]::before{content:"\f0ae";}
-.sidebar .nav-link[data-mobile-label="Users"]::before{content:"\f0c0";}
-.sidebar .nav-link[data-mobile-label="Departments"]::before{content:"\f1ad";}
-.sidebar .nav-link[data-mobile-label="Forms"]::before{content:"\f15c";}
-.sidebar .nav-link[data-mobile-label="Reports"]::before{content:"\f201";}
-.sidebar .nav-link[data-mobile-label="Settings"]::before{content:"\f013";}
+.sidebar .nav-link[data-mobile-label]::before{display:none !important;content:none !important;}
+.sidebar .nav-link > svg{display:none !important;}
+.sidebar .nav-link > i.fa-solid,.sidebar .nav-link > i.fa-regular,.sidebar .nav-link > i.fa-brands{display:inline-flex !important;align-items:center;justify-content:center;width:1.35rem;min-width:1.35rem;height:1.35rem;margin-right:0;font-size:.92rem;line-height:1;flex:0 0 1.35rem;}
 
 /* Navbar logo + current-page context. Full-width application header. */
 .navbar-context{display:flex;align-items:center;min-width:0;gap:0;}
@@ -41,8 +32,7 @@ html[data-theme="dark"] .navbar{box-shadow:0 10px 30px rgba(0,0,0,.22), inset 0 
 
 /* Desktop/tablet More indicator uses the same Font Awesome family as navigation. */
 .more-desktop-trigger{display:flex !important;align-items:center;justify-content:space-between;gap:.5rem;cursor:pointer;border:0;background:transparent;width:100%;text-align:left;}
-.more-desktop-trigger .more-state-indicator{display:inline-flex;align-items:center;justify-content:center;width:1.35rem;height:1.35rem;font-family:"Font Awesome 6 Free";font-weight:900;font-size:.75rem;line-height:1;flex:0 0 1.35rem;}
-.more-desktop-trigger .more-state-indicator{font-size:0;}
+.more-desktop-trigger .more-state-indicator{display:inline-flex;align-items:center;justify-content:center;width:1.35rem;height:1.35rem;font-family:"Font Awesome 6 Free";font-weight:900;font-size:0;line-height:1;flex:0 0 1.35rem;}
 .more-desktop-trigger .more-state-indicator::before{content:"\f078";font-size:.75rem;}
 .more-desktop-trigger[aria-expanded="true"] .more-state-indicator::before{content:"\f077";}
 
