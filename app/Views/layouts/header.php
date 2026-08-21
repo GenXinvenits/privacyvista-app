@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="/app/public/assets/css/responsive.css?v=1">
     <link rel="stylesheet" href="/app/public/assets/css/primary-theme.css?v=2">
     <link rel="stylesheet" href="/app/public/assets/css/navbar-layout.css?v=1">
+    <link rel="stylesheet" href="/app/public/assets/css/sidebar-scroll-fix.css?v=1">
     <script src="/app/public/assets/js/theme.js?v=1" defer></script>
     <script src="/app/public/assets/js/fontawesome-icons.js?v=1" defer></script>
 </head>
