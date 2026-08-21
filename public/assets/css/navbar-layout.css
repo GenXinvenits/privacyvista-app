@@ -10,8 +10,8 @@
 html[data-theme="dark"] .navbar{box-shadow:0 10px 30px rgba(0,0,0,.22), inset 0 0px 0 var(--lg-highlight);}
 .app-main{padding-top:72px;}
 
-@media (min-width:992px){
-    /* Desktop: sidebar is an independent viewport rail, like the fixed navbar. */
+/* Desktop and tablet: sidebar is an independent viewport rail, like the fixed navbar. */
+@media (min-width:768px){
     .app-shell{display:block;min-height:100vh;overflow-x:hidden;}
     .sidebar{
         position:fixed;
@@ -35,7 +35,7 @@ html[data-theme="dark"] .navbar{box-shadow:0 10px 30px rgba(0,0,0,.22), inset 0 
     }
 }
 
-/* Tablet: use the same compact 220px logo area as desktop. */
+/* Tablet: same fixed sidebar/header relationship as desktop. */
 @media (min-width:768px) and (max-width:991.98px){
     .navbar-brand-logo{width:220px;flex-basis:220px;height:72px;justify-content:flex-start;}
     .navbar-brand-logo img{width:180px;height:48px;}
