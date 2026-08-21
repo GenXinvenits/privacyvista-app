@@ -1,9 +1,10 @@
 /* PrivacyVista — desktop sidebar vertical scrolling */
 @media (min-width: 768px) {
     .sidebar {
-        height: 100vh;
-        max-height: 100vh;
-        min-height: 100vh;
+        /* navbar-layout.css positions the sidebar below the 72px fixed navbar. */
+        height: calc(100vh - 72px);
+        max-height: calc(100vh - 72px);
+        min-height: 0;
         overflow: hidden;
     }
 
