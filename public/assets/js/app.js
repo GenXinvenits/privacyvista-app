@@ -9,7 +9,6 @@
         let raf = 0;
         let clientX = 0;
         let clientY = 0;
-
         const render = () => {
             raf = 0;
             if (!active) return;
@@ -52,16 +51,25 @@
         const desktopGroup = sidebar?.querySelector('#privacyvista-more-group');
         if (!sidebar || !nav) return;
 
-        // Mobile bottom navigation: keep the most frequently used items visible.
-        // Reports and Settings live inside More; Clients and Users stay directly visible.
         const primary = new Set(['Dashboard', 'Forms', 'Clients', 'Users']);
         const links = Array.from(nav.querySelectorAll('.nav-link[data-mobile-label]'));
         const secondary = links.filter(link => !primary.has(link.dataset.mobileLabel));
 
+        // Forms belongs inside desktop/tablet More, but must remain a first-class
+        // bottom-bar item on mobile. Keep a mobile-only clone outside the group.
+        const groupedForms = desktopGroup?.querySelector('.nav-link[data-mobile-label="Forms"]');
+        let mobileForms = nav.querySelector('.mobile-forms-link');
+        if (!mobileForms && groupedForms) {
+            mobileForms = groupedForms.cloneNode(true);
+            mobileForms.classList.add('mobile-forms-link');
+            mobileForms.removeAttribute('data-mobile-label');
+            nav.appendChild(mobileForms);
+        }
+
         let menu = sidebar.querySelector('.mobile-more-menu');
         if (!menu) {
             menu = document.createElement('div');
-            menu.id = 'privacyvista-mobile-more-menu';
+            menu.id = 'privacyvista-more-menu';
             menu.className = 'mobile-more-menu';
             menu.setAttribute('role', 'dialog');
             menu.setAttribute('aria-label', 'More navigation');
@@ -89,54 +97,38 @@
             nav.appendChild(mobileTrigger);
         }
 
-        const setDesktopOpen = open => {
-            if (!desktopGroup || !desktopTrigger) return;
-            desktopGroup.hidden = !open;
-            desktopTrigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        const syncResponsiveControls = () => {
+            const mobile = window.innerWidth <= 767;
+            if (mobileTrigger) mobileTrigger.style.display = mobile ? '' : 'none';
+            if (mobileForms) mobileForms.style.display = mobile ? '' : 'none';
+            if (desktopTrigger) desktopTrigger.style.display = mobile ? 'none' : '';
+            if (desktopGroup && mobile) desktopGroup.hidden = true;
         };
 
-        const setMobileOpen = open => {
+        const setOpen = open => {
+            if (desktopGroup) desktopGroup.hidden = !open;
             menu.classList.toggle('is-open', open);
             menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+            desktopTrigger?.setAttribute('aria-expanded', open ? 'true' : 'false');
             mobileTrigger?.setAttribute('aria-expanded', open ? 'true' : 'false');
         };
 
-        desktopTrigger?.addEventListener('click', event => {
+        const toggle = event => {
             event.preventDefault();
             event.stopPropagation();
-            setDesktopOpen(desktopGroup?.hidden !== false);
-        });
+            setOpen(!(desktopGroup && !desktopGroup.hidden ? true : menu.classList.contains('is-open')));
+        };
 
-        mobileTrigger?.addEventListener('click', event => {
-            event.preventDefault();
-            event.stopPropagation();
-            setMobileOpen(!menu.classList.contains('is-open'));
-        });
-
-        menu.querySelector('.mobile-more-close')?.addEventListener('click', () => setMobileOpen(false));
-
+        desktopTrigger?.addEventListener('click', toggle);
+        mobileTrigger?.addEventListener('click', toggle);
+        menu.querySelector('.mobile-more-close')?.addEventListener('click', () => setOpen(false));
         document.addEventListener('click', event => {
-            if (desktopGroup && !desktopGroup.hidden && !desktopGroup.contains(event.target) && event.target !== desktopTrigger) {
-                setDesktopOpen(false);
-            }
-            if (menu.classList.contains('is-open') && !menu.contains(event.target) && event.target !== mobileTrigger) {
-                setMobileOpen(false);
-            }
+            if (menu.classList.contains('is-open') && !menu.contains(event.target) && event.target !== desktopTrigger && event.target !== mobileTrigger) setOpen(false);
         });
-
-        document.addEventListener('keydown', event => {
-            if (event.key !== 'Escape') return;
-            setDesktopOpen(false);
-            setMobileOpen(false);
-        });
-
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 767) setMobileOpen(false);
-            else setDesktopOpen(false);
-        }, { passive: true });
-
-        // Start collapsed. There is only one visible desktop/tablet More heading.
-        setDesktopOpen(false);
+        document.addEventListener('keydown', event => { if (event.key === 'Escape') setOpen(false); });
+        window.addEventListener('resize', () => { syncResponsiveControls(); setOpen(false); }, { passive: true });
+        syncResponsiveControls();
+        setOpen(false);
     };
 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initMoreNavigation, { once: true });
