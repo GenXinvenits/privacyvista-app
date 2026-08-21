@@ -59,10 +59,11 @@
             toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
             toggle.setAttribute('aria-label', collapsed ? 'Expand sidebar' : 'Collapse sidebar');
             toggle.title = collapsed ? 'Expand sidebar' : 'Collapse sidebar';
-            const icon = toggle.querySelector('i');
+            toggle.dataset.state = collapsed ? 'collapsed' : 'expanded';
+            const icon = toggle.querySelector('[data-sidebar-toggle-icon]') || toggle.querySelector('i');
             if (icon) {
-                icon.classList.toggle('fa-angles-left', !collapsed);
-                icon.classList.toggle('fa-angles-right', collapsed);
+                icon.classList.remove('fa-angles-left', 'fa-angles-right');
+                icon.classList.add(collapsed ? 'fa-angles-right' : 'fa-angles-left');
             }
             document.documentElement.classList.toggle('sidebar-collapsed', collapsed);
             document.querySelector('.app-main')?.classList.toggle('sidebar-collapsed', collapsed);
