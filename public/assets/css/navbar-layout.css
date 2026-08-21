@@ -5,22 +5,33 @@
 .navbar-page-context{min-width:0;padding-left:18px;border-left:1px solid var(--pv-border);}
 .sidebar .sidebar-brand{display:none !important;}
 
-/* The navbar spans the complete viewport. Keep the sidebar below it. */
+/* Full-width fixed application header. */
 .navbar{position:fixed;top:0;left:0;width:100%;z-index:1100;}
 html[data-theme="dark"] .navbar{box-shadow:0 10px 30px rgba(0,0,0,.22), inset 0 0px 0 var(--lg-highlight);}
 .app-main{padding-top:72px;}
+
 @media (min-width:992px){
-    /* Keep the sidebar anchored below the fixed navbar while the main content can grow freely. */
+    /* Desktop: keep sidebar at the visible viewport height regardless of main content length. */
+    .app-shell{display:block;min-height:100vh;overflow-x:hidden;}
     .sidebar{
-        position:sticky;
+        position:fixed;
         top:72px;
-        align-self:flex-start;
-        margin-top:72px;
-        height:calc(100vh - 72px);
-        min-height:calc(100vh - 72px);
-        max-height:calc(100vh - 72px);
+        left:0;
+        bottom:0;
+        width:248px;
+        min-width:248px;
+        height:auto;
+        min-height:0;
+        max-height:none;
+        margin:0;
         overflow-y:auto;
         overflow-x:hidden;
+        z-index:1000;
+    }
+    .app-main{
+        margin-left:248px;
+        min-height:100vh;
+        width:calc(100% - 248px);
     }
 }
 
