@@ -10,7 +10,18 @@
 html[data-theme="dark"] .navbar{box-shadow:0 10px 30px rgba(0,0,0,.22), inset 0 0px 0 var(--lg-highlight);}
 .app-main{padding-top:72px;}
 @media (min-width:992px){
-    .sidebar{margin-top:72px;min-height:calc(100vh - 72px);height:calc(100vh - 72px);}
+    /* Keep the sidebar anchored below the fixed navbar while the main content can grow freely. */
+    .sidebar{
+        position:sticky;
+        top:72px;
+        align-self:flex-start;
+        margin-top:72px;
+        height:calc(100vh - 72px);
+        min-height:calc(100vh - 72px);
+        max-height:calc(100vh - 72px);
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
 }
 
 /* Tablet: use the same compact 220px logo area as desktop. */
