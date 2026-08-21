@@ -5,64 +5,1793 @@
 :root {
     --pv-ink: #e7edf7;
     --pv-muted: #98a6ba;
+
     --pv-primary: #5b8cff;
     --pv-primary-soft: rgba(91, 140, 255, .14);
+
     --pv-border: #263247;
+
     --pv-bg: #0b1220;
     --pv-sidebar: #080d17;
+
     --pv-sidebar-muted: #9aa8bd;
+
     --pv-surface: #111a2a;
     --pv-surface-2: #0d1626;
+
+    --pv-hover: #182338;
 }
 
-/* ... existing application styles retained ... */
 
-/* Login / Guest Page fixes are applied in theme-fix.css so the login page
-   follows the same theme system as the authenticated application. */
+/* =========================================================
+   Base
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    background: var(--pv-bg);
+    color: var(--pv-ink);
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    font-size: .94rem;
+}
+
+a {
+    color: #8eb0ff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #b5caff;
+}
+
+
+/* =========================================================
+   Application Layout
+   ========================================================= */
+
+.app-shell {
+    display: flex;
+
+    width: 100%;
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+.app-main {
+    display: flex;
+
+    flex: 1;
+
+    min-width: 0;
+    min-height: 100vh;
+
+    flex-direction: column;
+
+    background: var(--pv-bg);
+}
+
+
+/* =========================================================
+   Sidebar
+   ========================================================= */
+
+.sidebar {
+    position: relative;
+
+    width: 248px;
+    min-width: 248px;
+    min-height: 100vh;
+
+    flex: none;
+
+    background: var(--pv-sidebar);
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 72px;
+
+    padding: 0 18px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.sidebar-brand img {
+    width: 150px;
+    max-width: 100%;
+    height: 44px;
+
+    object-fit: contain;
+}
+
+.sidebar-brand span {
+    display: none;
+}
+
+.sidebar-section {
+    padding: 22px 12px 8px;
+
+    color: #66758b;
+
+    text-transform: uppercase;
+
+    font-size: .68rem;
+    font-weight: 700;
+
+    letter-spacing: .08em;
+}
+
+.sidebar .nav-link {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    margin: 3px 10px;
+
+    padding: 10px 12px;
+
+    border-radius: 9px;
+
+    color: var(--pv-sidebar-muted);
+
+    font-weight: 500;
+
+    transition:
+        background .18s ease,
+        color .18s ease;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link:focus {
+    background: rgba(255, 255, 255, .07) !important;
+    color: #fff !important;
+}
+
+.sidebar .nav-link.active {
+    background: rgba(91, 140, 255, .16) !important;
+    color: #fff !important;
+}
+
+.sidebar .nav-link svg {
+    width: 18px;
+    height: 18px;
+
+    flex: none;
+
+    stroke: currentColor;
+}
+
+.sidebar .nav-link.disabled {
+    opacity: .45;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   Top Navigation
+   ========================================================= */
+
+.navbar {
+    height: 72px;
+
+    flex: none;
+
+    padding: 0 28px;
+
+    background: var(--pv-surface) !important;
+
+    border: 0 !important;
+    border-bottom: 1px solid var(--pv-border) !important;
+
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, .2);
+}
+
+.navbar-title {
+    color: var(--pv-ink);
+
+    font-size: 1.05rem;
+    font-weight: 700;
+
+    line-height: 1.25;
+}
+
+.navbar-subtitle {
+    margin-top: 2px;
+
+    color: var(--pv-muted);
+
+    font-size: .76rem;
+}
+
+
+/* =========================================================
+   Legacy User Elements
+   ========================================================= */
+
+.user-chip {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.user-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    border-radius: 50%;
+
+    background: var(--pv-primary-soft);
+
+    color: var(--pv-primary);
+
+    font-weight: 700;
+}
+
+.user-details {
+    font-size: .82rem;
+    font-weight: 600;
+
+    line-height: 1.2;
+}
+
+.user-details small {
+    display: block;
+
+    margin-top: 2px;
+
+    color: var(--pv-muted);
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   User Profile Hover Menu
+   ========================================================= */
+
+.user-profile-menu {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+}
+
+
+/* =========================================================
+   Profile Trigger
+   ========================================================= */
+
+.user-profile-trigger {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin: 0;
+    padding: 5px 8px;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: var(--pv-ink);
+
+    font: inherit;
+
+    cursor: pointer;
+
+    transition:
+        background .18s ease,
+        color .18s ease;
+}
+
+.user-profile-trigger:hover,
+.user-profile-trigger:focus {
+    background: rgba(255, 255, 255, .06);
+
+    outline: none;
+}
+
+
+/* =========================================================
+   Profile Avatar
+   ========================================================= */
+
+.user-profile-trigger .user-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    border-radius: 50%;
+
+    background: var(--pv-primary-soft);
+
+    color: #8eb0ff;
+
+    font-size: .9rem;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   Profile Details
+   ========================================================= */
+
+.user-profile-trigger .user-details {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    text-align: right;
+
+    line-height: 1.15;
+}
+
+.user-profile-trigger .user-name {
+    display: block;
+
+    max-width: 180px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: #e7edf7;
+
+    font-size: .82rem;
+    font-weight: 600;
+}
+
+.user-profile-trigger .user-status {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--pv-muted);
+
+    font-size: .7rem;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   Profile Chevron
+   ========================================================= */
+
+.user-chevron {
+    flex: none;
+
+    color: #718096;
+
+    transition:
+        transform .2s ease,
+        color .2s ease;
+}
+
+.user-profile-menu:hover .user-chevron,
+.user-profile-trigger:focus .user-chevron {
+    color: #aebbd0;
+
+    transform: rotate(180deg);
+}
+
+
+/* =========================================================
+   User Dropdown
+   ========================================================= */
+
+.user-dropdown {
+    position: absolute;
+
+    top: calc(100% + 8px);
+    right: 0;
+
+    z-index: 2000;
+
+    width: 230px;
+
+    padding: 8px;
+
+    background: rgba(17, 26, 42, .98);
+
+    border: 1px solid var(--pv-border);
+    border-radius: 12px;
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, .42),
+        0 4px 12px rgba(0, 0, 0, .20);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(-5px);
+
+    pointer-events: none;
+
+    transition:
+        opacity .16s ease,
+        transform .16s ease,
+        visibility .16s ease;
+}
+
+
+/* =========================================================
+   Invisible Hover Bridge
+   ========================================================= */
+
+.user-dropdown::before {
+    content: "";
+
+    position: absolute;
+
+    top: -9px;
+    right: 0;
+
+    width: 100%;
+    height: 10px;
+}
+
+
+/* =========================================================
+   Show Dropdown
+   ========================================================= */
+
+.user-profile-menu:hover .user-dropdown,
+.user-profile-menu:focus-within .user-dropdown {
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: translateY(0);
+
+    pointer-events: auto;
+}
+
+
+/* =========================================================
+   Dropdown Header
+   ========================================================= */
+
+.user-dropdown-header {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 9px 8px;
+}
+
+.user-dropdown-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    border-radius: 50%;
+
+    background: var(--pv-primary-soft);
+
+    color: #8eb0ff;
+
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.user-dropdown-header strong {
+    display: block;
+
+    max-width: 155px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: #e7edf7;
+
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.user-dropdown-header small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--pv-muted);
+
+    font-size: .68rem;
+}
+
+
+/* =========================================================
+   Dropdown Divider
+   ========================================================= */
+
+.user-dropdown-divider {
+    height: 1px;
+
+    margin: 5px 4px;
+
+    background: var(--pv-border);
+}
+
+
+/* =========================================================
+   Dropdown Items
+   ========================================================= */
+
+.user-dropdown-item {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    width: 100%;
+
+    padding: 9px 10px;
+
+    border-radius: 8px;
+
+    color: #b8c4d4 !important;
+
+    font-size: .78rem;
+    font-weight: 500;
+
+    transition:
+        background .16s ease,
+        color .16s ease;
+}
+
+.user-dropdown-item svg {
+    flex: none;
+
+    color: #8b9bb1;
+
+    transition:
+        color .16s ease;
+}
+
+.user-dropdown-item:hover,
+.user-dropdown-item:focus {
+    background: rgba(255, 255, 255, .06);
+
+    color: #fff !important;
+}
+
+
+/* =========================================================
+   Logout
+   ========================================================= */
+
+.user-dropdown-item.logout-item:hover,
+.user-dropdown-item.logout-item:focus {
+    background: rgba(239, 68, 68, .10);
+
+    color: #ff9da4 !important;
+}
+
+.user-dropdown-item.logout-item:hover svg,
+.user-dropdown-item.logout-item:focus svg {
+    color: #ff7f88;
+}
+
+
+/* =========================================================
+   Page
+   ========================================================= */
+
+.page-content {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 28px 32px 40px;
+}
+
+.page-title {
+    margin-bottom: 4px;
+
+    color: var(--pv-ink);
+
+    font-size: 1.55rem;
+    font-weight: 700;
+
+    letter-spacing: -.025em;
+}
+
+.page-subtitle {
+    margin-bottom: 24px;
+
+    color: var(--pv-muted);
+}
+
+
+/* =========================================================
+   Cards
+   ========================================================= */
+
+.card {
+    border: 1px solid var(--pv-border) !important;
+
+    border-radius: 14px;
+
+    background: var(--pv-surface) !important;
+
+    color: var(--pv-ink) !important;
+
+    box-shadow:
+        0 2px 12px rgba(0, 0, 0, .16);
+}
+
+.card-header,
+.card-footer {
+    padding: 16px 20px;
+
+    border-color: var(--pv-border) !important;
+
+    background: var(--pv-surface) !important;
+
+    color: var(--pv-ink) !important;
+}
+
+.card-header {
+    border-radius: 14px 14px 0 0 !important;
+}
+
+.card-footer {
+    border-radius: 0 0 14px 14px !important;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+
+/* =========================================================
+   Dashboard Statistic Cards
+   ========================================================= */
+
+.dashboard-stat {
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
+}
+
+.dashboard-stat:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 28px rgba(0, 0, 0, .25);
+}
+
+.dashboard-stat .card-body {
+    display: block;
+}
+
+.dashboard-stat .stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    margin: 0 0 14px 0;
+
+    border-radius: 11px;
+
+    background: var(--pv-primary-soft);
+
+    color: var(--pv-primary);
+
+    flex: none;
+}
+
+.dashboard-stat .stat-icon svg {
+    display: block;
+
+    width: 21px;
+    height: 21px;
+}
+
+.dashboard-stat .stat-label {
+    margin: 0;
+
+    color: var(--pv-muted);
+
+    font-size: .78rem;
+    font-weight: 600;
+}
+
+.dashboard-stat .stat-value {
+    margin-top: 5px;
+
+    color: var(--pv-ink);
+
+    font-size: 1.7rem;
+    font-weight: 750;
+
+    line-height: 1.1;
+}
+
+
+/* =========================================================
+   Tables
+   ========================================================= */
+
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--pv-ink);
+    --bs-table-striped-color: var(--pv-ink);
+    --bs-table-hover-color: #fff;
+    --bs-table-hover-bg: rgba(255, 255, 255, .035);
+
+    margin-bottom: 0;
+
+    color: var(--pv-ink) !important;
+}
+
+.table > :not(caption) > * > * {
+    background-color: transparent !important;
+
+    color: inherit !important;
+
+    border-color: #202c40 !important;
+}
+
+.table thead th {
+    padding: 13px 16px;
+
+    border-bottom: 1px solid var(--pv-border);
+
+    color: #8291a7 !important;
+
+    font-size: .72rem;
+    font-weight: 700;
+
+    letter-spacing: .04em;
+
+    text-transform: uppercase;
+}
+
+.table tbody td {
+    padding: 15px 16px;
+
+    border-color: #202c40 !important;
+
+    vertical-align: middle;
+}
+
+.table tbody tr:hover,
+.table tbody tr:hover td {
+    background: rgba(255, 255, 255, .025) !important;
+
+    color: #fff !important;
+}
+
+
+/* =========================================================
+   Dropdowns
+   ========================================================= */
+
+.dropdown-menu {
+    padding: 6px;
+
+    border: 1px solid var(--pv-border) !important;
+
+    border-radius: 10px;
+
+    background: var(--pv-surface) !important;
+
+    box-shadow:
+        0 14px 35px rgba(0, 0, 0, .35);
+}
+
+.dropdown-item {
+    padding: 9px 11px;
+
+    border-radius: 7px;
+
+    color: #cbd5e1 !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus,
+.dropdown-item:active {
+    background: var(--pv-hover) !important;
+
+    color: #fff !important;
+}
+
+.dropdown-divider {
+    border-color: var(--pv-border) !important;
+}
+
+
+/* =========================================================
+   Forms
+   ========================================================= */
+
+.form-label {
+    color: #c7d1df !important;
+
+    font-weight: 600;
+}
+
+.form-text,
+.text-muted {
+    color: var(--pv-muted) !important;
+}
+
+.form-control,
+.form-select {
+    padding: .62rem .75rem;
+
+    border: 1px solid #304057 !important;
+
+    border-radius: 9px;
+
+    background: var(--pv-surface-2) !important;
+
+    color: var(--pv-ink) !important;
+}
+
+.form-control::placeholder {
+    color: #66758b !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background: var(--pv-surface-2) !important;
+
+    color: var(--pv-ink) !important;
+
+    border-color: #6d98ff !important;
+
+    box-shadow:
+        0 0 0 .2rem rgba(91, 140, 255, .12) !important;
+}
+
+.form-select option {
+    background: var(--pv-surface);
+
+    color: var(--pv-ink);
+}
+
+.input-group-text {
+    background: var(--pv-hover) !important;
+
+    color: #aebbd0 !important;
+
+    border-color: #304057 !important;
+}
+
+
+/* =========================================================
+   Buttons
+   ========================================================= */
+
+.btn {
+    padding: .55rem .9rem;
+
+    border-radius: 9px;
+
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: var(--pv-primary) !important;
+
+    border-color: var(--pv-primary) !important;
+
+    color: #fff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background: #729cff !important;
+
+    border-color: #729cff !important;
+
+    color: #fff !important;
+}
+
+.btn-secondary {
+    background: #27344a !important;
+
+    border-color: #35445d !important;
+
+    color: #dbe5f2 !important;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active {
+    background: #35445d !important;
+
+    border-color: #465975 !important;
+
+    color: #fff !important;
+}
+
+.btn-outline-primary {
+    color: #8eb0ff !important;
+
+    border-color: #496db9 !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+    background: var(--pv-primary) !important;
+
+    border-color: var(--pv-primary) !important;
+
+    color: #fff !important;
+}
+
+.btn-outline-secondary {
+    color: #aebbd0 !important;
+
+    border-color: #3a4960 !important;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus,
+.btn-outline-secondary:active {
+    background: #27344a !important;
+
+    border-color: #465975 !important;
+
+    color: #fff !important;
+}
+
+.btn-light {
+    background: #27344a !important;
+
+    border-color: #35445d !important;
+
+    color: #dbe5f2 !important;
+}
+
+.btn-light:hover,
+.btn-light:focus,
+.btn-light:active {
+    background: #35445d !important;
+
+    border-color: #465975 !important;
+
+    color: #fff !important;
+}
+
+
+/* =========================================================
+   Badges
+   ========================================================= */
+
+.badge {
+    padding: .45em .7em;
+
+    border-radius: 999px;
+
+    font-weight: 600;
+}
+
+.badge.bg-success {
+    background: #1f684e !important;
+
+    color: #d7ffeb !important;
+}
+
+.badge.bg-secondary {
+    background: #3a4659 !important;
+
+    color: #d7deea !important;
+}
+
+.badge.bg-danger {
+    background: #6b3035 !important;
+
+    color: #ffdadd !important;
+}
+
+.badge.bg-warning {
+    background: #70591f !important;
+
+    color: #fff1c4 !important;
+}
+
+.badge.bg-primary {
+    background: var(--pv-primary) !important;
+
+    color: #fff !important;
+}
+
+
+/* =========================================================
+   Alerts
+   ========================================================= */
+
+.alert {
+    border-radius: 10px;
+}
+
+.alert-light {
+    background: #182338 !important;
+
+    border-color: #2c3b53 !important;
+
+    color: #dbe5f2 !important;
+}
+
+.alert-dark {
+    background: #101a2b !important;
+
+    border-color: #2b3a52 !important;
+
+    color: #dbe5f2 !important;
+}
+
+.alert-primary {
+    background: #13264a !important;
+
+    border-color: #2d5fc1 !important;
+
+    color: #cfe0ff !important;
+}
+
+.alert-success {
+    background: #102b22 !important;
+
+    border-color: #1f684e !important;
+
+    color: #9be7c4 !important;
+}
+
+.alert-warning {
+    background: #302510 !important;
+
+    border-color: #70591f !important;
+
+    color: #f5d58a !important;
+}
+
+.alert-danger {
+    background: #35181d !important;
+
+    border-color: #6b3035 !important;
+
+    color: #ffb4b8 !important;
+}
+
+
+/* =========================================================
+   Modal
+   ========================================================= */
+
+.modal-content {
+    background: var(--pv-surface) !important;
+
+    color: var(--pv-ink) !important;
+
+    border-color: var(--pv-border) !important;
+}
+
+.modal-header,
+.modal-footer {
+    border-color: var(--pv-border) !important;
+}
+
+.modal-title {
+    color: #fff !important;
+}
+
+.btn-close {
+    filter: invert(1) grayscale(1);
+
+    opacity: .75;
+}
+
+.btn-close:hover {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   Breadcrumbs
+   ========================================================= */
+
+.breadcrumb {
+    --bs-breadcrumb-divider-color: #60708a;
+}
+
+.breadcrumb-item,
+.breadcrumb-item a {
+    color: #8ea0b8 !important;
+}
+
+.breadcrumb-item.active {
+    color: #e7edf7 !important;
+}
+
+
+/* =========================================================
+   Pagination
+   ========================================================= */
+
+.pagination .page-link {
+    background: var(--pv-surface) !important;
+
+    border-color: #2a3950 !important;
+
+    color: #aebbd0 !important;
+}
+
+.pagination .page-link:hover {
+    background: #1b2940 !important;
+
+    border-color: #3b5272 !important;
+
+    color: #fff !important;
+}
+
+.pagination .active > .page-link {
+    background: var(--pv-primary) !important;
+
+    border-color: var(--pv-primary) !important;
+
+    color: #fff !important;
+}
+
+
+/* =========================================================
+   Tabs
+   ========================================================= */
+
+.nav-tabs {
+    border-color: var(--pv-border) !important;
+}
+
+.nav-tabs .nav-link {
+    color: #98a6ba !important;
+
+    border-color: transparent !important;
+}
+
+.nav-tabs .nav-link:hover {
+    background: #182338 !important;
+
+    color: #fff !important;
+
+    border-color: #2b3a52 !important;
+}
+
+.nav-tabs .nav-link.active {
+    background: var(--pv-surface) !important;
+
+    color: #fff !important;
+
+    border-color:
+        var(--pv-border)
+        var(--pv-border)
+        var(--pv-surface) !important;
+}
+
+
+/* =========================================================
+   List Groups
+   ========================================================= */
+
+.list-group-item {
+    background: var(--pv-surface) !important;
+
+    color: var(--pv-ink) !important;
+
+    border-color: var(--pv-border) !important;
+}
+
+.list-group-item:hover {
+    background: var(--pv-hover) !important;
+
+    color: #fff !important;
+}
+
+
+/* =========================================================
+   Bootstrap Utility Overrides
+   ========================================================= */
+
+.text-dark {
+    color: #e7edf7 !important;
+}
+
+.bg-white {
+    background: var(--pv-surface) !important;
+}
+
+.bg-light {
+    background: #182338 !important;
+}
+
+.border {
+    border-color: var(--pv-border) !important;
+}
+
+.link-dark {
+    color: #cbd5e1 !important;
+}
+
+.link-dark:hover {
+    color: #fff !important;
+}
+
+
+/* =========================================================
+   Login / Guest Page
+   ========================================================= */
+
+.guest-page {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100vh;
+
+    margin: 0;
+
+    padding: 24px;
+
+    overflow: hidden;
+
+    /*
+     * Original PrivacyVista login gradient.
+     * DO NOT CHANGE.
+     */
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            #182b4a 0%,
+            #0b1220 48%,
+            #070b13 100%
+        );
+}
+
+
+/* =========================================================
+   Login Background Bubbles
+   ========================================================= */
+
+.guest-page::before,
+.guest-page::after {
+    content: "";
+
+    position: absolute;
+
+    width: 520px;
+    height: 520px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    opacity: .055;
+
+    filter: blur(1px);
+
+    background:
+        radial-gradient(
+            circle at 30% 30%,
+            rgba(91, 140, 255, .9) 0%,
+            rgba(91, 140, 255, .35) 35%,
+            rgba(91, 140, 255, 0) 70%
+        );
+
+    animation:
+        loginBubbleFloat 18s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   Bubble 1
+   ========================================================= */
+
+.guest-page::before {
+    top: -180px;
+
+    left: -140px;
+
+    animation-delay: -4s;
+}
+
+
+/* =========================================================
+   Bubble 2
+   ========================================================= */
+
+.guest-page::after {
+    right: -160px;
+
+    bottom: -220px;
+
+    width: 600px;
+    height: 600px;
+
+    background:
+        radial-gradient(
+            circle at 65% 35%,
+            rgba(91, 140, 255, .8) 0%,
+            rgba(91, 140, 255, .3) 38%,
+            rgba(91, 140, 255, 0) 72%
+        );
+
+    animation-duration: 22s;
+
+    animation-delay: -9s;
+}
+
+
+/* =========================================================
+   Bubble Animation
+   ========================================================= */
+
+@keyframes loginBubbleFloat {
+
+    0% {
+        transform:
+            translate3d(0, 0, 0)
+            scale(1);
+    }
+
+    25% {
+        transform:
+            translate3d(45px, 30px, 0)
+            scale(1.06);
+    }
+
+    50% {
+        transform:
+            translate3d(-25px, 65px, 0)
+            scale(.96);
+    }
+
+    75% {
+        transform:
+            translate3d(-55px, 20px, 0)
+            scale(1.04);
+    }
+
+    100% {
+        transform:
+            translate3d(0, 0, 0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   Login Page Wrapper
+   ========================================================= */
+
+.guest-page .login-page {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   Login Card
+   ========================================================= */
+
+.login-card {
+    position: relative;
+
+    z-index: 3;
+
+    width: min(420px, 100%);
+
+    padding: 38px;
+
+    background: rgba(17, 26, 42, .94);
+
+    border: 1px solid #2b3a52;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 28px 80px rgba(0, 0, 0, .45);
+}
+
+
+/* =========================================================
+   Login Brand
+   ========================================================= */
+
+.login-brand {
+    position: absolute;
+
+    top: 28px;
+
+    left: 32px;
+
+    margin: 0;
+
+    text-align: left;
+}
+
+.login-brand img {
+    display: block;
+
+    width: 180px;
+
+    height: auto;
+
+    max-height: 58px;
+
+    margin: 0;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
+   Login Heading
+   ========================================================= */
+
+.login-heading {
+    margin-bottom: 25px;
+
+    text-align: center;
+}
+
+.login-heading h1 {
+    margin: 0 0 7px;
+
+    color: #f2f5fa;
+
+    font-size: 1.65rem;
+
+    font-weight: 750;
+
+    letter-spacing: -.03em;
+}
+
+.login-heading p {
+    margin: 0;
+
+    color: #98a6ba;
+
+    font-size: .9rem;
+}
+
+
+/* =========================================================
+   Login Form
+   ========================================================= */
+
+.login-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+.login-field label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #c7d1df;
+
+    font-size: .8rem;
+
+    font-weight: 650;
+}
+
+.login-field input {
+    width: 100%;
+
+    height: 46px;
+
+    padding: 0 13px;
+
+    background: #0d1626;
+
+    border: 1px solid #304057;
+
+    border-radius: 10px;
+
+    color: #e7edf7;
+
+    font: inherit;
+
+    outline: none;
+
+    transition:
+        border-color .18s,
+        box-shadow .18s;
+}
+
+.login-field input:focus {
+    border-color: #6d98ff;
+
+    box-shadow:
+        0 0 0 4px rgba(91, 140, 255, .1);
+}
+
+.login-field input::placeholder {
+    color: #66758b;
+}
+
+
+/* =========================================================
+   Login Button
+   ========================================================= */
+
+.login-submit {
+    width: 100%;
+
+    height: 46px;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    background: var(--pv-primary);
+
+    color: #fff;
+
+    font: inherit;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 14px rgba(91, 140, 255, .2);
+
+    transition:
+        transform .15s,
+        box-shadow .15s;
+}
+
+.login-submit:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 18px rgba(91, 140, 255, .25);
+}
+
+
+/* =========================================================
+   Login Alert
+   ========================================================= */
+
+.login-alert {
+    margin-bottom: 18px;
+
+    padding: 11px 13px;
+
+    background: #35181d;
+
+    border: 1px solid #6b3035;
+
+    border-radius: 10px;
+
+    color: #ffb4b8;
+
+    font-size: .85rem;
+}
+
+
+/* =========================================================
+   Login Footer
+   ========================================================= */
+
+.login-footer {
+    margin: 25px 0 0;
+
+    color: #718096;
+
+    font-size: .72rem;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   Responsive
+   ========================================================= */
 
 @media (max-width: 767.98px) {
-    html, body.guest-page {
-        width:100%;
-        max-width:100%;
-        min-width:0;
-        overflow-x:hidden!important;
+
+    .sidebar {
+        width: 72px;
+
+        min-width: 72px;
     }
+
+    .sidebar-brand {
+        justify-content: center;
+
+        padding: 0;
+    }
+
+    .sidebar-brand img {
+        width: 44px;
+    }
+
+    .sidebar-section,
+    .sidebar .nav-link span {
+        display: none;
+    }
+
+    .sidebar .nav-link {
+        justify-content: center;
+
+        margin: 4px 8px;
+    }
+
+    .page-content {
+        padding: 20px 16px;
+    }
+
+    .navbar {
+        height: 64px;
+
+        padding: 0 16px;
+    }
+
+    .user-profile-trigger {
+        padding: 4px;
+    }
+
+    .user-profile-trigger .user-details {
+        display: none;
+    }
+
+    .user-chevron {
+        display: none;
+    }
+
+    .user-dropdown {
+        right: 0;
+
+        width: 215px;
+    }
+
+    /* -----------------------------------------------------
+       Login Mobile
+       ----------------------------------------------------- */
 
     .guest-page {
-        box-sizing:border-box;
-        width:100%;
-        min-height:100dvh;
-        padding:16px;
+        padding: 16px;
     }
 
-    /* The animated 380/430px bubbles were the primary source of the mobile
-       viewport overflow. Keep the desktop decoration, remove it on mobile. */
-    .guest-page::before,
+    .guest-page::before {
+        width: 380px;
+        height: 380px;
+
+        top: -140px;
+        left: -150px;
+    }
+
     .guest-page::after {
-        display:none!important;
-        animation:none!important;
-        transform:none!important;
-    }
+        width: 430px;
+        height: 430px;
 
-    .guest-page .login-page {
-        box-sizing:border-box;
-        width:100%;
-        max-width:100%;
-        min-width:0;
-        min-height:calc(100dvh - 32px);
+        right: -180px;
+        bottom: -160px;
     }
 
     .login-card {
-        box-sizing:border-box;
-        width:100%;
-        max-width:420px;
-        min-width:0;
+        padding: 30px 22px;
+
+        border-radius: 17px;
     }
 
-    .login-field,
-    .login-field input,
+    .login-brand {
+        top: 20px;
+
+        left: 22px;
+    }
+
+    .login-brand img {
+        width: 145px;
+
+        max-height: 48px;
+    }
+
+    .dashboard-stat .stat-value {
+        font-size: 1.45rem;
+    }
+}
+
+
+/* =========================================================
+   Reduced Motion Accessibility
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .guest-page::before,
+    .guest-page::after {
+        animation: none;
+    }
+
     .login-submit {
-        box-sizing:border-box;
-        max-width:100%;
+        transition: none;
+    }
+
+    .dashboard-stat {
+        transition: none;
+    }
+
+    .dashboard-stat:hover {
+        transform: none;
     }
 }
