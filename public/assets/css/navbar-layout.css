@@ -11,7 +11,7 @@ html[data-theme="dark"] .navbar{box-shadow:0 10px 30px rgba(0,0,0,.22), inset 0 
 .app-main{padding-top:72px;}
 
 @media (min-width:992px){
-    /* Desktop: keep sidebar at the visible viewport height regardless of main content length. */
+    /* Desktop: sidebar is an independent viewport rail, like the fixed navbar. */
     .app-shell{display:block;min-height:100vh;overflow-x:hidden;}
     .sidebar{
         position:fixed;
