@@ -1,0 +1,39 @@
+/* PrivacyVista — desktop sidebar vertical scrolling */
+@media (min-width: 768px) {
+    .sidebar {
+        height: 100vh;
+        max-height: 100vh;
+        min-height: 100vh;
+        overflow: hidden;
+    }
+
+    .sidebar > nav {
+        flex: 1 1 auto;
+        min-height: 0;
+        min-width: 0;
+        flex-wrap: nowrap !important;
+        flex-direction: column !important;
+        align-content: flex-start;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(154, 168, 189, .35) transparent;
+    }
+
+    .sidebar > nav::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .sidebar > nav::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .sidebar > nav::-webkit-scrollbar-thumb {
+        background: rgba(154, 168, 189, .35);
+        border-radius: 999px;
+    }
+
+    .sidebar > nav::-webkit-scrollbar-thumb:hover {
+        background: rgba(154, 168, 189, .55);
+    }
+}
