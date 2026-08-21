@@ -36,9 +36,6 @@ $clientQuery = $hasClientContext ? '&client_id=' . rawurlencode((string)$clientI
 
         <div class="sidebar-section sidebar-more-section">More</div>
         <a class="nav-link sidebar-more-forms" href="/app/public/index.php?route=forms" data-mobile-label="Forms" aria-label="Forms"><i class="fa-solid fa-file-lines" aria-hidden="true"></i><span>Forms</span></a>
-        <?php if ($isSuperuser || $isAdmin): ?>
-            <a class="nav-link sidebar-more-report" href="/app/public/index.php?route=reports<?= $isAdmin ? $clientQuery : '' ?>" data-mobile-label="Reports" aria-label="Reports"><i class="fa-solid fa-chart-column" aria-hidden="true"></i><span>Reports</span></a>
-        <?php endif; ?>
         <a class="nav-link sidebar-more-settings" href="/app/public/index.php?route=settings" data-mobile-label="Settings" aria-label="Settings"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Settings</span></a>
     </nav>
 

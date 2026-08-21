@@ -1,7 +1,6 @@
 /* PrivacyVista — desktop sidebar vertical scrolling */
 @media (min-width: 768px) {
     .sidebar {
-        /* navbar-layout.css positions the sidebar below the 72px fixed navbar. */
         height: calc(100vh - 72px);
         max-height: calc(100vh - 72px);
         min-height: 0;
@@ -21,20 +20,44 @@
         scrollbar-color: rgba(154, 168, 189, .35) transparent;
     }
 
-    .sidebar > nav::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    .sidebar > nav::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
+    .sidebar > nav::-webkit-scrollbar { width: 6px; }
+    .sidebar > nav::-webkit-scrollbar-track { background: transparent; }
     .sidebar > nav::-webkit-scrollbar-thumb {
         background: rgba(154, 168, 189, .35);
         border-radius: 999px;
     }
-
     .sidebar > nav::-webkit-scrollbar-thumb:hover {
         background: rgba(154, 168, 189, .55);
+    }
+}
+
+/* Mobile bottom navigation: keep the hover surface fully visible and
+   move the icon/label group slightly upward for optical centering. */
+@media (max-width: 767.98px) {
+    .sidebar nav {
+        align-items: center !important;
+        overflow: visible !important;
+    }
+
+    .sidebar nav .nav-link {
+        height: 58px !important;
+        min-height: 58px !important;
+        margin: 3px 0 !important;
+        padding: 0 2px !important;
+        border-radius: 16px !important;
+        overflow: visible !important;
+        transform: none !important;
+    }
+
+    .sidebar nav .nav-link:hover,
+    .sidebar nav .nav-link:focus-visible {
+        transform: none !important;
+    }
+
+    .sidebar nav .nav-link > i.fa-solid,
+    .sidebar nav .nav-link > i.fa-regular,
+    .sidebar nav .nav-link > i.fa-brands,
+    .sidebar nav .nav-link > span {
+        transform: translateY(-5px);
     }
 }
