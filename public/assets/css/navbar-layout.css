@@ -53,7 +53,7 @@ html[data-theme="dark"] .navbar{box-shadow:0 10px 30px rgba(0,0,0,.22), inset 0 
     .navbar-page-context{padding-left:10px;}
     .navbar-title{font-size:.96rem;}
 
-    /* Fixed mobile priority: Dashboard, Forms, Clients, Users, More. */
+    /* Mobile bottom-bar order: Dashboard, Forms, Clients, Users, More. */
     .sidebar nav{display:flex;flex-direction:column;}
     .sidebar nav .nav-link[data-mobile-label="Dashboard"]{order:1;}
     .sidebar nav .nav-link[data-mobile-label="Forms"]{order:2;}
