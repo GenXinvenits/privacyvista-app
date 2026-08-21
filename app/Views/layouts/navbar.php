@@ -34,7 +34,7 @@
                             <span class="user-name"><?= e($fullname) ?></span>
                             <span class="user-status badge bg-success"><?= e($roleLabel) ?></span>
                         </span>
-                        <svg class="user-chevron" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                        <i class="user-chevron fa-solid fa-caret-down" aria-hidden="true"></i>
                     </button>
                     <div class="user-dropdown" id="mobile-user-dropdown">
                         <div class="user-dropdown-header"><span class="user-dropdown-avatar"><?= e($initial) ?></span><div><strong><?= e($fullname) ?></strong><small><?= e($roleLabel) ?></small></div></div>
