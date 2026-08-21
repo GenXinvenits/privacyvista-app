@@ -44,6 +44,6 @@ $clientQuery = $hasClientContext ? '&client_id=' . rawurlencode((string)$clientI
     </nav>
 
     <button type="button" class="sidebar-toggle" data-sidebar-toggle aria-label="Collapse sidebar" aria-expanded="true" title="Collapse sidebar">
-        <i class="fa-solid fa-angles-left" aria-hidden="true"></i>
+        <i class="fa-solid fa-angles-left" data-sidebar-toggle-icon aria-hidden="true"></i>
     </button>
 </aside>
