@@ -1,63 +1,63 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css");
+
+/* Font Awesome icon standardization for application navigation. */
+.sidebar .mobile-nav-icon{display:none !important;}
+.sidebar .nav-link[data-mobile-label]::before{display:inline-flex;align-items:center;justify-content:center;width:1.35rem;margin-right:.65rem;font-family:"Font Awesome 6 Free";font-weight:900;font-size:.92rem;line-height:1;flex:0 0 1.35rem;}
+.sidebar .nav-link[data-mobile-label="Dashboard"]::before{content:"\f00a";}
+.sidebar .nav-link[data-mobile-label="Clients"]::before{content:"\f0c0";}
+.sidebar .nav-link[data-mobile-label="Activities"]::before{content:"\f03a";}
+.sidebar .nav-link[data-mobile-label="Assessments"]::before{content:"\f46d";}
+.sidebar .nav-link[data-mobile-label="Findings"]::before{content:"\f071";}
+.sidebar .nav-link[data-mobile-label="Tasks"]::before{content:"\f0ae";}
+.sidebar .nav-link[data-mobile-label="Users"]::before{content:"\f0c0";}
+.sidebar .nav-link[data-mobile-label="Departments"]::before{content:"\f1ad";}
+.sidebar .nav-link[data-mobile-label="Forms"]::before{content:"\f15c";}
+.sidebar .nav-link[data-mobile-label="Reports"]::before{content:"\f201";}
+.sidebar .nav-link[data-mobile-label="Settings"]::before{content:"\f013";}
+
 /* Navbar logo + current-page context. Full-width application header. */
 .navbar-context{display:flex;align-items:center;min-width:0;gap:0;}
 .navbar-brand-logo{display:inline-flex;align-items:center;justify-content:flex-start;width:220px;height:72px;flex:0 0 220px;}
 .navbar-brand-logo img{width:180px;max-width:82%;height:48px;object-fit:contain;}
 .navbar-page-context{min-width:0;padding-left:18px;border-left:1px solid var(--pv-border);}
 .sidebar .sidebar-brand{display:none !important;}
-
-/* Full-width fixed application header. */
 .navbar{position:fixed;top:0;left:0;width:100%;z-index:1100;}
 html[data-theme="dark"] .navbar{box-shadow:0 10px 30px rgba(0,0,0,.22), inset 0 0px 0 var(--lg-highlight);}
 .app-main{padding-top:72px;}
 
-/* Desktop and tablet: sidebar is an independent viewport rail, like the fixed navbar. */
 @media (min-width:768px){
     .app-shell{display:block;min-height:100vh;overflow-x:hidden;}
-    .sidebar{
-        position:fixed;
-        top:72px;
-        left:0;
-        bottom:0;
-        height:auto;
-        min-height:0;
-        max-height:none;
-        margin:0;
-        overflow-y:auto;
-        overflow-x:hidden;
-        z-index:1000;
-    }
+    .sidebar{position:fixed;top:72px;left:0;bottom:0;height:auto;min-height:0;max-height:none;margin:0;overflow-y:auto;overflow-x:hidden;z-index:1000;}
 }
-
-/* Desktop: retain the established 248px sidebar rail. */
 @media (min-width:992px){
     .sidebar{width:248px;min-width:248px;}
-    .app-main{
-        margin-left:248px;
-        min-height:100vh;
-        width:calc(100% - 248px);
-    }
+    .app-main{margin-left:248px;min-height:100vh;width:calc(100% - 248px);}
 }
-
-/* Tablet: preserve the sidebar's original width and main-content sizing. */
 @media (min-width:768px) and (max-width:991.98px){
     .navbar-brand-logo{width:220px;flex-basis:220px;height:72px;justify-content:flex-start;}
     .navbar-brand-logo img{width:180px;height:48px;}
     .navbar-page-context{padding-left:18px;}
 }
 
-/* Mobile keeps the compact navbar design, but the logo remains visible. */
+/* Desktop/tablet More indicator uses the same Font Awesome family as navigation. */
+.more-desktop-trigger{display:flex !important;align-items:center;justify-content:space-between;gap:.5rem;cursor:pointer;border:0;background:transparent;width:100%;text-align:left;}
+.more-desktop-trigger .more-state-indicator{display:inline-flex;align-items:center;justify-content:center;width:1.35rem;height:1.35rem;font-family:"Font Awesome 6 Free";font-weight:900;font-size:.75rem;line-height:1;flex:0 0 1.35rem;}
+.more-desktop-trigger .more-state-indicator{font-size:0;}
+.more-desktop-trigger .more-state-indicator::before{content:"\f078";font-size:.75rem;}
+.more-desktop-trigger[aria-expanded="true"] .more-state-indicator::before{content:"\f077";}
+
 @media (max-width:767.98px){
     .navbar-context{gap:10px;}
     .navbar-brand-logo{display:inline-flex !important;width:58px;flex:0 0 58px;height:42px;justify-content:center;visibility:visible;opacity:1;}
     .navbar-brand-logo img{display:block !important;width:54px;height:36px;visibility:visible;opacity:1;}
     .navbar-page-context{padding-left:10px;}
     .navbar-title{font-size:.96rem;}
-
-    /* Mobile bottom-bar order: Dashboard, Forms, Clients, Users, More. */
     .sidebar nav{display:flex;flex-direction:column;}
     .sidebar nav .nav-link[data-mobile-label="Dashboard"]{order:1;}
     .sidebar nav .nav-link[data-mobile-label="Forms"]{order:2;}
     .sidebar nav .nav-link[data-mobile-label="Clients"]{order:3;}
     .sidebar nav .nav-link[data-mobile-label="Users"]{order:4;}
     .sidebar nav .mobile-more-trigger{order:5;}
+    .sidebar nav .mobile-more-trigger .mobile-nav-icon{display:none !important;}
+    .sidebar nav .mobile-more-trigger::before{content:"\f142";display:inline-flex;align-items:center;justify-content:center;width:1.35rem;margin-right:.65rem;font-family:"Font Awesome 6 Free";font-weight:900;}
 }
