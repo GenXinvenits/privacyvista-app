@@ -5,10 +5,7 @@
 
     if (!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
         const selector = '.card, .login-card';
-        let active = null;
-        let raf = 0;
-        let clientX = 0;
-        let clientY = 0;
+        let active = null, raf = 0, clientX = 0, clientY = 0;
         const render = () => {
             raf = 0;
             if (!active) return;
@@ -49,8 +46,7 @@
         document.addEventListener('click', event => { if (popup.classList.contains('is-open') && !popup.contains(event.target) && event.target !== moreTrigger) setOpen(false); });
         document.addEventListener('keydown', event => { if (event.key === 'Escape') setOpen(false); });
         const sync = () => { const mobile = window.innerWidth <= 767.98; primaryLinks.forEach((link, index) => { link.style.order = String(index + 1); link.style.display = mobile ? 'flex' : ''; }); extraLinks.forEach(link => { link.style.display = mobile ? 'none' : ''; }); moreTrigger.style.display = mobile ? 'flex' : 'none'; if (!mobile) setOpen(false); };
-        window.addEventListener('resize', sync, { passive: true });
-        sync();
+        window.addEventListener('resize', sync, { passive: true }); sync();
     };
 
     const initSidebarToggle = () => {
@@ -63,8 +59,11 @@
             toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
             toggle.setAttribute('aria-label', collapsed ? 'Expand sidebar' : 'Collapse sidebar');
             toggle.title = collapsed ? 'Expand sidebar' : 'Collapse sidebar';
-            toggle.querySelector('i')?.classList.toggle('fa-angles-left', !collapsed);
-            toggle.querySelector('i')?.classList.toggle('fa-angles-right', collapsed);
+            const icon = toggle.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fa-angles-left', !collapsed);
+                icon.classList.toggle('fa-angles-right', collapsed);
+            }
             document.documentElement.classList.toggle('sidebar-collapsed', collapsed);
             document.querySelector('.app-main')?.classList.toggle('sidebar-collapsed', collapsed);
         };
