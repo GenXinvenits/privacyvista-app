@@ -55,8 +55,6 @@
         const links = Array.from(nav.querySelectorAll('.nav-link[data-mobile-label]'));
         const secondary = links.filter(link => !primary.has(link.dataset.mobileLabel));
 
-        // Forms belongs inside desktop/tablet More, but remains a first-class
-        // bottom-bar item on mobile. Keep a mobile-only clone outside the group.
         const groupedForms = desktopGroup?.querySelector('.nav-link[data-mobile-label="Forms"]');
         let mobileForms = nav.querySelector('.mobile-forms-link');
         if (!mobileForms && groupedForms) {
