@@ -74,7 +74,14 @@ html[data-theme="dark"] .login-field input::placeholder { color: #66758b !import
 html[data-theme="dark"] .login-alert { background: #35181d !important; border-color: #6b3035 !important; color: #ffb4b8 !important; }
 html[data-theme="dark"] .login-brand img { filter: none !important; }
 
-html[data-theme="light"] .guest-page { color-scheme: light; background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f4f7fb 52%, #e9eef6 100%) !important; color: #172033 !important; }
+html[data-theme="light"] .guest-page {
+    color-scheme: light;
+    background:
+        radial-gradient(circle at 12% 18%, rgba(62,188,168,.13) 0%, rgba(62,188,168,0) 32%),
+        radial-gradient(circle at 88% 82%, rgba(91,140,255,.12) 0%, rgba(91,140,255,0) 34%),
+        linear-gradient(135deg, #ffffff 0%, #f7fafc 42%, #edf3f8 100%) !important;
+    color: #172033 !important;
+}
 html[data-theme="light"] .login-card { background: rgba(255,255,255,.96) !important; border-color: #d9e0ea !important; box-shadow: 0 28px 80px rgba(35,52,75,.14) !important; }
 html[data-theme="light"] .login-heading h1 { color: #172033 !important; }
 html[data-theme="light"] .login-heading p,
