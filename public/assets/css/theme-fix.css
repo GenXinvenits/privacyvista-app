@@ -50,6 +50,7 @@ html[data-theme="light"] .user-profile-trigger .user-status { color:var(--pv-mut
 html[data-theme="light"] .user-profile-trigger .user-name { color:var(--pv-ink)!important; }
 html[data-theme="light"] .user-profile-trigger:hover,
 html[data-theme="light"] .user-profile-trigger:focus { background:#eef3fa; }
+
 html[data-theme="light"] .card,
 html[data-theme="light"] .card-header,
 html[data-theme="light"] .card-footer { background:var(--pv-surface)!important; color:var(--pv-ink)!important; border-color:var(--pv-border)!important; }
@@ -119,76 +120,55 @@ html[data-theme="light"] .theme-choice { color:#68758a; }
 html[data-theme="light"] .theme-choice:hover { background:#eef3fa; color:#172033; }
 html[data-theme="light"] .theme-choice.is-active { background:rgba(79,127,245,.10); border-color:rgba(79,127,245,.22); color:#315fca; box-shadow:0 3px 10px rgba(50,75,110,.08); }
 
-/* =========================================================
-   Login / Guest Theme Support
-   ========================================================= */
+/* Guest/login page theme support. The guest page was previously forced to
+   the dark palette by the base login CSS. Keep its existing visual language,
+   but derive all paint values from the active application theme. */
+html[data-theme="dark"] .guest-page {
+    color-scheme: dark;
+    background:radial-gradient(circle at 50% 0%, #182b4a 0%, #0b1220 48%, #070b13 100%)!important;
+    color:#e7edf7!important;
+}
+html[data-theme="dark"] .login-card { background:rgba(17,26,42,.94)!important; border-color:#2b3a52!important; }
+html[data-theme="dark"] .login-heading h1 { color:#f2f5fa!important; }
+html[data-theme="dark"] .login-heading p,
+html[data-theme="dark"] .login-footer { color:#98a6ba!important; }
+html[data-theme="dark"] .login-field label { color:#c7d1df!important; }
+html[data-theme="dark"] .login-field input { background:#0d1626!important; border-color:#304057!important; color:#e7edf7!important; }
+html[data-theme="dark"] .login-field input::placeholder { color:#66758b!important; }
+html[data-theme="dark"] .login-alert { background:#35181d!important; border-color:#6b3035!important; color:#ffb4b8!important; }
 
 html[data-theme="light"] .guest-page {
     color-scheme: light;
-    background:
-        radial-gradient(circle at 50% 0%, #ffffff 0%, #f4f7fb 52%, #e9eef6 100%) !important;
-    color: #172033 !important;
+    background:radial-gradient(circle at 50% 0%, #ffffff 0%, #f4f7fb 52%, #e9eef6 100%)!important;
+    color:#172033!important;
 }
-
-html[data-theme="dark"] .guest-page {
-    color-scheme: dark;
-}
-
 html[data-theme="light"] .login-card {
-    background: rgba(255,255,255,.94) !important;
-    border-color: #d9e0ea !important;
-    box-shadow: 0 28px 80px rgba(31,48,72,.16) !important;
+    background:rgba(255,255,255,.96)!important;
+    border-color:#d9e0ea!important;
+    box-shadow:0 28px 80px rgba(35,52,75,.14)!important;
 }
-
-html[data-theme="light"] .login-heading h1 { color: #172033 !important; }
-html[data-theme="light"] .login-heading p { color: #68758a !important; }
-html[data-theme="light"] .login-field label { color: #39465a !important; }
+html[data-theme="light"] .login-heading h1 { color:#172033!important; }
+html[data-theme="light"] .login-heading p,
+html[data-theme="light"] .login-footer { color:#68758a!important; }
+html[data-theme="light"] .login-field label { color:#39465a!important; }
 html[data-theme="light"] .login-field input {
-    background: #fff !important;
-    border-color: #cfd8e5 !important;
-    color: #172033 !important;
+    background:#fff!important;
+    border-color:#cfd8e5!important;
+    color:#172033!important;
 }
-html[data-theme="light"] .login-field input::placeholder { color: #98a4b5 !important; }
-html[data-theme="light"] .login-field input:focus {
-    border-color: #3ebca8 !important;
-    box-shadow: 0 0 0 4px rgba(62,188,168,.12) !important;
-}
-html[data-theme="light"] .login-footer { color: #7b8799 !important; }
-html[data-theme="light"] .login-alert {
-    background: #fff1f2 !important;
-    border-color: #e7aeb4 !important;
-    color: #a33b45 !important;
-}
+html[data-theme="light"] .login-field input::placeholder { color:#98a4b5!important; }
+html[data-theme="light"] .login-field input:focus { border-color:#6d98ff!important; box-shadow:0 0 0 4px rgba(79,127,245,.10)!important; }
+html[data-theme="light"] .login-alert { background:#fff1f2!important; border-color:#efb8bd!important; color:#9f2630!important; }
+html[data-theme="light"] .login-brand img { filter:invert(1) brightness(.35)!important; }
+html[data-theme="dark"] .login-brand img { filter:none!important; }
 
-/* Prevent the guest/login page from ever creating horizontal scrolling. */
-html,
-body {
-    max-width: 100%;
-}
+/* Never let guest-page decorative layers participate in viewport width. */
+html, body.guest-page { max-width:100%; overflow-x:hidden!important; }
+.guest-page { isolation:isolate; }
+.guest-page::before,
+.guest-page::after { max-width:100vw; }
 
-html,
-body {
-    overflow-x: hidden;
-}
-
-.guest-page {
-    width: 100%;
-    max-width: 100vw;
-    overflow-x: clip;
-}
-
-.guest-page .login-page {
-    width: 100%;
-    max-width: 100%;
-}
-
-.guest-page .login-card {
-    max-width: 100%;
-}
-
-/* Theme switching: animate only paint properties. Avoid broad transitions on
-   large containers because they can trigger expensive repaints and cause a
-   visible stutter on lower-power systems. */
+/* Theme switching: animate only paint properties. */
 html[data-theme] body,
 html[data-theme] .sidebar,
 html[data-theme] .navbar,
@@ -201,11 +181,8 @@ html[data-theme] .modal-content,
 html[data-theme] .form-control,
 html[data-theme] .form-select,
 html[data-theme] .guest-page,
-html[data-theme] .login-card {
-    transition-property: background-color, color, border-color;
-    transition-duration: .12s;
-    transition-timing-function: ease-out;
-}
+html[data-theme] .login-card,
+html[data-theme] .login-field input { transition-property:background-color,color,border-color; transition-duration:.12s; transition-timing-function:ease-out; }
 
 @media (prefers-reduced-motion: reduce) {
     html[data-theme] body,
@@ -220,5 +197,6 @@ html[data-theme] .login-card {
     html[data-theme] .form-control,
     html[data-theme] .form-select,
     html[data-theme] .guest-page,
-    html[data-theme] .login-card { transition:none; }
+    html[data-theme] .login-card,
+    html[data-theme] .login-field input { transition:none; }
 }
