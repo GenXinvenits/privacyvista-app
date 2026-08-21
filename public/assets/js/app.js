@@ -51,6 +51,9 @@
         const desktopGroup = sidebar?.querySelector('#privacyvista-more-group');
         if (!sidebar || !nav) return;
 
+        // Font Awesome is the single sidebar icon source; remove legacy inline SVGs.
+        sidebar.querySelectorAll('nav .nav-link > svg, nav button.nav-link > svg').forEach(icon => icon.remove());
+
         const primary = new Set(['Dashboard', 'Forms', 'Clients', 'Users']);
         const links = Array.from(nav.querySelectorAll('.nav-link[data-mobile-label]'));
         const secondary = links.filter(link => !primary.has(link.dataset.mobileLabel));
@@ -91,7 +94,7 @@
             mobileTrigger.className = 'nav-link mobile-more-trigger';
             mobileTrigger.setAttribute('aria-label', 'More navigation');
             mobileTrigger.setAttribute('aria-expanded', 'false');
-            mobileTrigger.innerHTML = '<svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="5" cy="12" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="19" cy="12" r="1.2" fill="currentColor"/></svg><span>More</span>';
+            mobileTrigger.innerHTML = '<i class="fa-solid fa-ellipsis mobile-nav-icon" aria-hidden="true"></i><span>More</span>';
             nav.appendChild(mobileTrigger);
         }
 
@@ -110,18 +113,28 @@
             desktopTrigger?.setAttribute('aria-expanded', open ? 'true' : 'false');
             mobileTrigger?.setAttribute('aria-expanded', open ? 'true' : 'false');
             const indicator = desktopTrigger?.querySelector('[data-more-indicator]');
-            if (indicator) indicator.textContent = open ? '⌃' : '⌄';
+            if (indicator) indicator.innerHTML = open
+                ? '<i class="fa-solid fa-chevron-up" aria-hidden="true"></i>'
+                : '<i class="fa-solid fa-chevron-down" aria-hidden="true"></i>';
         };
 
         const toggle = event => {
             event.preventDefault();
             event.stopPropagation();
-            setOpen(!(desktopGroup && !desktopGroup.hidden ? true : menu.classList.contains('is-open')));
+            const open = desktopGroup ? !desktopGroup.hidden : menu.classList.contains('is-open');
+            setOpen(!open);
         };
 
         desktopTrigger?.addEventListener('click', toggle);
         mobileTrigger?.addEventListener('click', toggle);
-        menu.querySelector('.mobile-more-close')?.addEventListener('click', () => setOpen(false));
+
+        // Do not let a More submenu click trigger the outside-click handler.
+        desktopGroup?.addEventListener('click', event => event.stopPropagation());
+
+        menu.querySelector('.mobile-more-close')?.addEventListener('click', event => {
+            event.stopPropagation();
+            setOpen(false);
+        });
         document.addEventListener('click', event => {
             if (menu.classList.contains('is-open') && !menu.contains(event.target) && event.target !== desktopTrigger && event.target !== mobileTrigger) setOpen(false);
         });
