@@ -49,6 +49,7 @@
         const sidebar = document.querySelector('.sidebar');
         const nav = sidebar?.querySelector('nav');
         const desktopTrigger = sidebar?.querySelector('.more-desktop-trigger');
+        const desktopGroup = sidebar?.querySelector('#privacyvista-more-group');
         if (!sidebar || !nav) return;
 
         // Mobile bottom navigation: keep the most frequently used items visible.
@@ -60,7 +61,7 @@
         let menu = sidebar.querySelector('.mobile-more-menu');
         if (!menu) {
             menu = document.createElement('div');
-            menu.id = 'privacyvista-more-menu';
+            menu.id = 'privacyvista-mobile-more-menu';
             menu.className = 'mobile-more-menu';
             menu.setAttribute('role', 'dialog');
             menu.setAttribute('aria-label', 'More navigation');
@@ -88,27 +89,54 @@
             nav.appendChild(mobileTrigger);
         }
 
-        const setOpen = open => {
+        const setDesktopOpen = open => {
+            if (!desktopGroup || !desktopTrigger) return;
+            desktopGroup.hidden = !open;
+            desktopTrigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        };
+
+        const setMobileOpen = open => {
             menu.classList.toggle('is-open', open);
             menu.setAttribute('aria-hidden', open ? 'false' : 'true');
-            desktopTrigger?.setAttribute('aria-expanded', open ? 'true' : 'false');
             mobileTrigger?.setAttribute('aria-expanded', open ? 'true' : 'false');
         };
 
-        const toggle = event => {
+        desktopTrigger?.addEventListener('click', event => {
             event.preventDefault();
             event.stopPropagation();
-            setOpen(!menu.classList.contains('is-open'));
-        };
-
-        desktopTrigger?.addEventListener('click', toggle);
-        mobileTrigger?.addEventListener('click', toggle);
-        menu.querySelector('.mobile-more-close')?.addEventListener('click', () => setOpen(false));
-        document.addEventListener('click', event => {
-            if (menu.classList.contains('is-open') && !menu.contains(event.target) && event.target !== desktopTrigger && event.target !== mobileTrigger) setOpen(false);
+            setDesktopOpen(desktopGroup?.hidden !== false);
         });
-        document.addEventListener('keydown', event => { if (event.key === 'Escape') setOpen(false); });
-        window.addEventListener('resize', () => { if (window.innerWidth > 767) setOpen(false); }, { passive: true });
+
+        mobileTrigger?.addEventListener('click', event => {
+            event.preventDefault();
+            event.stopPropagation();
+            setMobileOpen(!menu.classList.contains('is-open'));
+        });
+
+        menu.querySelector('.mobile-more-close')?.addEventListener('click', () => setMobileOpen(false));
+
+        document.addEventListener('click', event => {
+            if (desktopGroup && !desktopGroup.hidden && !desktopGroup.contains(event.target) && event.target !== desktopTrigger) {
+                setDesktopOpen(false);
+            }
+            if (menu.classList.contains('is-open') && !menu.contains(event.target) && event.target !== mobileTrigger) {
+                setMobileOpen(false);
+            }
+        });
+
+        document.addEventListener('keydown', event => {
+            if (event.key !== 'Escape') return;
+            setDesktopOpen(false);
+            setMobileOpen(false);
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 767) setMobileOpen(false);
+            else setDesktopOpen(false);
+        }, { passive: true });
+
+        // Start collapsed. There is only one visible desktop/tablet More heading.
+        setDesktopOpen(false);
     };
 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initMoreNavigation, { once: true });
