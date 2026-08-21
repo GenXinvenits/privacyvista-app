@@ -6,13 +6,10 @@ $isAdmin = $role === 'admin';
 $hasClientContext = $clientId > 0;
 $clientQuery = $hasClientContext ? '&client_id=' . rawurlencode((string)$clientId) : '';
 ?>
-<aside class="sidebar d-flex flex-column">
+<aside class="sidebar d-flex flex-column" data-sidebar>
     <nav class="nav flex-column py-2" aria-label="Primary navigation">
         <div class="sidebar-section">Workspace</div>
-
-        <a class="nav-link" href="/app/public/index.php?route=dashboard" data-mobile-label="Dashboard" aria-label="Dashboard">
-            <i class="fa-solid fa-gauge-high" aria-hidden="true"></i><span>Dashboard</span>
-        </a>
+        <a class="nav-link" href="/app/public/index.php?route=dashboard" data-mobile-label="Dashboard" aria-label="Dashboard"><i class="fa-solid fa-gauge-high" aria-hidden="true"></i><span>Dashboard</span></a>
 
         <?php if ($isSuperuser): ?>
             <a class="nav-link" href="/app/public/index.php?route=clients" data-mobile-label="Clients" aria-label="Clients"><i class="fa-solid fa-users" aria-hidden="true"></i><span>Clients</span></a>
@@ -45,4 +42,8 @@ $clientQuery = $hasClientContext ? '&client_id=' . rawurlencode((string)$clientI
         <?php endif; ?>
         <a class="nav-link" href="/app/public/index.php?route=settings" data-mobile-label="Settings" aria-label="Settings"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Settings</span></a>
     </nav>
+
+    <button type="button" class="sidebar-toggle" data-sidebar-toggle aria-label="Collapse sidebar" aria-expanded="true" title="Collapse sidebar">
+        <i class="fa-solid fa-angles-left" aria-hidden="true"></i>
+    </button>
 </aside>
