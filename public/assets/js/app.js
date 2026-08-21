@@ -45,8 +45,23 @@
         popup.querySelector('.mobile-more-close')?.addEventListener('click', () => setOpen(false));
         document.addEventListener('click', event => { if (popup.classList.contains('is-open') && !popup.contains(event.target) && event.target !== moreTrigger) setOpen(false); });
         document.addEventListener('keydown', event => { if (event.key === 'Escape') setOpen(false); });
-        const sync = () => { const mobile = window.innerWidth <= 767.98; primaryLinks.forEach((link, index) => { link.style.order = String(index + 1); link.style.display = mobile ? 'flex' : ''; }); extraLinks.forEach(link => { link.style.display = mobile ? 'none' : ''; }); moreTrigger.style.display = mobile ? 'flex' : 'none'; if (!mobile) setOpen(false); };
-        window.addEventListener('resize', sync, { passive: true }); sync();
+        const sync = () => {
+            const mobile = window.innerWidth <= 767.98;
+            primaryLinks.forEach((link, index) => {
+                // Mobile-only ordering. Clear the inline order on desktop/tablet
+                // so the sidebar's desktop/tablet CSS ordering remains authoritative.
+                link.style.order = mobile ? String(index + 1) : '';
+                link.style.display = mobile ? 'flex' : '';
+            });
+            extraLinks.forEach(link => {
+                link.style.display = mobile ? 'none' : '';
+                if (!mobile) link.style.order = '';
+            });
+            moreTrigger.style.display = mobile ? 'flex' : 'none';
+            if (!mobile) setOpen(false);
+        };
+        window.addEventListener('resize', sync, { passive: true });
+        sync();
     };
 
     const initSidebarToggle = () => {
